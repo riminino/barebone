@@ -1,21 +1,26 @@
 {% assign schema = include.schema %}
 <form data-file="{{ schema.file }}" data-add="true" markdown="1">
-### {{ schema.title | default: schema.file }}
+{% assign default_title = schema.file | capitalize %}
+### {{ schema.title | default: default_title }}
 {% for property in schema.properties %}
 {% assign attributes = property[1] %}
 {% assign id = property[0] %}
 {% assign type = attributes.type | default: "text" %}
 <div>
-  <label for="{{ id }}">{{ attributes.title | default: id }}</label>
-{% case type %}
-  {% when "text" or "date" or "number" %}<input type="{{ type }}" id="{{ id }}" value="{{ attributes.default }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}>
-  {% when "list" %}<select id="{{ id }}">
+  {% assign default_title = id | capitalize %}
+  <label for="{{ id }}">{{ attributes.title | default: default_title }}</label>
+  {% if attributes.list %}
+  <select id="{{ id }}" type="{{ type }}">
     {% for item in attributes.list %}
     <option value="{{ item }}">{{ item }}</option>
     {% endfor %}
   </select>
-  {% else %}unknow type
-  {% endcase %}
+  {% else %}
+  {% case type %}
+    {% when "text" or "date" or "number" %}<input type="{{ type }}" id="{{ id }}" value="{{ attributes.default }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}>
+    {% else %}unknow type
+    {% endcase %}
+  {% endif %}
 </div>
 {% endfor %}
 <div>

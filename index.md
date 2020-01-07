@@ -1,12 +1,12 @@
 ---
-practice:
+practices:
   file: practices
   properties:
     date:
       type: date
       required: true
-    type:
-      type: list
+    serie:
+      type: number
       list: [1, 2, 3]
     repetition:
       type: number
@@ -26,4 +26,4 @@ Second:
 {% raw %}{% include forms/add_item.html schema=page.practice %}{% endraw %}
 ```
 
-{% include forms/add_item.html schema=page.practice %}
+{% include forms/add_item.html schema=page.practices %}
