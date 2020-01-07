@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ site.github.project_title }} - {{ page.title }}</title>
+    {% include page/favicon.html %}
+    {% include page/stylesheets.html %}
+    {% include page/scripts.html %}
+  </head>
+  <body>
+    <header>
+      {{ site.github.project_title }} - {{ page.title }}
+      <a href="#" id="login-button" style="float: right">Login</a>
+    </header>
+    <main>
+      {{ content }}
+    </main>
+  </body>
+</html>

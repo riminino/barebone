@@ -1,0 +1,24 @@
+{% assign schema = include.schema %}
+<form data-file="{{ schema.file }}" data-add="true" markdown="1">
+### {{ schema.title | default: schema.file }}
+{% for property in schema.properties %}
+{% assign attributes = property[1] %}
+{% assign id = property[0] %}
+{% assign type = attributes.type | default: "text" %}
+<div>
+  <label for="{{ id }}">{{ attributes.title | default: id }}</label>
+{% case type %}
+  {% when "text" or "date" or "number" %}<input type="{{ type }}" id="{{ id }}" value="{{ attributes.default }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}>
+  {% when "list" %}<select id="{{ id }}">
+    {% for item in attributes.list %}
+    <option value="{{ item }}">{{ item }}</option>
+    {% endfor %}
+  </select>
+  {% else %}unknow type
+  {% endcase %}
+</div>
+{% endfor %}
+<div>
+  <button type="submit">Add</button>
+</div>
+</form>
