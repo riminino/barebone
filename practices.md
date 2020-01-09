@@ -1,4 +1,5 @@
 ---
+weight: 2
 practices:
   file: practices
   properties:
@@ -11,9 +12,6 @@ practices:
 ---
 
 # Practices
-
-Second:
-5,6/1
 
 ```liquid
 {% raw %}{% include forms/add_item.html schema=page.practice %}{% endraw %}
