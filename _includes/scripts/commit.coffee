@@ -44,7 +44,7 @@ commit = (object, file) ->
       data: JSON.stringify {
         message: "update_file #{file}"
         sha: data.sha
-        content: btoa object
+        content: btoa(atob(data.content)+object)
       }
       success: file_updated
       error: error
