@@ -8,12 +8,10 @@
     {% include page/scripts.html %}
   </head>
   <body>
-    <header>
-      {{ site.github.project_title }} - {{ page.title }}
-      <a href="#" id="login-button" style="float: right">Login</a>
-    </header>
+    {% include page/header.html %}
     <main>
       {{ content }}
     </main>
+    {% include page/footer.html %}
   </body>
 </html>

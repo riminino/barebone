@@ -4,3 +4,5 @@ plugins:
   - jekyll-default-layout
   - jekyll-github-metadata
   - jekyll-titles-from-headings
+
+permalink: pretty

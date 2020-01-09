@@ -1,16 +1,4 @@
 ---
-practices:
-  file: practices
-  properties:
-    date:
-      type: date
-      required: true
-    serie:
-      type: number
-      list: [1, 2, 3]
-    repetition:
-      type: number
-      min: 0
 ---
 
 # Home
@@ -18,12 +6,3 @@ practices:
 - Add list item
   - Date (calendar)
   - Type (dropdown list)
-
-Second:
-5,6/1
-
-```liquid
-{% raw %}{% include forms/add_item.html schema=page.practice %}{% endraw %}
-```
-
-{% include forms/add_item.html schema=page.practices %}

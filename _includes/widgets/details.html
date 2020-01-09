@@ -1,0 +1,5 @@
+{% if include.open %}<details markdown="1"><summary markdown="span">{{ include.summary | default: "Details"}}</summary>{% endif %}{% if include.close %}</details>{% endif %}
+{%- capture api -%}Render a `details` element, used both to open or close the tag.
+include.summary|string|String for the `summary` element|`Details`
+include.open|boolean|Flag to open the HTML tags|nil
+include.close|boolean|Flag to close the HTML tags|nil{%- endcapture -%}
