@@ -9,7 +9,7 @@ briefings:
       list: [CC, CCC]
 ---
 
-# Briefings
+# Briefing
 
 - The act or an instance of giving instructions or preparatory information to someone.
 - A meeting at which such information is presented.
