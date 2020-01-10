@@ -1,0 +1,28 @@
+{%- if include.schema -%}
+{% assign file = include.schema.file %}
+{%- if site.data[file] -%}
+{% if include.details %}{% include widgets/details.html summary="Show" open=true %}{% endif %}
+{% assign data = site.data[file] | sort: "date" %}
+{% assign first_event = data[0].date | date:"%s" %}
+{% assign now = "now" | date: "%s" %}
+{% if first_event < now %}{% assign data = site.data[file] | sort: "date" | reverse %}{% endif %}
+<table>
+  <thead>
+    <tr>
+      {% for property in include.schema.properties %}<th>{{ property.title | default: property[0] }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+{% for item in data %}<tr>
+  {% for property in item %}<td>{% if property[0] == "date" %}{% assign property_date = property[1] %}{% include widgets/datetime.html datetime=property_date embed=true decimals=1%}{% else %}{{ property[1] }}{% endif %}</td>
+  {% endfor %}
+</tr>
+{% endfor %}
+</table>
+{% if include.details %}{% include widgets/details.html close=true %}{% endif %}
+{%- else -%}
+<mark>No data found</mark>
+{%- endif -%}
+{%- else -%}
+<mark>No schema supplied</mark>
+{%- endif -%}

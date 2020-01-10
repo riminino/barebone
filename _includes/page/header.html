@@ -1,5 +1,0 @@
-<header>
-  {%- assign html_pages = site.html_pages | sort: "weight" -%}
-  {{ site.github.project_title }} - {% for link in html_pages %}<a href="{{ link.url | relative_url }}"{% if page.url == link.url %} class="active"{% endif %}>{{ link.title }}</a>{% unless forloop.last %} - {% endunless %}{% endfor %}
-  <a href="#" id="login-button" style="float: right">Login</a>
-</header>

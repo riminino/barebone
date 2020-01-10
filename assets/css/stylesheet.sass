@@ -1,26 +1,28 @@
 ---
 ---
 
+$small_screen: 40em
+
+@import mixins
+@import headings
 @import forms
+@import grids
+@import code
+@import links
+@import tables
+@import details
 
-// LINKS
-a
-  &:link
-    color: MediumBlue
-  &:visited
-    color: MediumBlue
-  &:hover
-    text-decoration: none
-  &:active
-    color: transparent
-  &.active
-    color: Crimson
+html
+  overflow-y: scroll
+  background: #f8f8f8
 
-// CODE
-// Font size
-code, kbd, samp
+body
   font-size: 18px
-// Pre padding
-pre.highlight
-  padding: .8em
-  white-space: pre-wrap
+  margin: 0
+
+main
+  background: White
+
+// SCAFFOLDING
+section, nav, footer
+  padding: .5em 1em

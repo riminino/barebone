@@ -13,8 +13,23 @@ cars:
 
 # Cars
 
+## Add item
+
+Embed input form:
+
 ```liquid
 {% raw %}{% include forms/add_item.html schema=page.cars %}{% endraw %}
 ```
 
 {% include forms/add_item.html schema=page.cars %}
+
+## List
+
+Embed event list:
+
+```liquid
+{% raw %}{% include time/list.html schema=page.cars %}{% endraw %}
+```
+
+{% include time/list.html schema=page.cars %}
+
