@@ -13,6 +13,19 @@ practices:
 
 # Practices
 
+Practices schema:
+
+```yml
+file: practices
+properties:
+  date:
+    type: date
+    required: true
+  serie:
+    type: number
+    list: [1, 2, 3]
+```
+
 ## Add item
 
 Embed input form:

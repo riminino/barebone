@@ -13,6 +13,19 @@ cars:
 
 # Cars
 
+Cars schema:
+
+```yml
+file: cars
+properties:
+  date:
+    type: date
+  car:
+    list: [kangoo, yaris, citroen]
+  tax:
+    list: [assicurazione, bollo, revisione]
+```
+
 ## Add item
 
 Embed input form:

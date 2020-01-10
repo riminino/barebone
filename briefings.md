@@ -15,6 +15,17 @@ briefings:
 - A meeting at which such information is presented.
 - The information conveyed at such a meeting.
 
+Briefings schema:
+
+```yml
+file: briefings
+properties:
+  date:
+    type: date
+  reported:
+    list: [CC, CCC]
+```
+
 ## Add item
 
 Embed input form:
