@@ -4,12 +4,12 @@ $("form[data-add]").each ->
   form = $ @
   # Form submit
   form.on "submit", (e) ->
-    e. preventDefault()
+    e.preventDefault()
     # Check login
     if !storage.get "login.token"
       alert "You need to login"
     else
-      commit(YAML.stringify(parseForm(), 8, 2), form.data "file")
+      commit(YAML.stringify(parseForm(), 8, 2), form)
   # Parse form
   parseForm = () ->
     data = {}
