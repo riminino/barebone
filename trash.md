@@ -12,7 +12,7 @@ trash:
       list: [Black, Blue, Yellow, Green]
     every:
       type: number
-      units: days
+      unit: days
       min: 0
 ---
 
@@ -32,7 +32,7 @@ properties:
     list: [Black, Blue, Yellow, Green]
   every:
     type: number
-    units: days
+    unit: days
     min: 0
 ```
 

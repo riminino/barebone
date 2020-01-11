@@ -25,6 +25,7 @@
     {% else %}unknow type
     {% endcase %}
   {% endif %}
+  {% if attributes.description or attributes.unit %}<small>{{ attributes.description }} {{ attributes.unit }}</small>{% endif %}
 </div>
 {% endfor %}
 <div>
