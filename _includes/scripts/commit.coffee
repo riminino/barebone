@@ -42,6 +42,7 @@ commit = (object, form) ->
     alert "create_file: #{status} #{error}"
     true
   update_file = (data, status) ->
+    console.log atob(data.content), YAML.parse atob(data.content)
     # Commit
     $.ajax commit_url,
       method: 'PUT'
@@ -63,6 +64,7 @@ commit = (object, form) ->
     alert "file_created: #{status}"
     true
   store_sha = (data) ->
+    console.log data
     submit.prop "disabled", false
     form.trigger "reset"
     storage.set "repository.sha", data.commit.sha
