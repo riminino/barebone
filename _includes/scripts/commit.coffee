@@ -65,7 +65,7 @@ commit = (object, form) ->
   store_sha = (data) ->
     submit.prop "disabled", false
     form.trigger "reset"
-    storage.set "repository.sha", data.sha
+    storage.set "repository.sha", data.commit.sha
     true
   # Start commit
   get_sha()
