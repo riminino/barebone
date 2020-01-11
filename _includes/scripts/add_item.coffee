@@ -18,5 +18,7 @@ $("form[data-add]").each ->
       if $(@).attr("type") == "number" then value = Number value
       if value then data[$(@).attr("id")] = value
       true
+    # Add identifier
+    data["id"] = new Date().getTime() + Math.random()
     return [data]
   true
