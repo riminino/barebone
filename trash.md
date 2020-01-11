@@ -3,6 +3,8 @@ weight: 5
 trash:
   file: trash
   properties:
+    date:
+      type: date
     waste:
       list: [Mixed, Paper, Plastic, Glass]
       description: Type fo waste
@@ -21,6 +23,8 @@ Trash schema:
 ```yml
 file: trash
 properties:
+  date:
+    type: date
   waste:
     list: [Mixed, Paper, Plastic, Glass]
     description: Type fo waste
