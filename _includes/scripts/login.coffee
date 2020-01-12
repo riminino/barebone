@@ -27,7 +27,7 @@ login = {
     true
   complete: (request, status) ->
     login.link.prop "disabled", false
-  success: (data, status, token) ->
+  success: (data, status) ->
     storage.set "login.user", data.login
       .set "login.created", new Date()
     login.link.text "Logout"

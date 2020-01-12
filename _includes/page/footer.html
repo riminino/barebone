@@ -1,3 +1,8 @@
-<footer>
-Hosted on <a href="{{ site.github.repository_url }}">GitHub</a>
+<footer class="row">
+  <div class="col">
+    Hosted on <a href="{{ site.github.repository_url }}">GitHub</a>
+  </div>
+  <div class="col">
+    Updated {% assign now = "now" | date_to_xmlschema %}{% include widgets/datetime.html datetime=now replace=true%} <span id="build"></span>
+  </div>
 </footer>

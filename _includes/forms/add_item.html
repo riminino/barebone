@@ -8,10 +8,10 @@
 <form data-file="{{ schema.file }}" data-add="true" markdown="1">
 {% for property in schema.properties %}
 {% assign attributes = property[1] %}
-{% assign id = property[0] %}
+{% assign name = property[0] %}
 {% assign type = attributes.type | default: "text" %}
 <div>
-  {% assign default_title = id | capitalize %}
+  {% assign default_title = name | capitalize %}
   <label for="{{ id }}">{{ attributes.title | default: default_title }}</label>
   {% if attributes.list %}
   <select id="{{ id }}" type="{{ type }}">
@@ -21,11 +21,11 @@
   </select>
   {% else %}
   {% case type %}
-    {% when "text" or "date" or "number" %}<input type="{{ type }}" id="{{ id }}" value="{{ attributes.default }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}>
+    {% when "text" or "date" or "number" or "color" %}<input type="{{ type }}" id="{{ id }}" value="{{ attributes.value }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}>
     {% else %}unknow type
     {% endcase %}
   {% endif %}
-  {% if attributes.description or attributes.unit %}<small>{{ attributes.description }} {{ attributes.unit }}</small>{% endif %}
+  {% if attributes.description or attributes.unit %}<small>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip }}</small>{% endif %}
 </div>
 {% endfor %}
 <div>

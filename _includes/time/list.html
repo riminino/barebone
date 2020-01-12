@@ -14,7 +14,7 @@
     </tr>
   </thead>
 {% for item in data %}<tr>
-  {% for property in item %}<td>{% if property[0] == "date" %}{% assign property_date = property[1] %}{% include widgets/datetime.html datetime=property_date embed=true decimals=1%}{% else %}{{ property[1] }}{% endif %}</td>
+  {% for property in item %}{% if property[0] != "id" %}<td>{% if property[0] == "date" %}{% assign property_date = property[1] %}{% include widgets/datetime.html datetime=property_date embed=true decimals=1 %}{% else %}{{ property[1] }}{% endif %}</td>{% endif %}
   {% endfor %}
 </tr>
 {% endfor %}

@@ -7,6 +7,7 @@
 {% include scripts/commit.coffee %}
 {% include scripts/add_item.coffee %}
 {% include scripts/datetime.coffee %}
+{% include scripts/sha.coffee %}
 
 # Get storage
 console.log storage.get()

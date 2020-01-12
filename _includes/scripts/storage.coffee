@@ -25,6 +25,7 @@ storage = {
         "created": new Date()
       "repository":
         "url": "{{ site.github.repository_url }}"
+        "sha": "{{ site.github.build_revision }}"
     }
     true
   clear: (key) ->
