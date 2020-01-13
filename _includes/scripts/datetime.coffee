@@ -30,6 +30,7 @@ dateTime = (e) ->
     $(e).text "#{$(e).attr "datetime"} (#{out})"
   else if $(e).data "replace"
     $(e).text out
+    $(e).attr "title", new Date(Date.parse $(e).attr "datetime")
   else
     $(e).attr "title", out
   # Set every minute
