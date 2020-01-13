@@ -8,10 +8,10 @@
 <form data-file="{{ schema.file }}" data-add="true" markdown="1">
 {% for property in schema.properties %}
 {% assign attributes = property[1] %}
-{% assign name = property[0] %}
+{% assign id = property[0] %}
 {% assign type = attributes.type | default: "text" %}
 <div>
-  {% assign default_title = name | capitalize %}
+  {% assign default_title = id | capitalize %}
   <label for="{{ id }}">{{ attributes.title | default: default_title }}</label>
   {% if attributes.list %}
   <select id="{{ id }}" type="{{ type }}">

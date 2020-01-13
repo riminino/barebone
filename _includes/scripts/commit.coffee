@@ -64,7 +64,6 @@ commit = (object, form) ->
     alert "file_created: #{status}"
     true
   store_sha = (data) ->
-    console.log data
     submit.prop "disabled", false
     form.trigger "reset"
     storage.set "repository.sha", data.commit.sha

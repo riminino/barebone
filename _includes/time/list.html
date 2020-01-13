@@ -1,7 +1,8 @@
 {%- if include.schema -%}
 {% assign file = include.schema.file %}
 {%- if site.data[file] -%}
-{% if include.details %}{% include widgets/details.html summary="Show" open=true %}{% endif %}
+{% assign summary = "Show " | append: site.data[file].size | append: " entries" %}
+{% if include.details %}{% include widgets/details.html summary=summary open=true %}{% endif %}
 {% assign data = site.data[file] | sort: "date" %}
 {% assign first_event = data[0].date | date:"%s" %}
 {% assign now = "now" | date: "%s" %}
