@@ -41,7 +41,7 @@ Embed input form:
 Embed event list:
 
 ```liquid
-{% raw %}{% include time/list.html schema=page.practices details=true %}{% endraw %}
+{% raw %}{% include time/list.html schema=page.practices collapsed=true %}{% endraw %}
 ```
 
-{% include time/list.html schema=page.practices details=true %}
+{% include time/list.html schema=page.practices collapsed=true %}
