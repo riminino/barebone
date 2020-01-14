@@ -12,7 +12,15 @@ check_sha = () ->
 
 compare = (data) ->
   if data.commit.sha != "{{ site.github.build_revision }}"
-    $("#build").text("(waiting site build)")
+    span = $("<span/>",{
+      datetime: new Date(data.commit.commit.author.date)
+      "data-replace": "true"
+    })
+    dateTime span
+    li = $("<li/>",{
+      text: "Repository updated "
+    }).append span
+    $("#build").append li
   return
 
 if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom" then check_sha()

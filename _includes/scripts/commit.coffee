@@ -56,17 +56,16 @@ commit = (object, form) ->
       error: error
     true
   file_updated = (data, status) ->
-    store_sha data
+    reset()
     alert "file_updated: #{status}"
     true
   file_created = (data, status) ->
-    store_sha data
+    reset()
     alert "file_created: #{status}"
     true
-  store_sha = (data) ->
+  reset = () ->
     submit.prop "disabled", false
     form.trigger "reset"
-    storage.set "repository.sha", data.commit.sha
     true
   # Start commit
   get_sha()
