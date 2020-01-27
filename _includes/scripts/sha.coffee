@@ -17,10 +17,12 @@ compare = (data) ->
       "data-replace": "true"
     })
     dateTime span
-    li = $("<li/>",{
+    li = $("<li/>").append $("<details/>",{
+      text: data.commit.commit.message
+    }).append $("<summary/>",{
       text: "Repository updated "
     }).append span
     $("#build").append li
   return
 
-if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom" then check_sha()
+if storage.get("login.token") and "{{ site.github.environment }}" != "dotcom" then check_sha()
