@@ -25,4 +25,4 @@ compare = (data) ->
     $("#build").append li
   return
 
-if storage.get("login.token") and "{{ site.github.environment }}" != "dotcom" then check_sha()
+if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom" then check_sha()
