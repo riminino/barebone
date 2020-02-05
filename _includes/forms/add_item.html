@@ -4,8 +4,8 @@
 {% assign schema = page.schema %}
 {%- endif -%}
 {% assign default_title = schema.file | capitalize %}
+<form data-file="{{ schema.file }}" data-add="true">
 <h3>{{ schema.title | default: default_title }}</h3>
-<form data-file="{{ schema.file }}" data-add="true" markdown="1">
 {% for property in schema.properties %}
 {% assign attributes = property[1] %}
 {% assign id = property[0] %}
@@ -27,8 +27,5 @@
   {% endif %}
   {% if attributes.description or attributes.unit %}<span>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip }}</span>{% endif %}
 </div>
-{% endfor %}
-<div>
-  <button type="submit">Add</button>
-</div>
+{% endfor %}<button type="submit">Add</button>
 </form>
