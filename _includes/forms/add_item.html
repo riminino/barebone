@@ -25,7 +25,7 @@
     {% else %}unknow type
     {% endcase %}
   {% endif %}
-  {% if attributes.description or attributes.unit %}<small>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip }}</small>{% endif %}
+  {% if attributes.description or attributes.unit %}<span>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip }}</span>{% endif %}
 </div>
 {% endfor %}
 <div>
