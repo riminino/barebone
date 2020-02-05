@@ -1,10 +1,10 @@
 # COMMIT function
 commit = (object, form) ->
   file = form.data "file"
-  submit = form.find "[type='submit']"
+  inputs = form.find ":input"
   commit_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/contents/_data/#{file}.yml"
   get_sha = () ->
-    submit.prop "disabled", true
+    inputs.prop "disabled", true
     $.ajax commit_url,
       method: 'GET'
       headers:
@@ -17,7 +17,7 @@ commit = (object, form) ->
     if error == 'Not Found'
       create_file()
     else
-      submit.prop "disabled", false
+      inputs.prop "disabled", false
       alert "get_sha(): #{status} #{error}"
     true
   ###  
@@ -38,7 +38,7 @@ commit = (object, form) ->
       error: error
     true
   error = (request, status, error) ->
-    submit.prop "disabled", false
+    inputs.prop "disabled", false
     alert "create_file: #{status} #{error}"
     true
   update_file = (data, status) ->
@@ -64,7 +64,7 @@ commit = (object, form) ->
     alert "file_created: #{status}"
     true
   reset = () ->
-    submit.prop "disabled", false
+    inputs.prop "disabled", false
     form.trigger "reset"
     true
   # Start commit
