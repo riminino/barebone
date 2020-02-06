@@ -7,16 +7,15 @@
 <form data-file="{{ schema.file }}" data-add="true">
 <h3>{{ schema.title | default: default_title }}</h3>
 {% for property in schema.properties %}
-{% assign attributes = property[1] %}
-{% assign id = property[0] %}
-{% assign type = attributes.type | default: "text" %}
+{%- assign attributes = property[1] -%}
+{%- assign id = property[0] -%}
+{%- assign type = attributes.type | default: "text" -%}
 <div>
   {% assign default_title = id | capitalize %}
   <label for="{{ id }}">{{ attributes.title | default: default_title }}</label>
   {% if attributes.list %}
   <select id="{{ id }}" type="{{ type }}">
-    {% for item in attributes.list %}
-    <option value="{{ item }}">{{ item }}</option>
+    {% for item in attributes.list %}<option value="{{ item }}">{{ item }}</option>
     {% endfor %}
   </select>
   {% else %}
