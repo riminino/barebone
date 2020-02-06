@@ -19,6 +19,7 @@ $("form[data-add]").each ->
       if value then data[$(@).attr("id")] = value
       true
     # Add identifier
+    console.log "data.id", data["id"]
     data["id"] = new Date().getTime() + Math.random()
     return [data]
   true
