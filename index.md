@@ -19,7 +19,7 @@ weight: 1
 - `title` (default to capitalized property name)
 - `description`
 - `unit`
-- `type` (default to "text")
+- `type` (default to `text`)
   - `text`
   - `number`
   - `date`
