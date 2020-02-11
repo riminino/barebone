@@ -58,6 +58,8 @@ commit = (object, form) ->
   file_updated = (data, status) ->
     reset()
     alert "file_updated: #{status}"
+    data["commit"]["commit"] = data["commit"]
+    compare data
     true
   file_created = (data, status) ->
     reset()
