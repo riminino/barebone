@@ -30,10 +30,15 @@ section
 
 nav, footer
   padding: .8em
-  .col + .col
-    text-align: right
+  .col
+    &:first-child li
+      float: left
+      margin-right: 1em
+    &:last-child
+      text-align: right
   ul
     padding: 0
     margin: 0
     list-style: none
     font-size: small
+  
