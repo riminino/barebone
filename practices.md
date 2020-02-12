@@ -36,12 +36,12 @@ Embed input form:
 
 {% include forms/add_item.html schema=page.practices %}
 
-## List
+## Table
 
-Embed event list:
+Embed event table:
 
 ```liquid
-{% raw %}{% include time/list.html schema=page.practices collapsed=true %}{% endraw %}
+{% raw %}{% include time/table.html schema=page.practices collapsed=true %}{% endraw %}
 ```
 
-{% include time/list.html schema=page.practices collapsed=true %}
+{% include time/table.html schema=page.practices collapsed=true %}

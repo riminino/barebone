@@ -46,12 +46,12 @@ Embed input form:
 
 {% include forms/add_item.html schema=page.trash %}
 
-## List
+## Table
 
-Embed event list:
+Embed event table:
 
 ```liquid
-{% raw %}{% include time/list.html schema=page.trash %}{% endraw %}
+{% raw %}{% include time/table.html schema=page.trash %}{% endraw %}
 ```
 
-{% include time/list.html schema=page.trash %}
+{% include time/table.html schema=page.trash %}
