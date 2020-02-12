@@ -33,6 +33,8 @@ dateTime = (e) ->
     $(e).attr "title", new Date(Date.parse $(e).attr "datetime")
   else
     $(e).attr "title", out
+  # Style cursor
+  $(e).css "cursor", "default"
   # Set every minute
   setTimeout ->
     dateTime e
