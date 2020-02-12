@@ -17,11 +17,10 @@ compare = (data) ->
       "data-replace": "true"
     })
     dateTime span
-    li = $("<li/>").append $("<details/>",{
-      text: data.commit.commit.message
-    }).append $("<summary/>",{
+    li = $("<li/>",{
       text: "Repository updated "
-    }).append span
+      title: data.commit.commit.message
+    }).append(span).append " <i>[#{data.commit.sha.slice(0,7)}]</i>"
     $("#build").append li
   return
 
