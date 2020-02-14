@@ -1,0 +1,25 @@
+nav, footer
+  padding: .8em
+  ul
+    padding: 0
+    margin: 0
+    list-style: none
+    font-size: small
+
+// BIG SCREEN
+@media (min-width: $small_screen)
+  nav, footer
+    .col
+      flex-basis: auto
+      &:first-child li
+        float: left
+        margin-right: 1em
+      &:last-child li
+        text-align: right
+
+// SMALL SCREEN
+@media (max-width: $small_screen)
+  nav, footer
+    .col
+      &:not(:last-child) li
+        padding-bottom: 0.5em

@@ -1,7 +1,10 @@
 ---
 ---
 
+// VARIABLES
 $small_screen: 40em
+$font_size: {{ site.css.font_size | default: "15px" }}
+$color: {{ site.css.color | default: "Black" }}
 
 @import mixins
 @import headings
@@ -12,13 +15,15 @@ $small_screen: 40em
 @import tables
 @import details
 @import build
+@import navigation
 
 html
   overflow-y: scroll
   background: #c8c8c8
 
 body
-  font-size: 18px
+  font-size: $font_size
+  color: $color
   margin: 0
 
 main
@@ -27,18 +32,4 @@ main
 // SCAFFOLDING
 section
   padding: .5em 2em
-
-nav, footer
-  padding: .8em
-  .col
-    &:first-child li
-      float: left
-      margin-right: 1em
-    &:last-child
-      text-align: right
-  ul
-    padding: 0
-    margin: 0
-    list-style: none
-    font-size: small
   
