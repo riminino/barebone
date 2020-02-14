@@ -9,6 +9,7 @@ login = {
       login.link.text 'Logout'
         .off "click"
         .on "click", login.logout
+        .attr "title", "Logged as #{storage.get('login.user')}"
     else
       login.link.on "click", login.serve
     true
@@ -33,7 +34,7 @@ login = {
     login.link.text "Logout"
       .off "click"
       .on "click", login.logout
-      .attr "title", "Logout button"
+      .attr "title", "Logged as #{data.login}"
     alert "Logged as #{data.login}"
     true
   error: (request, status, error) ->
