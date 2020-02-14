@@ -15,7 +15,7 @@ briefings:
 - A meeting at which such information is presented.
 - The information conveyed at such a meeting.
 
-Briefings schema:
+{% include widgets/collapsed.html open=true summary="Briefings schema" %}
 
 ```yml
 file: briefings
@@ -25,6 +25,8 @@ properties:
   reported:
     list: [CC, CCC]
 ```
+
+{% include widgets/collapsed.html close=true %}
 
 ## Add item
 

@@ -18,7 +18,7 @@ trash:
 
 # Trash
 
-Trash schema:
+{% include widgets/collapsed.html open=true summary="Trash schema" %}
 
 ```yml
 file: trash
@@ -35,6 +35,8 @@ properties:
     unit: days
     min: 0
 ```
+
+{% include widgets/collapsed.html close=true %}
 
 ## Add item
 
