@@ -1,9 +1,9 @@
-<nav class="row">
-  <ul class="col">
+<nav>
+  <ul>
     {%- assign html_pages = site.html_pages | sort: "weight" -%}
     {% for link in html_pages %}<li><a href="{{ link.url | relative_url }}"{% if page.url == link.url %} class="active"{% endif %}>{{ link.title }}</a></li>{% endfor %}
   </ul>
-  <ul class="col">
+  <ul>
     <li><a href="#" id="login-button">Login</a></li>
   </ul>
 </nav>

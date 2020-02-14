@@ -1,8 +1,10 @@
-<footer class="row">
-  <ul class="col">
-    <li>Hosted on <a href="{{ site.github.repository_url }}">GitHub</a></li>
-  </ul>
-  <ul class="col" id="build">
-    <li>Site updated {% assign now = "now" | date_to_xmlschema %}{% include widgets/datetime.html datetime=now replace=true%} <i>[{{ site.github.build_revision | truncate: 7, "" }}]</i></li>
-  </ul>
+<footer>
+  <nav>
+    <ul>
+      <li>Hosted on <a href="{{ site.github.repository_url }}">GitHub</a></li>
+    </ul>
+    <ul id="build">
+      <li>Site updated {% assign now = "now" | date_to_xmlschema %}{% include widgets/datetime.html datetime=now replace=true%} <i>[{{ site.github.build_revision | truncate: 7, "" }}]</i></li>
+    </ul>
+  </nav>
 </footer>
