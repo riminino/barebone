@@ -33,7 +33,7 @@ login = {
     login.link.text "Logout"
       .off "click"
       .on "click", login.logout
-      .attr "alt", "Logout button"
+      .attr "title", "Logout button"
     alert "Logged as #{data.login}"
     true
   error: (request, status, error) ->
