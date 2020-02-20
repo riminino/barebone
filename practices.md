@@ -45,3 +45,13 @@ Embed event table:
 ```
 
 {% include time/table.html schema=page.practices collapsed=true %}
+
+## Days
+
+Embed days stream.
+
+```liquid
+{% raw %}{% include time/days.html schema=page.practices %}{% endraw %}
+```
+
+{% include time/days.html schema=page.practices %}

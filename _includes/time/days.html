@@ -1,0 +1,25 @@
+{%- if include.schema -%}
+{% assign file = include.schema.file %}
+{%- if site.data[file] -%}
+{% assign data = site.data[file] | sort: "date" %}
+{% assign now = "now" | date: "%s" %}
+{% assign seconds = 60 | times: 60 | times: 24 %}
+{% assign loop = include.days | default: 15 | minus: 1 %}
+<div class="days" style="grid-template-columns: repeat({{ loop | plus: 1 }}, 1fr)">
+  {% for days in (0..loop) %}
+  {% assign gap = forloop.rindex0 | times: seconds %}
+  {% assign day = now | minus: gap | date: "%Y-%m-%d" %}
+  <div class="{{ day | date: '%a' | downcase }}">{{ day | date: "%a" | truncate: 1, "" }} {{ day | date: "%d" }}</div>
+  {% endfor %}
+  {% for days in (0..loop) %}
+  {% assign gap = forloop.rindex0 | times: seconds %}
+  {% assign day = now | minus: gap | date: "%Y-%m-%d" %}
+  <div class="data">{% assign item = data | where: "date", day %}{% for property in item[0] %}{% if property[0] != "date" and property[0] != "id" %}{{ property[1] }}{% endif %}{% endfor %}</div>
+  {% endfor %}
+</div>
+{%- else -%}
+<mark>No data found</mark>
+{%- endif -%}
+{%- else -%}
+<mark>No schema supplied</mark>
+{%- endif -%}
