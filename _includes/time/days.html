@@ -9,7 +9,7 @@
   {% for days in (0..loop) %}
   {% assign gap = forloop.rindex0 | times: seconds %}
   {% assign day = now | minus: gap | date: "%Y-%m-%d" %}
-  <div class="{{ day | date: '%a' | downcase }}">{{ day | date: "%a" | truncate: 1, "" }} {{ day | date: "%d" }}</div>
+  <div class="{{ day | date: '%a' | downcase }}">{{ day | date: "%d" }}</div>
   {% endfor %}
   {% for days in (0..loop) %}
   {% assign gap = forloop.rindex0 | times: seconds %}
