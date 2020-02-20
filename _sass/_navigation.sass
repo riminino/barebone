@@ -10,7 +10,7 @@ nav
 
 // BIG SCREEN
 @media (min-width: $small_screen)
-  nav .col
+  nav ul
     flex-basis: auto
     &:first-child li
       float: left
@@ -20,6 +20,6 @@ nav
 
 // SMALL SCREEN
 @media (max-width: $small_screen)
-  nav .col
+  nav ul
     &:not(:last-child) li
       padding-bottom: 0.5em
