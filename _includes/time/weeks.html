@@ -1,0 +1,28 @@
+{%- if include.schema -%}
+{% assign file = include.schema.file %}
+{%- if site.data[file] -%}
+{% assign data = site.data[file] | sort: "date" %}
+{%- assign now = "now" | date: "%s" -%}
+{%- assign day = 60 | times: 60 | times: 24 -%}
+{%- assign week = day | times: 7 -%}
+{%- assign loop = include.weeks | default: 15 | minus: 1 -%}
+<div class="days" style="grid-template-columns: repeat({{ loop | plus: 1 }}, 1fr);align-items: end;">
+{% for weeks in (0..loop) %}
+  {%- assign week_start = forloop.rindex | times: week -%}
+  {%- assign week_start_date = now | minus: week_start | date: "%Y-%m-%d" -%}
+  {%- assign exp = "item.date > '" | append: week_start_date | append: "'" -%}
+  {%- assign after = data | where_exp: "item", exp -%}
+  {%- assign week_end_date = now | minus: week_start | plus: week | date: "%Y-%m-%d" -%}
+  {%- assign exp = "item.date > '" | append: week_end_date | append: "'" -%}
+  {%- assign before = data | where_exp: "item", exp -%}
+  <div class="data" style="height: {{ after.size | minus: before.size }}em">
+    {{ after.size | minus: before.size }}
+  </div>
+{% endfor %}
+</div>
+{%- else -%}
+<mark>No data found</mark>
+{%- endif -%}
+{%- else -%}
+<mark>No schema supplied</mark>
+{%- endif -%}

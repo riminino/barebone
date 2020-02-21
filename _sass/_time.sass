@@ -1,12 +1,14 @@
-.days
+.days, .months
   font-size: small
   text-align: center
   display: inline-grid
   grid-gap: .3em
+  .year, .month
+    font-weight: bold
   .sun
     color: crimson
   .data
-    border: 1px solid Gainsboro
-    padding: .5em .9em
+    padding: 0 .5em
     &:not(:empty)
+      border: 1px solid Gainsboro
       background: WhiteSmoke

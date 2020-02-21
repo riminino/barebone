@@ -5,15 +5,57 @@
 {% assign now = "now" | date: "%s" %}
 {% assign seconds = 60 | times: 60 | times: 24 %}
 {% assign loop = include.days | default: 15 | minus: 1 %}
-<div class="days" style="grid-template-columns: repeat({{ loop | plus: 1 }}, 1fr)">
-  {% for days in (0..loop) %}
+{% comment %} -------------------- arrays -------------------- {% endcomment %}
+{% assign years = "" | split: "" %}
+{% assign years_count = "" | split: "" %}
+{% assign months = "" | split: "" %}
+{% assign months_count = "" | split: "" %}
+{% for days in (0..loop) %}
   {% assign gap = forloop.rindex0 | times: seconds %}
-  {% assign day = now | minus: gap | date: "%Y-%m-%d" %}
+  {% comment %} years {% endcomment %}
+  {% assign year = now | minus: gap | date: "%Y" %}
+  {% if year != old_year %}
+    {% assign old_year = year %}
+    {% if year_occurrence %}{% assign years_count = years_count | push: year_occurrence %}{% endif %}
+    {% assign years = years | push: year %}
+    {% assign year_occurrence = 1 %}
+  {% else %}
+    {% assign year_occurrence = year_occurrence | plus: 1 %}
+  {% endif %}
+  {% comment %} months {% endcomment %}
+  {% assign month = now | minus: gap | date: "%B" %}
+  {% if month != old_month %}
+    {% assign old_month = month %}
+    {% if occurrence %}{% assign months_count = months_count | push: month_occurence %}{% endif %}
+    {% assign months = months | push: month %}
+    {% assign month_occurrence = 1 %}
+  {% else %}
+    {% assign month_occurrence = month_occurrence | plus: 1 %}
+  {% endif %}
+{% endfor %}
+{% if months.size == 1 %}{% assign months_count = months_count | push: month_occurrence %}{% endif %}
+{% if years.size == 1 %}{% assign years_count = years_count | push: year_occurrence %}{% endif %}
+{% comment %} -------------------- start loops -------------------- {% endcomment %}
+<div class="days" style="grid-template-columns: repeat({{ loop | plus: 1 }}, 1fr)">
+  {% comment %} -------------------- years -------------------- {% endcomment %}
+  {% for year in years %}
+    {% assign span = years_count[forloop.index0] %}
+    <div class="year" style="grid-column-start: 1; grid-column-end: {{ span | plus: 1 }}">{{ year }}</div>
+  {% endfor %}
+  {% comment %} -------------------- months -------------------- {% endcomment %}
+  {% for month in months %}
+    {% assign span = months_count[forloop.index0] %}
+    <div class="month" style="grid-column-start: 1; grid-column-end: {{ month_occurrence | plus: 1 }}">{{ month }}</div>
+  {% endfor %}
+  {% comment %} -------------------- day number -------------------- {% endcomment %}
+  {% for days in (0..loop) %}
+  {%- assign gap = forloop.rindex0 | times: seconds -%}
+  {%- assign day = now | minus: gap | date: "%Y-%m-%d" -%}
   <div class="{{ day | date: '%a' | downcase }}">{{ day | date: "%d" }}</div>
   {% endfor %}
   {% for days in (0..loop) %}
-  {% assign gap = forloop.rindex0 | times: seconds %}
-  {% assign day = now | minus: gap | date: "%Y-%m-%d" %}
+  {%- assign gap = forloop.rindex0 | times: seconds -%}
+  {%- assign day = now | minus: gap | date: "%Y-%m-%d" -%}
   <div class="data">{% assign item = data | where: "date", day %}{% for property in item[0] %}{% if property[0] != "date" and property[0] != "id" %}{{ property[1] }}{% endif %}{% endfor %}</div>
   {% endfor %}
 </div>

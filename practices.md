@@ -26,7 +26,7 @@ properties:
     list: [1, 2, 3]
 ```
 
-## Add item
+# Add item
 
 Embed input form:
 
@@ -55,3 +55,27 @@ Embed days stream.
 ```
 
 {% include time/days.html schema=page.practices %}
+
+## Weeks
+
+```liquid
+{% raw %}{% include time/weeks.html schema=page.practices %}{% endraw %}
+```
+
+{% include time/weeks.html schema=page.practices %}
+
+## Months
+
+```liquid
+{% raw %}{% include time/months.html schema=page.practices %}{% endraw %}
+```
+
+{% include time/months.html schema=page.practices %}
+
+## Stats
+
+```liquid
+{% raw %}{% include time/stats.html property="serie" schema=page.practices %}{% endraw %}
+```
+
+{% include time/stats.html property="serie" schema=page.practices %}
