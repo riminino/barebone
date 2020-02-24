@@ -15,7 +15,7 @@
   {%- assign month_end_date = now | minus: month_start | plus: month | date: "%Y-%m-%d" -%}
   {%- assign exp = "item.date > '" | append: month_end_date | append: "'" -%}
   {%- assign before = data | where_exp: "item", exp -%}
-  <div class="data" style="height: {{ after.size | minus: before.size | divided_by: 2 }}em">
+  <div class="data" style="height: {{ after.size | minus: before.size | divided_by: 2.0 }}em">
     {{ after.size | minus: before.size }}
   </div>
 {% endfor %}

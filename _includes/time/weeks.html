@@ -10,13 +10,13 @@
 {% for weeks in (0..loop) %}
   {%- assign week_start = forloop.rindex | times: week -%}
   {%- assign week_start_date = now | minus: week_start | date: "%Y-%m-%d" -%}
-  {%- assign exp = "item.date > '" | append: week_start_date | append: "'" -%}
-  {%- assign after = data | where_exp: "item", exp -%}
+  {%- assign exp = "item.date <= '" | append: week_start_date | append: "'" -%}
+  {%- assign small = data | where_exp: "item", exp -%}
   {%- assign week_end_date = now | minus: week_start | plus: week | date: "%Y-%m-%d" -%}
-  {%- assign exp = "item.date > '" | append: week_end_date | append: "'" -%}
-  {%- assign before = data | where_exp: "item", exp -%}
-  <div class="data" style="height: {{ after.size | minus: before.size }}em">
-    {{ after.size | minus: before.size }}
+  {%- assign exp = "item.date <= '" | append: week_end_date | append: "'" -%}
+  {%- assign big = data | where_exp: "item", exp -%}
+  <div class="data" style="height: {{ big.size | minus: small.size }}em">
+    {{ big.size | minus: small.size }}
   </div>
 {% endfor %}
 </div>
