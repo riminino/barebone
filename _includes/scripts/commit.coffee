@@ -64,6 +64,8 @@ commit = (object, form) ->
   file_created = (data, status) ->
     reset()
     alert "file_created: #{status}"
+    data["commit"]["commit"] = data["commit"]
+    compare data
     true
   reset = () ->
     inputs.prop "disabled", false
