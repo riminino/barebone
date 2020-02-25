@@ -11,3 +11,5 @@ births:
 # Briths
 
 {% include forms/add_item.html schema=page.births %}
+
+{% include time/table.html schema=page.births %}
