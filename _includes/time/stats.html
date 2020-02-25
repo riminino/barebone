@@ -1,30 +1,39 @@
 {%- if include.schema -%}
 {% assign file = include.schema.file %}
 {%- if site.data[file] -%}
+{% comment %} prepare {% endcomment %}
 {%- assign data = site.data[file] | sort: "date" -%}
 {%- assign now = "now" | date: "%s" -%}
 {%- assign day = 60 | times: 60 | times: 24 -%}
 {%- assign week = day | times: 7 -%}
 {%- assign in_one_week = now | minus: week | date: "%Y-%m-%d" -%}
-{%- assign month = day | times: 30 -%}
-{%- assign in_one_month = now | minus: month | date: "%Y-%m-%d" -%}
 {%- assign start = data.first.date | date: "%s" -%}
 {%- assign end = data.last.date | date: "%s" -%}
+{% comment %} events {% endcomment %}
 **Events**
 - no event: {{ end | minus: start | divided_by: 60 | divided_by: 60 | divided_by: 24 | minus: data.size }}
 {% comment %} property {% endcomment %}
 {%- assign by_property = data | group_by: include.property -%}
 {% for item in by_property %}- {{ include.property }} {{ item.name }}: {{ item.size }}
 {% endfor %}
-{% comment %} lately {% endcomment %}
-**Lately**
-{%- assign exp = "item.date > '" | append: in_one_week | append: "'" -%}
-{% assign by_last_week = data | where_exp: "item", exp %}
-- last week: {{
-  by_last_week.size }}/7
-{%- assign exp = "item.date > '" | append: in_one_month | append: "'" -%}
-{% assign by_last_month = data | where_exp: "item", exp %}
-- last month: {{ by_last_month.size }}/30
+{% comment %} group {% endcomment %}
+### Group
+**Years**
+{% assign years = data | group_by_exp: "item", "item.date | truncate: 4, ''" %}
+{% for year in years %}- {{ year.name }} {{ year.size }}
+{% endfor %}
+**Months**
+{% for month in (1..12) %}
+{{ "No,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," | slice: month }}
+{% assign month_string = "0" | append: month | slice: -2, 2 %}
+{% for year in years %}
+{%- assign string = year.name | append: "-" | append: month_string -%}
+{%- assign exp = "item.date contains '" | append: string | append: "'" -%}
+{%- assign count = data | where_exp: "item", exp -%}
+{% if count.size > 0 %}- {{ year.name }} {{ count.size }}{% endif %}
+{% endfor %}
+{% endfor %}
+{% comment %} end {% endcomment %}
 {%- else -%}
 <mark>No data found</mark>
 {%- endif -%}
