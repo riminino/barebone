@@ -3,10 +3,12 @@
   waste: Paper
   color: Blue
   every: 14
-  id: 1578773114374.8994
+  timestamp:
+    - 1578773114374
 -
   date: '2020-01-16'
   waste: Mixed
   color: Black
   every: 14
-  id: 1578945684900.3052
+  timestamp:
+    - 1578945684900

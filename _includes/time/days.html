@@ -56,7 +56,7 @@
   {% for days in (0..loop) %}
   {%- assign gap = forloop.rindex0 | times: seconds -%}
   {%- assign day = now | minus: gap | date: "%Y-%m-%d" -%}
-  <div class="data">{% assign item = data | where: "date", day %}{% for property in item[0] %}{% if property[0] != "date" and property[0] != "id" %}{{ property[1] }}{% endif %}{% endfor %}</div>
+  <div class="data">{% assign item = data | where: "date", day %}{% for property in item[0] %}{% if property[0] != "date" and property[0] != "timestamp" %}{{ property[1] }}{% endif %}{% endfor %}</div>
   {% endfor %}
 </div>
 {%- else -%}

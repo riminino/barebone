@@ -15,8 +15,8 @@
     </tr>
   </thead>
   <tbody>
-{% for item in data %}<tr data-id="{{ item.id }}" data-date="{{ item.date }}">
-  {% for property in item %}{% if property[0] != "id" %}<td>{% if property[0] == "date" %}{% assign property_date = property[1] %}{% include widgets/datetime.html datetime=property_date embed=true decimals=1 %}{% else %}{{ property[1] }}{% endif %}</td>{% endif %}{% endfor %}
+{% for item in data %}<tr data-timestamp="{{ item.timestamp | last }}" data-date="{{ item.date }}">
+  {% for property in item %}{% if property[0] != "timestamp" %}<td>{% if property[0] == "date" %}{% assign property_date = property[1] %}{% include widgets/datetime.html datetime=property_date embed=true decimals=1 %}{% else %}{{ property[1] }}{% endif %}</td>{% endif %}{% endfor %}
 </tr>
 {% endfor %}
 </tbody>
