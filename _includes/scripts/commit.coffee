@@ -14,6 +14,7 @@ commit = (object, form) ->
       error: error_sha
     true
   error_sha = (request, status, error) ->
+    console.log request, status, error
     if error == 'Not Found'
       create_file()
     else
