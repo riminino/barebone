@@ -42,10 +42,10 @@ Embed input form:
 Embed event table:
 
 ```liquid
-{% raw %}{% include time/table.html schema=page.practices collapsed=true %}{% endraw %}
+{% raw %}{% include time/table.html schema=page.practices filters=true collapsed=true %}{% endraw %}
 ```
 
-{% include time/table.html schema=page.practices collapsed=true %}
+{% include time/table.html schema=page.practices filters=true collapsed=true %}
 
 ## Days
 

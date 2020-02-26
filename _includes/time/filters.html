@@ -1,0 +1,14 @@
+{%- assign years = data | group_by_exp: "item", "item.date | truncate: 4, ''" -%}
+<caption>
+  <select>
+    <option value="">Years</option>
+    {% for year in years %}<option value="{{ year.name }}">{{ year.name }}</option>
+    {% endfor %}
+  </select>
+  <select>
+    <option value="">Months</option>
+    {% for month in (1..12) %}<option value="-{{ month | prepend: 0 | slice: -2, 2 }}-">{{ month | prepend: 0 | slice: -2, 2 }}</option>
+    {% endfor %}
+  </select>
+  <span class="size">{{ data.size }}</span>
+</caption>

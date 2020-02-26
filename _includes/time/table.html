@@ -8,6 +8,7 @@
 {% assign now = "now" | date: "%s" %}
 {% if first_event < now %}{% assign data = site.data[file] | sort: "date" | reverse %}{% endif %}
 <table>
+  {% if include.filters %}{% include time/filters.html data=data %}{% endif %}
   <thead>
     <tr>
       {% for property in include.schema.properties %}<th>{{ property.title | default: property[0] }}</th>
