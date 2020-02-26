@@ -27,14 +27,12 @@ dateTime = (e) ->
     out = "in #{moment}"
   # Embed or add title attribute
   if $(e).data "embed"
-    $(e).text "#{$(e).attr "datetime"} (#{out})"
+    $(e).text "#{$(e).text()} (#{out})"
   else if $(e).data "replace"
     $(e).text out
     $(e).attr "title", new Date(Date.parse $(e).attr "datetime")
   else
     $(e).attr "title", out
-  # Style cursor
-  $(e).css "cursor", "default"
   # Set every minute
   setTimeout ->
     dateTime e

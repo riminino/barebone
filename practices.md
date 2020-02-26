@@ -6,6 +6,7 @@ practices:
     date:
       type: date
       required: true
+      time: "12:00"
     serie:
       type: number
       list: [1, 2, 3]

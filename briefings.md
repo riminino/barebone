@@ -5,6 +5,7 @@ briefings:
   properties:
     date:
       type: date
+      time: "12:00"
     reported:
       list: [CC, CCC]
 ---
