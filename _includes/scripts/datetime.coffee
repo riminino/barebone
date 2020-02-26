@@ -27,11 +27,7 @@ dateTime = (e) ->
     out = "in #{moment}"
   # Embed or add title attribute
   if $(e).data "embed"
-<<<<<<< HEAD
-    $(e).text "#{$(e).time()} (#{out})"
-=======
-    $(e).text "#{$(e).text()} (#{out})"
->>>>>>> cc7c77440c50128a086640a0391a2d80a432e7b2
+    $(e).text "#{$(e).attr("datetime").slice 0, 10} (#{out})"
   else if $(e).data "replace"
     $(e).text out
     $(e).attr "title", new Date(Date.parse $(e).attr "datetime")
