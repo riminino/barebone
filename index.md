@@ -23,6 +23,7 @@ weight: 1
   - `text`
   - `number`
   - `date`
+    - `time` (string for time offset: `12:00` or `12:00:00`)
   - `color`
 - `list`
 - `value`
