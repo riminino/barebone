@@ -4,7 +4,7 @@
 {% assign data = site.data[file] | sort: "date" %}
 {%- assign now = "now" | date: "%s" -%}
 {%- assign day = 60 | times: 60 | times: 24 -%}
-{%- assign month = day | times: 30 -%}
+{%- assign month = day | times: 28 -%}
 {%- assign loop = include.months | default: 15 | minus: 1 -%}
 <div class="months" style="grid-template-columns: repeat({{ loop | plus: 1 }}, 1fr);align-items: end;">
 {% for weeks in (0..loop) %}
@@ -15,7 +15,7 @@
   {%- assign month_end_date = now | minus: month_start | plus: month | date: "%Y-%m-%d" -%}
   {%- assign exp = "item.date > '" | append: month_end_date | append: "'" -%}
   {%- assign before = data | where_exp: "item", exp -%}
-  <div class="data" style="height: {{ after.size | minus: before.size | divided_by: 2.0 }}em">
+  <div class="data" title="{{ month_start_date }} {{ month_end_date }}" style="height: {{ after.size | minus: before.size | divided_by: 2.0 }}em">
     {{ after.size | minus: before.size }}
   </div>
 {% endfor %}
