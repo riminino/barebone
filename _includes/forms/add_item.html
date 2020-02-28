@@ -23,7 +23,7 @@
   </select>
   {% else %}
   {% case type %}
-    {% when "text" or "date" or "number" or "color" %}<input type="{{ type }}" id="{{ id }}" value="{{ attributes.value }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}>
+    {% when "text" or "date" or "number" or "color" %}<input type="{{ type }}" id="{{ id }}" value="{{ attributes.value }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}{% if attributes.step %} step="{{ attributes.step }}"{% endif %}>
     {% else %}unknow type
     {% endcase %}
   {% endif %}
