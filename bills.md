@@ -20,3 +20,5 @@ bills:
 # Bills
 
 {% include forms/add_item.html schema=page.bills %}
+
+{% include time/table.html schema=page.bills %}
