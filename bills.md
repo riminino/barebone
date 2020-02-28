@@ -6,7 +6,7 @@ bills:
     date:
       type: date
       required: true
-    bill:
+    name:
       required: true
     amount:
       type: number
