@@ -1,4 +1,6 @@
-$("table caption select").on "change", (e) ->
+# Filter table on <select> change event
+# Used for <table><caption><select> filters
+$("table caption select").on "change", () ->
   # Get parent table
   table = $(@).closest "table"
   # Compose search string from the selects
@@ -20,3 +22,8 @@ $("table caption select").on "change", (e) ->
   # Show elements count
   table.find("caption span.size").text count
   true
+
+# Trigger default filter event if initial selectd option is found
+if $("table caption select option[selectd]")
+  # Only need one event
+  $("table caption select").first().trigger "change"

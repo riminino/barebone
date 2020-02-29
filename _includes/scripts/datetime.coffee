@@ -34,6 +34,7 @@ dateTime = (e) ->
   else
     $(e).attr "title", out
   # Set every minute
+  # Return a setTimeout function
   setTimeout ->
     dateTime e
   , 60 * 1000
