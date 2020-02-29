@@ -22,6 +22,7 @@ properties:
   date:
     type: date
     required: true
+    time: "12:00"
   serie:
     type: number
     list: [1, 2, 3]
@@ -42,10 +43,10 @@ Embed input form:
 Embed event table:
 
 ```liquid
-{% raw %}{% include time/table.html schema=page.practices filters=true collapsed=true %}{% endraw %}
+{% raw %}{% include time/table.html schema=page.practices filters=true year="2020" collapsed=true %}{% endraw %}
 ```
 
-{% include time/table.html schema=page.practices filters=true collapsed=true %}
+{% include time/table.html schema=page.practices filters=true year="2020" collapsed=true %}
 
 ## Days
 
@@ -73,10 +74,10 @@ Embed days stream.
 
 {% include time/months.html schema=page.practices %}
 
-## Stats
+## Group
 
 ```liquid
-{% raw %}{% include time/stats.html property="serie" schema=page.practices %}{% endraw %}
+{% raw %}{% include time/group.html property="serie" schema=page.practices %}{% endraw %}
 ```
 
-{% include time/stats.html property="serie" schema=page.practices %}
+{% include time/group.html property="serie" schema=page.practices %}
