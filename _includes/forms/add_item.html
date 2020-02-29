@@ -11,7 +11,7 @@
 {%- assign id = property[0] -%}
 {%- assign type = attributes.type | default: "text" -%}
 {%- if type == "hidden" -%}
-<input type="{{ type }}" id="{{ id }}" value="{{ value }}">
+<input type="{{ type }}" id="{{ id }}" value="{{ attributes.value }}">
 {%- else -%}
 <div>
   {% assign default_title = id | capitalize %}
