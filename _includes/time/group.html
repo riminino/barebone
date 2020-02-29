@@ -9,29 +9,24 @@
 {%- assign in_one_week = now | minus: week | date: "%Y-%m-%d" -%}
 {%- assign start = data.first.date | date: "%s" -%}
 {%- assign end = data.last.date | date: "%s" -%}
+{%- assign total_days = end | minus: start | divided_by: 60 | divided_by: 60 | divided_by: 24 -%}
 {% comment %} events {% endcomment %}
-**Events**
-- no event: {{ end | minus: start | divided_by: 60 | divided_by: 60 | divided_by: 24 | minus: data.size }}
+**By property**
 {% comment %} property {% endcomment %}
 {%- assign by_property = data | group_by: include.property -%}
-{% for item in by_property %}- {{ include.property }} {{ item.name }}: {{ item.size }}
-{% endfor %}
+{% include widgets/table_bars.html data=by_property max=total_days %}
 {% comment %} group {% endcomment %}
-### Group
-**Years**
-{% assign years = data | group_by_exp: "item", "item.date | truncate: 4, ''" %}
-{% for year in years %}- {{ year.name }} {{ year.size }}
-{% endfor %}
-**Months**
+**By year**
+{% assign years = data | group_by_exp: "item", "item.date | truncate: 4, ''" | reverse %}
+{% include widgets/table_bars.html data=years max=356 %}
+**By month**
 {% for month in (1..12) %}
-{{ "No,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," | slice: month }}
 {% assign month_string = "0" | append: month | slice: -2, 2 %}
-{% for year in years %}
-{%- assign string = year.name | append: "-" | append: month_string -%}
-{%- assign exp = "item.date contains '" | append: string | append: "'" -%}
-{%- assign count = data | where_exp: "item", exp -%}
-{% if count.size > 0 %}- {{ year.name }} {{ count.size }}{% endif %}
-{% endfor %}
+*{{ "1971-" | append: month_string | append: "-01" | date: "%B" }}*
+{% assign exp = "item.date contains '-" | append: month_string | append: "-'" %}
+{%- assign filter_months = data | where_exp: "item", exp -%}
+{%- assign month_stats = filter_months | group_by_exp: "item", "item.date | truncate: 4, ''" | reverse -%}
+{% include widgets/table_bars.html data=month_stats max=30 %}
 {% endfor %}
 {% comment %} end {% endcomment %}
 {%- else -%}
