@@ -6,20 +6,32 @@
 {%- assign day = 60 | times: 60 | times: 24 -%}
 {%- assign week = day | times: 7 -%}
 {%- assign loop = include.weeks | default: 15 | minus: 1 -%}
-<div class="days" style="grid-template-columns: repeat({{ loop | plus: 1 }}, 1fr);align-items: end;">
+<table class="bars">
+  <thead>
+    <tr>
+      <th>Week</th>
+      <th>Events</th>
+      <th>Bar</th>
+    </tr>
+  </thead>
+  <tbody>
 {% for weeks in (0..loop) %}
-  {%- assign week_start = forloop.rindex | times: week -%}
+  {%- assign week_start = forloop.index | times: week -%}
   {%- assign week_start_date = now | minus: week_start | date: "%Y-%m-%d" -%}
   {%- assign exp = "item.date > '" | append: week_start_date | append: "'" -%}
   {%- assign big = data | where_exp: "item", exp -%}
   {%- assign week_end_date = now | minus: week_start | plus: week | date: "%Y-%m-%d" -%}
   {%- assign exp = "item.date > '" | append: week_end_date | append: "'" -%}
   {%- assign small = data | where_exp: "item", exp -%}
-  <div class="data" title="{{ week_start_date }} {{ week_end_date }}" style="height: {{ big.size | minus: small.size }}em">
-    {{ big.size | minus: small.size }}
-  </div>
+  {%- assign value = big.size | minus: small.size -%}
+<tr>
+  <td>{{ forloop.index }}</td>
+  <td>{{ value }}</td>
+  <td><meter title="from {{ week_end_date  date_to_string }} to {{ week_start_date | date_to_string }}" value="{{ value }}" min="0" max="6"></meter> </td>
+</tr>
 {% endfor %}
-</div>
+  </tbody>
+</table>
 {%- else -%}
 <mark>No data found</mark>
 {%- endif -%}

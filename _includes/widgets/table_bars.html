@@ -1,0 +1,11 @@
+<table class="bars">
+  <tbody>
+{% for item in include.data %}
+    <tr>
+      <td>{{ item.name }}</td>
+      <td>{{ item.size }}</td>
+      {% if include.max %}<td>{{ item.size | times: 100 | divided_by: include.max }}%</td><td><meter value="{{ item.size }}" min="0" max="{{ include.max }}"></meter></td>{% endif %}
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
