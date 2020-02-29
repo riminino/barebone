@@ -2,12 +2,12 @@
 <caption>
   <select>
     <option value="">Years</option>
-    {% for year in years %}<option value="{{ year.name }}">{{ year.name }}</option>
+    {% for year in years %}<option value="{{ year.name }}"{% if include.year == year.name %} selected{% endif %}>{{ year.name }}</option>
     {% endfor %}
   </select>
   <select>
     <option value="">Months</option>
-    {% for month in (1..12) %}<option value="-{{ month | prepend: 0 | slice: -2, 2 }}-">{{ month | prepend: 0 | slice: -2, 2 }}</option>
+    {% for month in (1..12) %}{% assign full_month = month | prepend: 0 | slice: -2, 2 %}<option value="-{{ full_month }}-"{% if include.month == full_month %} selected{% endif %}>{{ full_month }}</option>
     {% endfor %}
   </select>
   <span class="size">{{ data.size }}</span>
