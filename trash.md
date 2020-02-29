@@ -12,7 +12,7 @@ trash:
       list: [Black, Blue, Yellow, Green]
     every:
       type: number
-      unit: days
+      unit: day
       min: 0
 ---
 
