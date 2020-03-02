@@ -8,7 +8,7 @@
 {% assign now = "now" | date: "%s" %}
 {% if first_event < now %}{% assign data = site.data[file] | sort: "date" | reverse %}{% endif %}
 <table>
-  {% if include.filters %}{% include time/filters.html data=data year=include.year month=include.month %}{% endif %}
+  {% if include.filters %}<caption>{% include time/filters.html data=data year=include.year month=include.month %}</caption>{% endif %}
   <thead>
     <tr>
       {% for property in include.schema.properties %}{% unless property[1].type == "hidden" %}<th>{{ property.title | default: property[0] }}</th>{% endunless %}
@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-{% for item in data %}<tr data-timestamp="{{ item.timestamp | last }}" data-date="{{ item.date }}">
+{% for item in data %}<tr data-timestamp="{{ item.timestamp | last }}" data-date="{{ item.date }}" class="data">
   {% for property in item %}{% if property[0] != "timestamp" %}<td>{% if property[0] == "date" %}{% assign property_date = property[1] %}{% include widgets/datetime.html datetime=property_date embed=true decimals=1 time=include.schema.properties.date.time %}{% else %}{{ property[1] }}{% endif %}</td>{% endif %}{% endfor %}
 </tr>
 {% endfor %}

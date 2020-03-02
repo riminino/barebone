@@ -38,6 +38,16 @@ Embed input form:
 
 {% include forms/add_item.html schema=page.practices %}
 
+## Calendar
+
+Embed a calendar view
+
+```liquid
+{% raw %}{% include time/calendar.html schema=page.practices collapsed=true filters=true year="2020" %}{% endraw %}
+```
+
+{% include time/calendar.html schema=page.practices collapsed=true filters=true year="2020" %}
+
 ## Table
 
 Embed event table:
@@ -47,16 +57,6 @@ Embed event table:
 ```
 
 {% include time/table.html schema=page.practices filters=true year="2020" collapsed=true %}
-
-## Days
-
-Embed days stream.
-
-```liquid
-{% raw %}{% include time/days.html schema=page.practices %}{% endraw %}
-```
-
-{% include time/days.html schema=page.practices %}
 
 ## Weeks
 

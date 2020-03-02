@@ -1,0 +1,26 @@
+.calendar
+  font-size: small
+  .filters
+    margin-top: 1em
+    text-align: center
+  .label
+    text-align: center
+    font-weight: bold
+    margin-top: .5em
+    display: block
+  .month
+    display: flex
+    flex-wrap: wrap
+    .label
+      flex-basis: 100%
+      margin-bottom: .5em
+    .day
+      min-width: 2em
+      margin: 0.1em
+      text-align: center
+      &:not(.data)
+        background: Gainsboro
+      span
+        display: block
+      .sun
+        color: Crimson

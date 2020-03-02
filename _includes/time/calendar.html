@@ -1,0 +1,41 @@
+{%- if include.schema -%}
+{% assign file = include.schema.file %}
+{%- if site.data[file] -%}
+{% assign summary = "Show " | append: site.data[file].size | append: " entries" %}
+{% if include.collapsed %}{% include widgets/collapsed.html summary=summary open=true %}{% endif %}
+{%- assign data = site.data[file] | sort: "date" | reverse -%}
+{%- assign years = data | group_by_exp: "item", "item.date | truncate: 4, ''" -%}
+{%- assign day_seconds = 60 | times: 60 | times: 24 -%}
+{%- assign now = "now" | date: "%s" -%}
+<div class="calendar">
+{% if include.filters %}<div>{% include time/filters.html data=data year=include.year month=include.month %}</div>{% endif %}
+{% for year in years %}
+<div class="year" data-year="{{ year.name }}"><span class="label">{{ year.name }} ({{ year.size }})</span>
+{%- assign months = year.items | group_by_exp: "item", "item.date | slice: 5, 2" -%}
+{% for month in months %}
+<div class="month" data-month="-{{ month.name }}-">{% assign label = "1971-" | append: month.name | append: "-01" | date: "%B" %}<span class="label">{{ label }} ({{ month.size }})</span>
+{% assign partial_date = year.name | append: "-" | append: month.name | append: "-" %}
+{% for day in (1..31) reversed %}
+{%- assign leading_zero = "0" | append: day | slice: -2, 2 -%}
+{%- assign date = partial_date | append: leading_zero -%}
+{%- assign unix = date | date: "%s" -%}
+{%- assign real_month = date | date: "%m" -%}
+{% if real_month == month.name and unix <= now %}
+{%- assign exp = "item.date == '" | append: date | append: "'" -%}
+{%- assign found = month.items | where_exp: "item", exp -%}
+<div class="day{% if found.size > 0 %} data{% endif %}" data-date="{{ date }}"><span class="{{ date | date: '%a' | downcase }}">{{ date | date: "%e"}}</span>{% if found.size > 0 %}<span>{{ found.first.serie | inspect  }}</span>{% endif %}
+</div>
+{% endif %}
+{% endfor %}
+</div>
+{% endfor %}
+</div>
+{% endfor %}
+</div>
+{% if include.collapsed %}{% include widgets/collapsed.html close=true %}{% endif %}
+{%- else -%}
+<mark>No data found</mark>
+{%- endif -%}
+{%- else -%}
+<mark>No schema supplied</mark>
+{%- endif -%}
