@@ -6,32 +6,22 @@ trash:
     date:
       type: date
     waste:
+      description: Type
       list:
-        -
-          value: Mixed
+        - value: Mixed
           style:
             background: Black
             color: White
-        -
-          value: Paper
+        - value: Paper
           style:
             background: Blue
             color: White
-        -
-          value: Plastic
+        - value: Plastic
           style:
             background: Yellow
-        -
-          value: Glass
+        - value: Glass
           style:
             background: ForestGreen
-      description: Type fo waste
-    color:
-      list: [Black, Blue, Yellow, Green]
-    every:
-      type: number
-      unit: day
-      min: 0
 ---
 
 # Trash
@@ -44,32 +34,22 @@ properties:
   date:
     type: date
   waste:
+    description: Type fo waste
     list:
-      -
-        value: Mixed
+      - value: Mixed
         style:
           background: Black
           color: White
-      -
-        value: Paper
+      - value: Paper
         style:
           background: Blue
           color: White
-      -
-        value: Plastic
+      - value: Plastic
         style:
           background: Yellow
-      -
-        value: Glass
+      - value: Glass
         style:
           background: ForestGreen
-    description: Type fo waste
-  color:
-    list: [Black, Blue, Yellow, Green]
-  every:
-    type: number
-    unit: days
-    min: 0
 ```
 
 {% include widgets/collapsed.html close=true %}

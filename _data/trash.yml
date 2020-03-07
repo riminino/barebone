@@ -1,14 +1,10 @@
 -
   date: '2020-01-14'
   waste: Paper
-  color: Blue
-  every: 14
   timestamp:
     - 1578773114374
 -
   date: '2020-01-16'
   waste: Mixed
-  color: Black
-  every: 14
   timestamp:
     - 1578945684900
