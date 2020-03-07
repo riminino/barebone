@@ -18,7 +18,7 @@
   <label for="{{ id }}">{{ attributes.title | default: default_title }}</label>
   {% if attributes.list %}
   <select id="{{ id }}" type="{{ type }}">
-    {% for item in attributes.list %}<option value="{{ item }}">{{ item }}</option>
+    {% for item in attributes.list %}{% if item.first %}<option value="{{ item.value }}">{{ item.value }}</option>{% else %}<option value="{{ item }}">{{ item }}</option>{% endif %}
     {% endfor %}
   </select>
   {% else %}

@@ -23,7 +23,8 @@
 {% if real_month == month.name and unix <= now %}
 {%- assign exp = "item.date == '" | append: date | append: "'" -%}
 {%- assign found = month.items | where_exp: "item", exp -%}
-<div class="day{% if found.size > 0 %} data{% endif %}" data-date="{{ date }}"><span class="{{ date | date: '%a' | downcase }}">{{ date | date: "%e"}}</span>{% if found.size > 0 %}<span>{{ found.first.serie | inspect  }}</span>{% endif %}
+{%- assign meta_property = "" | split: "" | push: include.property | push: found.first[include.property] -%}
+<div class="day{% if found.size > 0 %} data{% endif %}" data-date="{{ date }}" {% include time/style.html schema=include.schema property=meta_property %}><span class="{{ date | date: '%a' | downcase }}">{{ date | date: "%e"}}</span>{% if found.size > 0 %}<span>{{ found.first[include.property] }}</span>{% endif %}
 </div>
 {% endif %}
 {% endfor %}

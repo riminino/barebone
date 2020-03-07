@@ -9,7 +9,16 @@ practices:
       time: "12:00"
     serie:
       type: number
-      list: [1, 2, 3]
+      list:
+        - value: 1
+          style:
+            background-color: Honeydew
+        - value: 2
+          style:
+            background-color: SeaShell
+        - value: 3
+          style:
+            background-color: LavenderBlush
 ---
 
 # Practices
@@ -25,7 +34,16 @@ properties:
     time: "12:00"
   serie:
     type: number
-    list: [1, 2, 3]
+    list:
+      - value: 1
+        style:
+          background-color: Honeydew
+      - value: 2
+        style:
+          background-color: SeaShell
+      - value: 3
+        style:
+          background-color: LavenderBlush
 ```
 
 # Add item
@@ -46,7 +64,7 @@ Embed a calendar view
 {% raw %}{% include time/calendar.html schema=page.practices collapsed=true filters=true year="2020" %}{% endraw %}
 ```
 
-{% include time/calendar.html schema=page.practices collapsed=true filters=true year="2020" %}
+{% include time/calendar.html schema=page.practices collapsed=true filters=true year="2020" property="serie" %}
 
 ## Table
 

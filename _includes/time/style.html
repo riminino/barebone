@@ -1,0 +1,9 @@
+{%- if include.property[1] contains "" -%}
+{%- assign exp = "item.value == '" | append: include.property[1] | append: "'" -%}
+{%- assign list = include.schema.properties[include.property.first].list | where_exp: "item", exp -%}
+{%- else -%}
+{%- assign list = include.schema.properties[include.property.first].list | where: "value", include.property[1] -%}
+{%- endif -%}
+{%- if list.size == 1 and list.first.style.size -%}
+style="{%- for css in list.first.style -%}{{ css[0] }}: {{ css[1] }};{%- endfor -%}"
+{%- endif -%}

@@ -6,7 +6,25 @@ trash:
     date:
       type: date
     waste:
-      list: [Mixed, Paper, Plastic, Glass]
+      list:
+        -
+          value: Mixed
+          style:
+            background: Black
+            color: White
+        -
+          value: Paper
+          style:
+            background: Blue
+            color: White
+        -
+          value: Plastic
+          style:
+            background: Yellow
+        -
+          value: Glass
+          style:
+            background: ForestGreen
       description: Type fo waste
     color:
       list: [Black, Blue, Yellow, Green]
@@ -26,7 +44,25 @@ properties:
   date:
     type: date
   waste:
-    list: [Mixed, Paper, Plastic, Glass]
+    list:
+      -
+        value: Mixed
+        style:
+          background: Black
+          color: White
+      -
+        value: Paper
+        style:
+          background: Blue
+          color: White
+      -
+        value: Plastic
+        style:
+          background: Yellow
+      -
+        value: Glass
+        style:
+          background: ForestGreen
     description: Type fo waste
   color:
     list: [Black, Blue, Yellow, Green]
