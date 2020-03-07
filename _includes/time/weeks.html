@@ -27,7 +27,7 @@
 <tr>
   <td>{{ forloop.index }}</td>
   <td>{{ value }}</td>
-  <td><meter title="from {{ week_end_date | date_to_string }} to {{ week_start_date | date_to_string }}" value="{{ value }}" min="0" max="6"></meter> </td>
+  <td><meter title="from {{ week_end_date | date_to_string }} to {{ week_start_date | date_to_string }}" value="{{ value }}" min="0" max="7"></meter> </td>
 </tr>
 {% endfor %}
   </tbody>
