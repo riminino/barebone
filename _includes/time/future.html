@@ -1,0 +1,73 @@
+{%- if include.schema -%}
+{% assign file = include.schema.file %}
+{%- if site.data[file] -%}
+{% assign summary = "Show " | append: site.data[file].size | append: " entries" %}
+{% if include.collapsed %}{% include widgets/collapsed.html summary=summary open=true %}{% endif %}
+{% assign data = site.data[file] | sort: "date" %}
+{%- assign now = "now" | date: "%s" -%}
+{%- assign unit = "day,week,month,year" | split: "," -%}
+{%- assign seconds = "" | split: "" | push: 86400 | push: 604800 | push: 2592000 | push: 31536000 -%}
+{%- assign new_items = "" | split: "" -%}
+{% for item in data %}
+  {%- assign repeat_value = include.schema.properties.date.repeat.value -%}
+  {%- assign repeat_unit = include.schema.properties.date.repeat.unit -%}
+  {%- assign date = item.date | date: "%s" -%}
+  {%- if unit contains repeat_unit and repeat_value > 0 and now > date -%}
+    {% for u in unit %}
+      {%- if u == repeat_unit -%}
+        {%- assign gap = seconds[forloop.index0] | times: repeat_value -%}
+        {%- assign cycles = now | minus: date | divided_by: gap -%}
+        {% for i in (0..cycles) %}
+          {%- assign date = date | plus: gap -%}
+        {% endfor %}
+        {%- assign new_items = new_items | push: date -%}
+      {%- endif -%}
+    {% endfor %}
+  {%- else -%}
+    {%- assign new_items = new_items | push: date -%}
+  {%- endif -%}
+{% endfor %}
+{%- assign new_order = new_items | sort -%}
+<table>
+  {% if include.filters %}<caption>{% include time/filters.html data=data year=include.year month=include.month %}</caption>{% endif %}
+  <thead>
+    <tr>
+      {% for property in include.schema.properties %}{% unless property[1].type == "hidden" %}<th>{{ property.title | default: property[0] }}</th>{% endunless %}
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+{% for next_date in new_order %}
+  {%- assign first = forloop.first -%}
+  {% for j in new_items %}
+    {%- if j == next_date -%}
+      {%- assign item = data[forloop.index0] -%}
+      {%- assign next_date_iso = next_date | date: "%F" -%}
+    {%- endif -%}
+  {% endfor %}
+<tr data-timestamp="{{ item.timestamp | last }}" data-date="{{ item.date }}" class="data">
+  {% for property in item %}
+    {%- if property[0] != "timestamp" -%}
+      <td {% include time/style.html schema=include.schema property=property %}>
+        {%- if property[0] == "date" -%}
+          {%- assign property_date = next_date_iso -%}
+          {% if first %}<mark>{% endif %}
+  {% include widgets/datetime.html datetime=property_date embed=true decimals=1 time=include.schema.properties.date.time %}
+  {% if first %}</mark>{% endif %}
+        {%- else -%}
+          {{ property[1] }}
+        {%- endif -%}
+      </td>
+    {%- endif -%}
+  {% endfor %}
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% if include.collapsed %}{% include widgets/collapsed.html close=true %}{% endif %}
+{%- else -%}
+<mark>No data found</mark>
+{%- endif -%}
+{%- else -%}
+<mark>No schema supplied</mark>
+{%- endif -%}

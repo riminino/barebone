@@ -5,6 +5,9 @@ trash:
   properties:
     date:
       type: date
+      repeat:
+        value: 2
+        unit: week
     waste:
       description: Type
       list:
@@ -22,6 +25,9 @@ trash:
         - value: Glass
           style:
             background: ForestGreen
+          repeat:
+            value: 4
+            unit: week
 ---
 
 # Trash
@@ -33,6 +39,9 @@ file: trash
 properties:
   date:
     type: date
+    repeat:
+      value: 2
+      unit: week
   waste:
     description: Type fo waste
     list:
@@ -50,6 +59,9 @@ properties:
       - value: Glass
         style:
           background: ForestGreen
+        repeat:
+          value: 4
+          unit: week
 ```
 
 {% include widgets/collapsed.html close=true %}
@@ -64,12 +76,12 @@ Embed input form:
 
 {% include forms/add_item.html schema=page.trash %}
 
-## Table
+## Future
 
-Embed event table:
+Embed future event table:
 
 ```liquid
-{% raw %}{% include time/table.html schema=page.trash %}{% endraw %}
+{% raw %}{% include time/future.html schema=page.trash %}{% endraw %}
 ```
 
-{% include time/table.html schema=page.trash %}
+{% include time/future.html schema=page.trash %}
