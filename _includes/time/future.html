@@ -11,6 +11,12 @@
 {% for item in data %}
   {%- assign repeat_value = include.schema.properties.date.repeat.value -%}
   {%- assign repeat_unit = include.schema.properties.date.repeat.unit -%}
+  {%- assign exception = include.schema.properties.date.repeat.exception -%}
+  {%- capture prop -%}{{ exception.first[0] }}{%- endcapture -%}
+  {% if item[prop] == exception.first[1] %}
+    {%- assign repeat_value = exception.value | default: repeat_value -%}
+    {%- assign repeat_unit = exception.unit | default: repeat_unit -%}
+  {% endif %}
   {%- assign date = item.date | date: "%s" -%}
   {%- if unit contains repeat_unit and repeat_value > 0 and now > date -%}
     {% for u in unit %}

@@ -8,6 +8,9 @@ trash:
       repeat:
         value: 2
         unit: week
+        exception:
+          waste: Glass
+          value: 4
     waste:
       description: Type
       list:
@@ -26,9 +29,6 @@ trash:
           style:
             background: ForestGreen
             color: White
-          repeat:
-            value: 4
-            unit: week
 ---
 
 # Trash
@@ -36,34 +36,35 @@ trash:
 {% include widgets/collapsed.html open=true summary="Trash schema" %}
 
 ```yml
-file: trash
-properties:
-  date:
-    type: date
-    repeat:
-      value: 2
-      unit: week
-  waste:
-    description: Type fo waste
-    list:
-      - value: Mixed
-        style:
-          background: Black
-          color: White
-      - value: Paper
-        style:
-          background: Blue
-          color: White
-      - value: Plastic
-        style:
-          background: Yellow
-      - value: Glass
-        style:
-          background: ForestGreen
-          color: White
-        repeat:
+trash:
+  file: trash
+  properties:
+    date:
+      type: date
+      repeat:
+        value: 2
+        unit: week
+        exception:
+          waste: Glass
           value: 4
-          unit: week
+    waste:
+      description: Type
+      list:
+        - value: Mixed
+          style:
+            background: Black
+            color: White
+        - value: Paper
+          style:
+            background: Blue
+            color: White
+        - value: Plastic
+          style:
+            background: Yellow
+        - value: Glass
+          style:
+            background: ForestGreen
+            color: White
 ```
 
 {% include widgets/collapsed.html close=true %}
