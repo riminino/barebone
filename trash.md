@@ -25,6 +25,7 @@ trash:
         - value: Glass
           style:
             background: ForestGreen
+            color: White
           repeat:
             value: 4
             unit: week
@@ -59,6 +60,7 @@ properties:
       - value: Glass
         style:
           background: ForestGreen
+          color: White
         repeat:
           value: 4
           unit: week
