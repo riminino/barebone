@@ -2384,3 +2384,8 @@
   serie: 2
   timestamp:
     - 1583600747863
+-
+  date: '2020-03-09'
+  serie: 1
+  timestamp:
+    - 1583776282629
