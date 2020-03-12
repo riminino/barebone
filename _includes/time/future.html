@@ -9,15 +9,15 @@
 {%- assign seconds = "" | split: "" | push: 86400 | push: 604800 | push: 2592000 | push: 31536000 -%}
 {%- assign future_dates = "" | split: "" -%}
 {%- assign used_items = "" | split: "" -%}
-{%- assign repeat_value = include.schema.properties.date.repeat.value -%}
-{%- assign repeat_unit = include.schema.properties.date.repeat.unit -%}
 {%- assign exception = include.schema.properties.date.repeat.exception -%}
 {%- capture prop -%}{{ exception.first[0] }}{%- endcapture -%}
 {% for item in data %}
+  {%- assign repeat_value = include.schema.properties.date.repeat.value -%}
+  {%- assign repeat_unit = include.schema.properties.date.repeat.unit -%}
   {%- assign found = 0 -%}
   {%- assign counter = 0 -%}
   {% for cond in exception %}
-    {%- capture prop -%}{{cond[0]}}{%- endcapture -%}
+    {%- capture prop -%}{{ cond[0] }}{%- endcapture -%}
     {% if prop != "value" and prop != "unit" %}
       {%- assign counter = counter | plus: 1 -%}
       {% if item[prop] == cond[1] %}
