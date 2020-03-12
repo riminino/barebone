@@ -2384,3 +2384,18 @@
   serie: 2
   timestamp:
     - 1583600747863
+-
+  date: '2020-03-09'
+  serie: 1
+  timestamp:
+    - 1583776282629
+-
+  date: '2020-03-11'
+  serie: 1
+  timestamp:
+    - 1583948449298
+-
+  date: '2020-03-12'
+  serie: 1
+  timestamp:
+    - 1584011403193

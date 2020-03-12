@@ -12,10 +12,6 @@ bills:
       type: number
       unit: euro
       step: 0.01
-    every:
-      type: hidden
-      value: 2
-      unit: month
 ---
 
 # Bills
