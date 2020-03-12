@@ -7,16 +7,28 @@
 {%- assign now = "now" | date: "%s" -%}
 {%- assign unit = "day,week,month,year" | split: "," -%}
 {%- assign seconds = "" | split: "" | push: 86400 | push: 604800 | push: 2592000 | push: 31536000 -%}
-{%- assign new_items = "" | split: "" -%}
+{%- assign future_dates = "" | split: "" -%}
+{%- assign used_items = "" | split: "" -%}
+{%- assign repeat_value = include.schema.properties.date.repeat.value -%}
+{%- assign repeat_unit = include.schema.properties.date.repeat.unit -%}
+{%- assign exception = include.schema.properties.date.repeat.exception -%}
+{%- capture prop -%}{{ exception.first[0] }}{%- endcapture -%}
 {% for item in data %}
-  {%- assign repeat_value = include.schema.properties.date.repeat.value -%}
-  {%- assign repeat_unit = include.schema.properties.date.repeat.unit -%}
-  {%- assign exception = include.schema.properties.date.repeat.exception -%}
-  {%- capture prop -%}{{ exception.first[0] }}{%- endcapture -%}
-  {% if item[prop] == exception.first[1] %}
+  {%- assign found = 0 -%}
+  {%- assign counter = 0 -%}
+  {% for cond in exception %}
+    {%- capture prop -%}{{cond[0]}}{%- endcapture -%}
+    {% if prop != "value" and prop != "unit" %}
+      {%- assign counter = counter | plus: 1 -%}
+      {% if item[prop] == cond[1] %}
+        {%- assign found = found | plus: 1 -%}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {%- if found == counter -%}
     {%- assign repeat_value = exception.value | default: repeat_value -%}
     {%- assign repeat_unit = exception.unit | default: repeat_unit -%}
-  {% endif %}
+  {%- endif -%}
   {%- assign date = item.date | date: "%s" -%}
   {%- if unit contains repeat_unit and repeat_value > 0 and now > date -%}
     {% for u in unit %}
@@ -24,16 +36,16 @@
         {%- assign gap = seconds[forloop.index0] | times: repeat_value -%}
         {%- assign cycles = now | minus: date | divided_by: gap -%}
         {% for i in (0..cycles) %}
-          {%- assign date = date | plus: gap -%}
+          {%- assign date = date | plus: gap | append: "" -%}
         {% endfor %}
-        {%- assign new_items = new_items | push: date -%}
+        {%- assign future_dates = future_dates | push: date -%}
       {%- endif -%}
     {% endfor %}
   {%- else -%}
-    {%- assign new_items = new_items | push: date -%}
+    {%- assign future_dates = future_dates | push: date -%}
   {%- endif -%}
 {% endfor %}
-{%- assign new_order = new_items | sort -%}
+{%- assign future_dates_sorted = future_dates | sort -%}
 <table>
   {% if include.filters %}<caption>{% include time/filters.html data=data year=include.year month=include.month %}</caption>{% endif %}
   <thead>
@@ -43,13 +55,16 @@
     </tr>
   </thead>
   <tbody>
-{% for next_date in new_order %}
+{% for next_date in future_dates_sorted %}
   {%- assign first = forloop.first -%}
-  {% for j in new_items %}
-    {%- if j == next_date -%}
+  {%- assign single = 0 -%}
+  {% for j in future_dates %}
+    {%- if j == next_date and single == 0 -%}{%- unless used_items contains forloop.index0 -%}
       {%- assign item = data[forloop.index0] -%}
+      {%- assign single = 1 -%}
       {%- assign next_date_iso = next_date | date: "%F" -%}
-    {%- endif -%}
+      {%- assign used_items = used_items | push: forloop.index0 -%}
+    {%- endunless -%}{%- endif -%}
   {% endfor %}
 <tr data-timestamp="{{ item.timestamp | last }}" data-date="{{ item.date }}" class="data">
   {% for property in item %}

@@ -5,6 +5,13 @@ cars:
   properties:
     date:
       type: date
+      repeat:
+        unit: year
+        value: 1
+        exception:
+          car: yaris
+          tax: assicurazione
+          unit: day
     car:
       list: [kangoo, yaris, citroen]
     tax:
@@ -36,13 +43,12 @@ Embed input form:
 
 {% include forms/add_item.html schema=page.cars %}
 
-## Table
+## Future
 
-Embed event table:
+Embed future event table:
 
 ```liquid
-{% raw %}{% include time/table.html schema=page.cars %}{% endraw %}
+{% raw %}{% include time/future.html schema=page.cars %}{% endraw %}
 ```
 
-{% include time/table.html schema=page.cars %}
-
+{% include time/future.html schema=page.cars %}
