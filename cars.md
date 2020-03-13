@@ -12,7 +12,8 @@ cars:
         exception:
           car: yaris
           tax: assicurazione
-          unit: day
+          unit: month
+          value: 6
     car:
       list: [kangoo, yaris, citroen]
     tax:
@@ -21,7 +22,7 @@ cars:
 
 # Cars
 
-Cars schema:
+{% include widgets/collapsed.html open=true summary="Cars schema" %}
 
 ```yml
 cars:
@@ -36,12 +37,15 @@ cars:
         exception:
           car: yaris
           tax: assicurazione
-          unit: day
+          unit: month
+          value: 6
     car:
       list: [kangoo, yaris, citroen]
     tax:
       list: [assicurazione, bollo, revisione]
 ```
+
+{% include widgets/collapsed.html close=true%}
 
 ## Add item
 

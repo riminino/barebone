@@ -22,11 +22,23 @@ weight: 1
 - `type` (default to `text`)
   - `text`
   - `number`
+  - `color`
   - `date`
     - `time` (string for time offset: `12:00` or `12:00:00`)
-  - `color`
-- `list`
-- `value`
+    - `repeat` (recurrent event every value-unit)
+      - `value`
+      - `unit`
+        - exception (custom value-unit recurrence for `condition`)
+          - `condition`
+          - `...`
+          - `value`
+          - `unit`
+- `list` (array of values or objects with `value`)
+  - `value`
+  - `style` (CSS properties with a value)
+    - css-property
+    - ...
+- `value` (default value)
 - `min`
 - `max`
 - `required`

@@ -10,7 +10,6 @@
 {%- assign future_dates = "" | split: "" -%}
 {%- assign used_items = "" | split: "" -%}
 {%- assign exception = include.schema.properties.date.repeat.exception -%}
-{%- capture prop -%}{{ exception.first[0] }}{%- endcapture -%}
 {% for item in data %}
   {%- assign repeat_value = include.schema.properties.date.repeat.value -%}
   {%- assign repeat_unit = include.schema.properties.date.repeat.unit -%}
