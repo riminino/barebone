@@ -5,6 +5,7 @@ trash:
   properties:
     date:
       type: date
+      required: true
       repeat:
         value: 2
         unit: week
@@ -41,6 +42,7 @@ trash:
   properties:
     date:
       type: date
+      required: true
       repeat:
         value: 2
         unit: week

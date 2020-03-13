@@ -5,6 +5,7 @@ cars:
   properties:
     date:
       type: date
+      required: true
       repeat:
         unit: year
         value: 1
@@ -23,14 +24,23 @@ cars:
 Cars schema:
 
 ```yml
-file: cars
-properties:
-  date:
-    type: date
-  car:
-    list: [kangoo, yaris, citroen]
-  tax:
-    list: [assicurazione, bollo, revisione]
+cars:
+  file: cars
+  properties:
+    date:
+      type: date
+      required: true
+      repeat:
+        unit: year
+        value: 1
+        exception:
+          car: yaris
+          tax: assicurazione
+          unit: day
+    car:
+      list: [kangoo, yaris, citroen]
+    tax:
+      list: [assicurazione, bollo, revisione]
 ```
 
 ## Add item

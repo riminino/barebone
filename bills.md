@@ -6,6 +6,9 @@ bills:
     date:
       type: date
       required: true
+      repeat:
+        value: 2
+        unit: month
     name:
       required: true
     amount:
@@ -18,4 +21,4 @@ bills:
 
 {% include forms/add_item.html schema=page.bills %}
 
-{% include time/table.html schema=page.bills %}
+{% include time/future.html schema=page.bills %}

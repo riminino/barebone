@@ -5,6 +5,7 @@ briefings:
   properties:
     date:
       type: date
+      required: true
       time: "12:00"
     reported:
       list: [CC, CCC]
@@ -19,12 +20,15 @@ briefings:
 {% include widgets/collapsed.html open=true summary="Briefings schema" %}
 
 ```yml
-file: briefings
-properties:
-  date:
-    type: date
-  reported:
-    list: [CC, CCC]
+briefings:
+  file: briefings
+  properties:
+    date:
+      type: date
+      required: true
+      time: "12:00"
+    reported:
+      list: [CC, CCC]
 ```
 
 {% include widgets/collapsed.html close=true %}
