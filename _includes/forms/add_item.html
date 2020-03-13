@@ -3,9 +3,10 @@
 {%- else -%}
 {% assign schema = page.schema %}
 {%- endif -%}
-{% assign default_title = schema.file | capitalize %}
-<form data-file="{{ schema.file }}" data-add="true">
-<h3>{{ schema.title | default: default_title }}</h3>
+{%- assign default_title = schema.file -%}
+{%- assign action = include.action | default: "add" -%}
+<form data-file="{{ schema.file }}" data-action="{{ action }}">
+<h3>{{ action | capitalize }} {{ schema.title | default: default_title }}</h3>
 {% for property in schema.properties %}
 {%- assign attributes = property[1] -%}
 {%- assign id = property[0] -%}
