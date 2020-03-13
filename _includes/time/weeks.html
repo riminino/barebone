@@ -6,15 +6,13 @@
 {%- assign day = 60 | times: 60 | times: 24 -%}
 {%- assign week = day | times: 7 -%}
 {%- assign loop = include.weeks | default: 15 | minus: 1 -%}
-<table class="bars">
-  <thead>
+<table class="compact flippable">
+  <tbody>
     <tr>
       <th>Week</th>
       <th>Events</th>
       <th>Bar</th>
     </tr>
-  </thead>
-  <tbody>
 {% for weeks in (0..loop) %}
   {%- assign week_start = forloop.index | times: week -%}
   {%- assign week_start_date = now | minus: week_start | date: "%Y-%m-%d" -%}
@@ -24,10 +22,11 @@
   {%- assign exp = "item.date > '" | append: week_end_date | append: "'" -%}
   {%- assign small = data | where_exp: "item", exp -%}
   {%- assign value = big.size | minus: small.size -%}
+  {%- assign title = "from " | append: week_start_date | append: " to " | append: week_end_date -%}
 <tr>
   <td>{{ forloop.index }}</td>
   <td>{{ value }}</td>
-  <td><meter title="from {{ week_end_date | date_to_string }} to {{ week_start_date | date_to_string }}" value="{{ value }}" min="0" max="7"></meter> </td>
+  <td>{% include widgets/bar.html title=title value=value max=7 %}</td>
 </tr>
 {% endfor %}
   </tbody>

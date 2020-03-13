@@ -1,0 +1,10 @@
+{%- assign min = include.min | default: 0 -%}
+{%- assign max = include.max | default: 100 -%}
+{%- assign length = max | minus: min -%}
+{%- assign percent = include.value | times: 100 | divided_by: length -%}
+<div class="bar horizontal">
+  <div class="full" style="width: {{ percent }}%" title="{{ include.title }}"></div>
+</div>
+<div class="bar vertical">
+  <div class="full" style="height: {{ percent }}%" title="{{ include.title }}"></div>
+</div>

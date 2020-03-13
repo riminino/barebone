@@ -2,12 +2,21 @@
 // Add cell paddings
 table
   margin: 1em 0
+  &.compact
+    td, th
+      font-size: small
+      text-align: center
   td, th
     padding: 0.25em 0.5em
-    vertical-align: top
   th
     background-color: #f8f8f8
-  &.bars
-    td
-      padding: 0 0.5em
-      text-align: right
+
+
+// For big screens
+@media (min-width: $small_screen)
+  table.flippable
+    tr
+      display: block
+      float: left
+      td, th
+        display: block

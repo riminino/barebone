@@ -1,10 +1,16 @@
-<table class="bars">
+<table class="compact flippable">
   <tbody>
+    <tr>
+      <th>Value</th>
+      <th>Events</th>
+      <th>Percent</th>
+      <th>Bar</th>
+    </tr>
 {% for item in include.data %}
     <tr>
       <td>{{ item.name }}</td>
       <td>{{ item.size }}</td>
-      {% if include.max %}<td>{{ item.size | times: 100 | divided_by: include.max }}%</td><td><meter value="{{ item.size }}" min="0" max="{{ include.max }}"></meter></td>{% endif %}
+      {% if include.max %}<td>{{ item.size | times: 100 | divided_by: include.max }}%</td><td>{% include widgets/bar.html value=item.size max=include.max %}</td>{% endif %}
     </tr>
 {% endfor %}
   </tbody>

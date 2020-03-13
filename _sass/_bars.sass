@@ -1,0 +1,27 @@
+.bar
+  background: Gainsboro
+  margin: auto
+  .full
+    background: MediumBlue
+  &.horizontal
+    width: 10em
+    height: 1.4em
+    .full
+      height: 1.4em
+  &.vertical
+    width: 1.4em
+    height: 10em
+    position: relative
+    display: none
+    .full
+      width: 100%
+      position: absolute
+      bottom: 0
+
+// For big screens
+@media (min-width: $small_screen)
+  .bar
+    &.horizontal
+      display: none
+    &.vertical
+      display: block
