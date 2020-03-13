@@ -9,12 +9,12 @@ $("form[data-action='add']").each ->
     if !storage.get "login.token"
       alert "You need to login"
     else
-      commit(YAML.stringify(parseForm(), 8, 2), form)
+      commit(YAML.stringify(parseForm(form), 8, 2), form)
     true
   true
 
 # Parse form
-parseForm = () ->
+parseForm = (form) ->
   data = {}
   form.find(':input:not([type=submit],[type=button],[type=reset],[data-exclude])').each ->
     value = if $(@).attr("type") in ["checkbox", "radio"] then $(@).is(':checked') else $(@).val()
