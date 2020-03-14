@@ -11,17 +11,11 @@ $(".filters select").on "change", () ->
   container.find("[data-date]").each ->
     # Check if row's data-date match the search string
     if $(@).data("date").toString().match string
-      # Display
-      if container.prop("tagName") == "TABLE"
-        display = "table-row"
-      else
-        display = "block"
-      $(@).css "display", display
+      $(@).show()
       # Increment counter
       if $(@).hasClass("data") then count++
     else
-      # Hide row
-      $(@).css "display", "none"
+      $(@).hide()
     true
   container.find(".filters select").each ->
     id = $(@).attr("id")

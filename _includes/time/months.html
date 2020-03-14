@@ -13,7 +13,7 @@
       <th>Events</th>
       <th>Bar</th>
     </tr>
-{% for weeks in (0..loop) %}
+{% for months in (0..loop) %}
   {%- assign month_start = forloop.index | times: month -%}
   {%- assign month_start_date = now | minus: month_start | date: "%Y-%m-%d" -%}
   {%- assign exp = "item.date > '" | append: month_start_date | append: "'" -%}
@@ -22,7 +22,7 @@
   {%- assign exp = "item.date > '" | append: month_end_date | append: "'" -%}
   {%- assign small = data | where_exp: "item", exp -%}
   {%- assign value = big.size | minus: small.size -%}
-  {%- assign title = "from " | append: week_start_date | append: " to " | append: week_end_date -%}
+  {%- assign title = "from " | append: month_start_date | append: " to " | append: month_end_date -%}
 <tr>
   <td>{{ forloop.index }}</td>
   <td>{{ value }}</td>

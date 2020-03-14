@@ -5,6 +5,7 @@
 $small_screen: 40em
 $font_size: {{ site.css.font_size | default: "15px" }}
 $color: {{ site.css.color | default: "Black" }}
+$background: {{ site.css.background | default: "Gainsboro" }}
 
 @import mixins
 @import headings
@@ -21,7 +22,7 @@ $color: {{ site.css.color | default: "Black" }}
 
 html
   overflow-y: scroll
-  background: #c8c8c8
+  background: $background
 
 body
   font-size: $font_size

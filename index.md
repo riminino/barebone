@@ -11,7 +11,7 @@ weight: 1
 ## Schema
 
 - `title` (default to capitalized file)
-- `file`
+- `file` (no extension, assumed `yml`)
 - `properties`
 
 ### Property
