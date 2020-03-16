@@ -1,25 +1,20 @@
 -
   date: '2020-02-22'
   name: ALESSANDRO
-  timestamp:
-    - 1582629407893
+  timestamp: 1582629407893
 -
   date: '2020-02-07'
   name: ELISA
-  timestamp:
-    - 1582629449294
+  timestamp: 1582629449294
 -
   date: '2020-02-21'
   name: VEONICA
-  timestamp:
-    - 1582629459059
+  timestamp: 1582629459059
 -
   date: '2020-02-01'
   name: ALESSANDRO
-  timestamp:
-    - 1582629471913
+  timestamp: 1582629471913
 -
   date: '2020-02-26'
   name: ALICE
-  timestamp:
-    - 1582788388641
+  timestamp: 1582788388641
