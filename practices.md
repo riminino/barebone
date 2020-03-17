@@ -46,15 +46,15 @@ properties:
           background-color: LavenderBlush
 ```
 
-# Add item
+# Manage
 
 Embed input form:
 
 ```liquid
-{% raw %}{% include forms/add_item.html schema=page.practice %}{% endraw %}
+{% raw %}{% include schema/manage.html schema=page.practice %}{% endraw %}
 ```
 
-{% include forms/add_item.html schema=page.practices %}
+{% include schema/manage.html schema=page.practices %}
 
 ## Calendar
 
@@ -65,16 +65,6 @@ Embed a calendar view
 ```
 
 {% include time/calendar.html schema=page.practices collapsed=true filters=true year="2020" property="serie" %}
-
-## Table
-
-Embed event table:
-
-```liquid
-{% raw %}{% include time/table.html schema=page.practices filters=true year="2020" collapsed=true %}{% endraw %}
-```
-
-{% include time/table.html schema=page.practices filters=true year="2020" collapsed=true %}
 
 ## Weeks
 

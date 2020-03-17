@@ -1,0 +1,19 @@
+{%- assign schema = include.schema -%}
+{% if include.collapsed %}{% include widgets/collapsed.html summary="Show table" open=true %}{% endif %}
+{%- assign data = site.data[schema.file] | sort: "date" | reverse -%}
+<table data-file="{{ schema.file }}">
+  {% if include.filters %}<caption>{% include time/filters.html data=data year=include.year month=include.month %}</caption>{% endif %}
+  <thead>
+    <tr>
+      {% for property in schema.properties %}{% unless property[1].type == "hidden" %}<th>{{ property.title | default: property[0] }}</th>{% endunless %}
+      {% endfor %}{% if include.edit %}<th>Edit</th>{% endif %}{% if include.remove %}<th>Remove</th>{% endif %}
+    </tr>
+  </thead>
+  <tbody>
+{% for item in data %}<tr data-date="{{ item.date }}" class="data">
+  {% for property in item %}{% if property[0] != "timestamp" %}<td {% include time/style.html schema=schema property=property %}>{% if property[0] == "date" %}{% assign property_date = property[1] %}{% include widgets/datetime.html datetime=property_date embed=true decimals=1 time=schema.properties.date.time %}{% else %}{{ property[1] }}{% endif %}</td>{% endif %}{% endfor %}{% if include.edit and item.timestamp %}<td><a href="#{{ item.timestamp }}" class="edit">Edit</a></td>{% endif %}{% if include.remove and item.timestamp %}<td><a href="#{{ item.timestamp }}" class="remove">Remove</a></td>{% endif %}
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% if include.collapsed %}{% include widgets/collapsed.html close=true %}{% endif %}

@@ -5,11 +5,10 @@ births:
   properties:
     date:
       type: date
+      required: true
     name: true
 ---
 
 # Briths
 
-{% include forms/add_item.html schema=page.births %}
-
-{% include time/table.html schema=page.births %}
+{% include schema/manage.html schema=page.births %}

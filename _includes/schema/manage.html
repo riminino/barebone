@@ -1,0 +1,13 @@
+{%- if include.schema -%}
+{%- assign schema = include.schema -%}
+{%- if site.data[schema.file] -%}
+{% comment %} -------------------- Data ok -------------------- {% endcomment %}
+{% include schema/form.html schema=schema %}
+{% include schema/table.html schema=schema collapsed=true edit=true filters=true %}
+{% comment %} -------------------- Data not ok -------------------- {% endcomment %}
+{%- else -%}
+<mark>No data found</mark>
+{%- endif -%}
+{%- else -%}
+<mark>No schema supplied</mark>
+{%- endif -%}

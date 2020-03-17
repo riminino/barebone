@@ -71,15 +71,15 @@ trash:
 
 {% include widgets/collapsed.html close=true %}
 
-## Add item
+## Manage
 
-Embed input form:
+Embed form and table:
 
 ```liquid
-{% raw %}{% include forms/add_item.html schema=page.trash %}{% endraw %}
+{% raw %}{% include schema/manage.html schema=page.trash %}{% endraw %}
 ```
 
-{% include forms/add_item.html schema=page.trash %}
+{% include schema/manage.html schema=page.trash %}
 
 ## Future
 

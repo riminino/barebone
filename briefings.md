@@ -33,23 +33,12 @@ briefings:
 
 {% include widgets/collapsed.html close=true %}
 
-## Add item
+## Manage
 
-Embed input form:
-
-```liquid
-{% raw %}{% include forms/add_item.html schema=page.briefings %}{% endraw %}
-```
-
-{% include forms/add_item.html schema=page.briefings %}
-
-## Table
-
-Embed event table:
+Embed form and table:
 
 ```liquid
-{% raw %}{% include time/table.html schema=page.briefings %}{% endraw %}
+{% raw %}{% include schema/manage.html schema=page.briefings %}{% endraw %}
 ```
 
-{% include time/table.html schema=page.briefings %}
-
+{% include schema/manage.html schema=page.briefings %}

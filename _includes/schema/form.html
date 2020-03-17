@@ -1,12 +1,7 @@
-{%- if include.schema -%}
-{% assign schema = include.schema %}
-{%- else -%}
-{% assign schema = page.schema %}
-{%- endif -%}
+{%- assign schema = include.schema -%}
 {%- assign default_title = schema.file -%}
-{%- assign action = include.action | default: "add" -%}
-<form data-file="{{ schema.file }}" data-action="{{ action }}">
-<h3>{{ action | capitalize }} {{ schema.title | default: default_title }}</h3>
+<form data-file="{{ schema.file }}" data-action="add">
+<h3><span class="action">Add</span> {{ schema.title | default: default_title }}</h3>
 {% for property in schema.properties %}
 {%- assign attributes = property[1] -%}
 {%- assign id = property[0] -%}
@@ -15,8 +10,8 @@
 <input type="{{ type }}" id="{{ id }}" value="{{ attributes.value }}">
 {%- else -%}
 <div>
-  {% assign default_title = id | capitalize %}
-  <label for="{{ id }}">{{ attributes.title | default: default_title }}</label>
+  {% assign capitalized_id = id | capitalize %}
+  <label for="{{ id }}">{{ attributes.title | default: capitalized_id }}</label>
   {% if attributes.list %}
   <select id="{{ id }}" type="{{ type }}">
     {% for item in attributes.list %}{% if item.first %}<option value="{{ item.value }}">{{ item.value }}</option>{% else %}<option value="{{ item }}">{{ item }}</option>{% endif %}
@@ -31,5 +26,7 @@
   {% if attributes.description or attributes.unit %}<span>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip }}</span>{% endif %}
 </div>
 {%- endif -%}
-{% endfor %}<button type="submit">Add</button>
+{% endfor %}
+<input type="hidden" id="timestamp" value="">
+<button type="submit">Submit</button> <button type="reset">Cancel</button>
 </form>
