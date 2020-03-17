@@ -12,7 +12,7 @@ $("form[data-action]").each ->
   form.on "reset", (e) ->
     form.find("#timestamp").val ""
     form.find("span.action").text "Add"
-    form.data "action", "add"
+    form.attr("data-action", "add")
     return
   true
 
@@ -23,7 +23,7 @@ $("a.edit").on "click", (e) ->
   file = link.parents("table").data "file"
   form = $("form[data-file='#{file}']")
   form.find(".action").text "Edit"
-  form.data "action", "edit"
+  form.attr("data-action", "edit")
   inputs = form.find ":input"
   content_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/contents/_data/#{file}.yml"
   inputs.prop "disabled", true
@@ -55,9 +55,9 @@ post = (form) ->
     return
   get_sha.done (data, status) ->
     form_data = parseForm form
-    if form.data("action") == "add"
+    if form.attr("data-action") == "add"
       object = atob(data.content) + YAML.stringify(form_data, 8, 2)
-    if form.data("action") == "edit"
+    if form.attr("data-action") == "edit"
       content = YAML.parse(atob(data.content))
       index = content.findIndex((x) => x.timestamp == form_data[0].timestamp)
       content[index] = form_data[0]
