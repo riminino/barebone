@@ -68,7 +68,7 @@ post = (form) ->
       data: JSON.stringify {
         message: "update_file #{file}"
         sha: data.sha
-        content: object
+        content: btoa object
       }
     update_file.fail (request, status, error) -> alert "#{status}: #{error}"
     update_file.done (data, status) ->
