@@ -1,20 +1,16 @@
 -
   date: '2020-01-14'
   waste: Paper
-  timestamp:
-    - 1578773114374
+  timestamp: 1578773114374
 -
   date: '2020-01-16'
   waste: Mixed
-  timestamp:
-    - 1578945684900
+  timestamp: 1578945684900
 -
   date: '2020-01-25'
   waste: Glass
-  timestamp:
-    - 1583688868342
+  timestamp: 1583688868342
 -
   date: '2020-03-18'
   waste: Plastic
-  timestamp:
-    - 1584023447278
+  timestamp: 1584023447278

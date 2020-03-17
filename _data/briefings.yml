@@ -4,25 +4,20 @@
 -
   date: '2020-01-24'
   reported: CC
-  timestamp:
-    - 1579888633343
+  timestamp: 1579888633343
 -
   date: '2020-02-09'
   reported: CC
-  timestamp:
-    - 1581325294013
+  timestamp: 1581325294013
 -
   date: '2020-02-14'
   reported: CC
-  timestamp:
-    - 1582134924253
+  timestamp: 1582134924253
 -
   date: '2020-02-21'
   reported: CCC
-  timestamp:
-    - 1582308158006
+  timestamp: 1582308158006
 -
   date: '2020-02-29'
   reported: CCC
-  timestamp:
-    - 1582996211285
+  timestamp: 1582996211285

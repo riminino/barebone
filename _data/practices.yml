@@ -2182,235 +2182,188 @@
 -
   date: '2020-01-13'
   serie: 2
-  timestamp:
-    - 1578938141049
+  timestamp: 1578938141049
 -
   date: '2020-01-14'
   serie: 1
-  timestamp:
-    - 1579011950633
+  timestamp: 1579011950633
 -
   date: '2020-01-16'
   serie: 1
-  timestamp:
-    - 1579186286902
+  timestamp: 1579186286902
 -
   date: '2020-01-17'
   serie: 2
-  timestamp:
-    - 1579274926525
+  timestamp: 1579274926525
 -
   date: '2020-01-19'
   serie: 1
-  timestamp:
-    - 1579444154972
+  timestamp: 1579444154972
 -
   date: '2020-01-20'
   serie: 2
-  timestamp:
-    - 1579528167555
+  timestamp: 1579528167555
 -
   date: '2020-01-21'
   serie: 2
-  timestamp:
-    - 1579625751626
+  timestamp: 1579625751626
 -
   date: '2020-01-22'
   serie: 1
-  timestamp:
-    - 1579728363061
+  timestamp: 1579728363061
 -
   date: '2020-01-27'
   serie: 1
-  timestamp:
-    - 1580138138731
+  timestamp: 1580138138731
 -
   date: '2020-01-28'
   serie: 1
-  timestamp:
-    - 1580233827912
+  timestamp: 1580233827912
 -
   date: '2020-01-29'
   serie: 1
-  timestamp:
-    - 1580317589861
+  timestamp: 1580317589861
 -
   date: '2020-01-30'
   serie: 1
-  timestamp:
-    - 1580395952733
+  timestamp: 1580395952733
 -
   date: '2020-01-31'
   serie: 1
-  timestamp:
-    - 1580484432983
+  timestamp: 1580484432983
 -
   date: '2020-02-01'
   serie: 1
-  timestamp:
-    - 1580574242377
+  timestamp: 1580574242377
 -
   date: '2020-02-03'
   serie: 2
-  timestamp:
-    - 1580740902337
+  timestamp: 1580740902337
 -
   date: '2020-02-04'
   serie: 2
-  timestamp:
-    - 1580825869520
+  timestamp: 1580825869520
 -
   date: '2020-02-05'
   serie: 2
-  timestamp:
-    - 1580924469627
+  timestamp: 1580924469627
 -
   date: '2020-02-06'
   serie: 1
-  timestamp:
-    - 1581004205300
+  timestamp: 1581004205300
 -
   date: '2020-02-07'
   serie: 2
-  timestamp:
-    - 1581091001609
+  timestamp: 1581091001609
 -
   date: '2020-02-08'
   serie: 2
-  timestamp:
-    - 1581177414615
+  timestamp: 1581177414615
 -
   date: '2020-02-10'
   serie: 2
-  timestamp:
-    - 1581353155844
+  timestamp: 1581353155844
 -
   date: '2020-02-11'
   serie: 1
-  timestamp:
-    - 1581452381199
+  timestamp: 1581452381199
 -
   date: '2020-02-12'
   serie: 1
-  timestamp:
-    - 1581513460924
+  timestamp: 1581513460924
 -
   date: '2020-02-15'
   serie: 1
-  timestamp:
-    - 1581798281219
+  timestamp: 1581798281219
 -
   date: '2020-02-17'
   serie: 1
-  timestamp:
-    - 1581962852460
+  timestamp: 1581962852460
 -
   date: '2020-02-18'
   serie: 1
-  timestamp:
-    - 1582034179140
+  timestamp: 1582034179140
 -
   date: '2020-02-19'
   serie: 2
-  timestamp:
-    - 1582121241800
+  timestamp: 1582121241800
 -
   date: '2020-02-20'
   serie: 2
-  timestamp:
-    - 1582214300193
+  timestamp: 1582214300193
 -
   date: '2020-02-22'
   serie: 2
-  timestamp:
-    - 1582402979253
+  timestamp: 1582402979253
 -
   date: '2020-02-24'
   serie: 2
-  timestamp:
-    - 1582552310656
+  timestamp: 1582552310656
 -
   date: '2020-02-25'
   serie: 1
-  timestamp:
-    - 1582655296054
+  timestamp: 1582655296054
 -
   date: '2020-02-26'
   serie: 1
-  timestamp:
-    - 1582745370955
+  timestamp: 1582745370955
 -
   date: '2020-02-27'
   serie: 1
-  timestamp:
-    - 1582813511667
+  timestamp: 1582813511667
 -
   date: '2020-02-28'
   serie: 1
-  timestamp:
-    - 1582912323719
+  timestamp: 1582912323719
 -
   date: '2020-03-01'
   serie: 1
-  timestamp:
-    - 1583073025896
+  timestamp: 1583073025896
 -
   date: '2020-03-02'
   serie: 1
-  timestamp:
-    - 1583172741652
+  timestamp: 1583172741652
 -
   date: '2020-03-03'
   serie: 1
-  timestamp:
-    - 1583254713850
+  timestamp: 1583254713850
 -
   date: '2020-03-04'
   serie: 1
-  timestamp:
-    - 1583407864059
+  timestamp: 1583407864059
 -
   date: '2020-03-05'
   serie: 1
-  timestamp:
-    - 1583444732716
+  timestamp: 1583444732716
 -
   date: '2020-03-06'
   serie: 1
-  timestamp:
-    - 1583514161917
+  timestamp: 1583514161917
 -
   date: '2020-03-07'
   serie: 2
-  timestamp:
-    - 1583600747863
+  timestamp: 1583600747863
 -
   date: '2020-03-09'
   serie: 1
-  timestamp:
-    - 1583776282629
+  timestamp: 1583776282629
 -
   date: '2020-03-11'
   serie: 1
-  timestamp:
-    - 1583948449298
+  timestamp: 1583948449298
 -
   date: '2020-03-12'
   serie: 1
-  timestamp:
-    - 1584011403193
+  timestamp: 1584011403193
 -
   date: '2020-03-13'
   serie: 1
-  timestamp:
-    - 1584120029838
+  timestamp: 1584120029838
 -
   date: '2020-03-14'
   serie: 1
-  timestamp:
-    - 1584196861869
+  timestamp: 1584196861869
 -
   date: '2020-03-15'
   serie: 1
-  timestamp:
-    - 1584285732998
+  timestamp: 1584285732998
