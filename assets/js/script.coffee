@@ -7,6 +7,7 @@
 {% include scripts/datetime.coffee %}
 {% include scripts/sha.coffee %}
 {% include scripts/filters.coffee %}
+{% include scripts/api.coffee %}
 {% include scripts/manage.coffee %}
 
 
