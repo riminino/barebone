@@ -1,5 +1,6 @@
 {%- if include.schema -%}
-{% assign file = include.schema.file %}
+{%- assign schema = include.schema -%}
+{%- assign file = schema.file -%}
 {%- if site.data[file] -%}
 {% assign summary = "Show " | append: site.data[file].size | append: " entries" %}
 {% if include.collapsed %}{% include widgets/collapsed.html summary=summary open=true %}{% endif %}
@@ -9,10 +10,10 @@
 {%- assign seconds = "" | split: "" | push: 86400 | push: 604800 | push: 2592000 | push: 31536000 -%}
 {%- assign future_dates = "" | split: "" -%}
 {%- assign used_items = "" | split: "" -%}
-{%- assign exception = include.schema.properties.date.repeat.exception -%}
+{%- assign exception = schema.properties.date.repeat.exception -%}
 {% for item in data %}
-  {%- assign repeat_value = include.schema.properties.date.repeat.value -%}
-  {%- assign repeat_unit = include.schema.properties.date.repeat.unit -%}
+  {%- assign repeat_value = schema.properties.date.repeat.value -%}
+  {%- assign repeat_unit = schema.properties.date.repeat.unit -%}
   {%- assign found = 0 -%}
   {%- assign counter = 0 -%}
   {% for cond in exception %}
@@ -49,7 +50,7 @@
   {% if include.filters %}<caption>{% include time/filters.html data=data year=include.year month=include.month %}</caption>{% endif %}
   <thead>
     <tr>
-      {% for property in include.schema.properties %}{% unless property[1].type == "hidden" %}<th>{{ property.title | default: property[0] }}</th>{% endunless %}
+      {% for property in schema.properties %}{% unless property[1].type == "hidden" %}<th>{{ property.title | default: property[0] }}</th>{% endunless %}
       {% endfor %}
     </tr>
   </thead>
@@ -66,16 +67,18 @@
     {%- endunless -%}{%- endif -%}
   {% endfor %}
 <tr data-timestamp="{{ item.timestamp | last }}" data-date="{{ item.date }}" class="data">
-  {% for property in item %}
+  {% for property in schema.properties %}
     {%- if property[0] != "timestamp" -%}
-      <td {% include time/style.html schema=include.schema property=property %}>
+      {%- assign object = nil -%}
+      {% for i in item %}{%- if i[0] == property[0] -%}{%- assign object = i -%}{%- endif -%}{% endfor %}
+      <td {% include time/style.html schema=schema property=object %}>
         {%- if property[0] == "date" -%}
           {%- assign property_date = next_date_iso -%}
           {% if first %}<mark>{% endif %}
-  {% include widgets/datetime.html datetime=property_date embed=true decimals=1 time=include.schema.properties.date.time %}
+  {% include widgets/datetime.html datetime=property_date embed=true decimals=1 time=schema.properties.date.time %}
   {% if first %}</mark>{% endif %}
         {%- else -%}
-          {{ property[1] }}
+          {{ object[1] }}
         {%- endif -%}
       </td>
     {%- endif -%}

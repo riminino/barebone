@@ -11,7 +11,10 @@
   </thead>
   <tbody>
 {% for item in data %}<tr data-date="{{ item.date }}" class="data">
-  {% for property in item %}{% if property[0] != "timestamp" %}<td {% include time/style.html schema=schema property=property %}>{% if property[0] == "date" %}{% assign property_date = property[1] %}{% include widgets/datetime.html datetime=property_date embed=true decimals=1 time=schema.properties.date.time %}{% else %}{{ property[1] }}{% endif %}</td>{% endif %}{% endfor %}{% if item.timestamp %}{% if include.edit %}<td><a href="#{{ item.timestamp }}" class="edit">Edit</a></td>{% endif %}{% if include.remove %}<td><a href="#{{ item.timestamp }}" class="remove">Remove</a></td>{% endif %}{% endif %}
+  {% for property in schema.properties %}{% if property[0] != "timestamp" %}
+  {%- assign object = nil -%}
+  {% for i in item %}{%- if i[0] == property[0] -%}{%- assign object = i -%}{%- endif -%}{% endfor %}<td {% include time/style.html schema=schema property=object %}>{{ object[1] }}</td>{% endif %}{% endfor %}
+  {% if item.timestamp %}{% if include.edit %}<td><a href="#{{ item.timestamp }}" class="edit">Edit</a></td>{% endif %}{% if include.remove %}<td><a href="#{{ item.timestamp }}" class="remove">Remove</a></td>{% endif %}{% endif %}
 </tr>
 {% endfor %}
 </tbody>
