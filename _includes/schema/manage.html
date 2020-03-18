@@ -3,7 +3,7 @@
 {%- if site.data[schema.file] -%}
 {% comment %} -------------------- Data ok -------------------- {% endcomment %}
 {% include schema/form.html schema=schema %}
-{% include schema/table.html schema=schema collapsed=true edit=true filters=true %}
+{% include schema/table.html schema=schema collapsed=true edit=true remove=true filters=true %}
 {% comment %} -------------------- Data not ok -------------------- {% endcomment %}
 {%- else -%}
 <mark>No data found</mark>
