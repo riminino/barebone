@@ -13,7 +13,7 @@ api_get = (f, debug) ->
     get_content.always () -> f.find(":input").prop "disabled", false
   return get_content
 
-api_put = (f, data) ->
+api_put = (f, load) ->
   if !storage.get "login.token" then return alert "You need to login"
   if $.type(f) is "string"
     url = api_url(f)
@@ -23,10 +23,10 @@ api_put = (f, data) ->
   put_content = $.ajax url,
     headers: "Authorization": "token #{storage.get("login.token")}"
     method: "PUT"
-    data: JSON.stringify data
+    data: JSON.stringify load
   put_content.fail (request, status, error) -> alert "#{status}: #{error}"
   put_content.done (data, status) ->
-    alert "#{data.message}: #{status}"
+    alert "#{load.message}: #{status}"
     data["commit"]["commit"] = data["commit"]
     compare data
     if $.type(f) isnt "string" then f.trigger "reset"
