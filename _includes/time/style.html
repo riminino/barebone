@@ -4,6 +4,13 @@
 {%- else -%}
 {%- assign list = include.schema.properties[include.property.first].list | where: "value", include.property[1] -%}
 {%- endif -%}
+{%- assign style = "" -%}
 {%- if list.size == 1 and list.first.style.size -%}
-style="{%- for css in list.first.style -%}{{ css[0] }}: {{ css[1] }};{%- endfor -%}"
+{%- for css in list.first.style -%}{%- assign style = style | append: css[0] | append: ": " | append: css[1] | append: ";" -%}{%- endfor -%}
+{%- endif -%}
+{%- if include.schema.properties[include.property.first].style -%}
+{%- for css in include.schema.properties[include.property.first].style -%}{%- assign style = style | append: css[0] | append: ": " | append: css[1] | append: ";" -%}{%- endfor -%}
+{%- endif -%}
+{%- if style.size > 0 -%}
+style="{{ style }}"
 {%- endif -%}
