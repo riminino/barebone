@@ -30,6 +30,7 @@ api_put = (f, load) ->
     data["commit"]["commit"] = data["commit"]
     compare data
     if $.type(f) isnt "string" then f.trigger "reset"
+    return
   if $.type(f) isnt "string"
     put_content.always () -> f.find(":input").prop "disabled", false
   return put_content
