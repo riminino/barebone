@@ -15,6 +15,11 @@ bills:
       type: number
       unit: euro
       step: 0.01
+      style:
+        text-align: right
+    repeat:
+      type: checkbox
+      value: true
 ---
 
 # Bills

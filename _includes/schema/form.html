@@ -20,8 +20,10 @@
   {% else %}
     {%- assign booleans = "checkbox,radio" | split: "," -%}
     {%- assign types = "text,date,number,color" | split: "," -%}
-    {% if types contains type or booleans contains type %}
+    {% if types contains type %}
       <input type="{{ type }}" id="{{ id }}" value="{{ attributes.value }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}{% if attributes.step %} step="{{ attributes.step }}"{% endif %}>{%- if booleans contains type -%}<input data-exclude="true" style="visibility:hidden;">{%- endif -%}
+    {% elsif booleans contains type %}
+      <input type="{{ type }}" id="{{ id }}"{% if attributes.value %} checked{% endif %}><input data-exclude="true" style="visibility:hidden;">
     {% else %}unknow type
     {% endif %}
   {% endif %}
