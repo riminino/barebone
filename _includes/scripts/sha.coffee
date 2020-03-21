@@ -1,13 +1,13 @@
 {% assign repository = site.github.public_repositories | where: "html_url", site.github.repository_url | first %}
-check_sha = () ->
+if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
   head_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/branches/{{ repository.default_branch }}"
-  $.ajax head_url,
-    method: 'GET'
-    headers:
-      authorization: "token #{storage.get("login.token")}"
-      accept: "application/vnd.github.v3.full+json"
+  get_branch = $.ajax head_url,
+    method: "GET"
+    cache: "false"
+    headers: "Authorization": "token #{storage.get("login.token")}"
     success: compare
-    error: (request, status, error) -> alert "error: #{status} #{error}"
+  get_branch.fail (request, status, error) -> alert "error: #{status} #{error}"
+  get_branch.done
   true
 
 compare = (data) ->
@@ -23,5 +23,3 @@ compare = (data) ->
     }).append(span).append " <i>[#{data.commit.sha.slice(0,7)}]</i>"
     $("#build").append li
   return
-
-if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom" then check_sha()
