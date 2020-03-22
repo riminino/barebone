@@ -3,34 +3,9 @@
 <form data-file="{{ schema.file }}" data-action="add">
 <h3><span class="action">Add</span> {{ schema.title | default: default_title }}</h3>
 {% for property in schema.properties %}
-{%- assign attributes = property[1] -%}
-{%- assign id = property[0] -%}
-{%- assign type = attributes.type | default: "text" -%}
-{%- if type == "hidden" -%}
-<input type="{{ type }}" id="{{ id }}" value="{{ attributes.value }}">
-{%- else -%}
-<div>
-  {% assign capitalized_id = id | capitalize %}
-  <label for="{{ id }}">{{ attributes.title | default: capitalized_id }}</label>
-  {% if attributes.list %}
-  <select id="{{ id }}" type="{{ type }}">
-    {% for item in attributes.list %}{% if item.first %}<option value="{{ item.value }}">{{ item.value }}</option>{% else %}<option value="{{ item }}">{{ item }}</option>{% endif %}
-    {% endfor %}
-  </select>
-  {% else %}
-    {%- assign booleans = "checkbox,radio" | split: "," -%}
-    {%- assign types = "text,date,number,color" | split: "," -%}
-    {% if types contains type %}
-      <input type="{{ type }}" id="{{ id }}" value="{{ attributes.value }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}{% if attributes.step %} step="{{ attributes.step }}"{% endif %}>{%- if booleans contains type -%}<input data-exclude="true" style="visibility:hidden;">{%- endif -%}
-    {% elsif booleans contains type %}
-      <input type="{{ type }}" id="{{ id }}"{% if attributes.value %} checked{% endif %}><input data-exclude="true" style="visibility:hidden;">
-    {% else %}unknow type
-    {% endif %}
-  {% endif %}
-  {% if attributes.description or attributes.unit %}<span>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip }}</span>{% endif %}
-</div>
-{%- endif -%}
+{% assign parent = "" | split: "" %}
+{% include schema/property.html property=property %}
 {% endfor %}
-<input type="hidden" id="timestamp" value="">
+<input type="hidden" id="timestamp" aria-label="timestamp" value="">
 <button type="submit">Submit</button> <button type="reset">Cancel</button>
 </form>

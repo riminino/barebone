@@ -88,7 +88,13 @@ parseForm = (form) ->
   form.find(':input:not(button, [data-exclude])').each ->
     value = if $(@).attr("type") in ["checkbox", "radio"] then $(@).is(':checked') else $(@).val()
     if $(@).attr("type") == "number" then value = Number value
-    if value then data[$(@).attr("id")] = value
+    # if value then data[$(@).attr("id")] = value
+    $(@).attr('id').split('.').reduce (data, i) =>
+      if form.find("[data-add=#{i}]").length
+        return data[i] ?= []
+      else
+        return if i is $(@).attr('aria-label') then data[i] ?= value else data[i] ?= {}
+    , data
     return
   # Add timestamp
   data["timestamp"] = if data["timestamp"]

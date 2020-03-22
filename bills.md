@@ -18,8 +18,13 @@ bills:
       style:
         text-align: right
     repeat:
-      type: checkbox
-      value: true
+      type: schema
+      properties:
+        value:
+          type: number
+          value: 0
+        unit:
+          list: [day,week,month,year]
 ---
 
 # Bills
