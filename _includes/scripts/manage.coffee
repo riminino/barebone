@@ -21,7 +21,10 @@ $("a.edit").on "click", (e) ->
     # Populate form
     item = YAML.parse(atob(data.content)).find((x) => x.timestamp == timestamp)
     form.find(':input:not(button,[data-exclude])').each ->
-      $(@).val item[$(@).attr "id"]
+      id = $(@).attr "id"
+      if $(@).attr("type") in ["checkbox", "radio"]
+        if item[id] then $(@).prop "checked", true else $(@).prop "checked", false
+      else $(@).val item[id]
       return
     return
   true
