@@ -27,3 +27,11 @@
     value: 2
     unit: month
   timestamp: 1584812091102
+-
+  date: '2020-03-27'
+  name: si
+  amount: 17.61
+  repeat:
+    value: 0
+    unit: day
+  timestamp: 1585055478174
