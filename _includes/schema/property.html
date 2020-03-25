@@ -22,11 +22,31 @@
     {%- assign booleans = "checkbox,radio" | split: "," -%}
     {%- assign types = "text,date,number" | split: "," -%}
     {% if types contains type %}
-      <input type="{{ type }}" id="{{ id }}" aria-label="{{ id | split: '.' | shift | default: id }}" value="{{ attributes.value }}" min="{{ attributes.min }}" max="{{ attributes.max }}"{% if attributes.required %} required{% endif %}{% if attributes.step %} step="{{ attributes.step }}"{% endif %}>
+      <input
+        type="{{ type }}"
+        id="{{ id }}"
+        aria-label="{{ id | split: '.' | shift | default: id }}"
+        {% if attributes.value %} value="{{ attributes.value }}"{% endif %}
+        {% if attributes.min %} min="{{ attributes.min }}"{% endif %}
+        {% if attributes.max %} max="{{ attributes.max }}"{% endif %}
+        {% if attributes.required %} required{% endif %}
+        {% if attributes.step %} step="{{ attributes.step }}"{% endif %}>
     {% elsif booleans contains type %}
-      <input type="{{ type }}" id="{{ id }}" aria-label="{{ id | split: '.' | shift | default: id }}"{% if attributes.value %} checked{% endif %}><input data-exclude="true" style="visibility:hidden;" size="0">
+      <input
+        type="{{ type }}"
+        id="{{ id }}"
+        aria-label="{{ id | split: '.' | shift | default: id }}"
+        {% if attributes.required %} required{% endif %}
+        {% if attributes.value %} checked{% endif %}>
+        <input data-exclude="true" style="visibility:hidden;" size="0">
     {% elsif type == "color" %}
-      <input type="{{ type }}" id="{{ id }}" aria-label="{{ id | split: '.' | shift | default: id }}" value="{{ attributes.value }}"{% if attributes.required %} required{% endif %}><input data-exclude="true" style="visibility:hidden;" size="0">
+      <input
+        type="{{ type }}"
+        id="{{ id }}"
+        aria-label="{{ id | split: '.' | shift | default: id }}"
+        {% if attributes.value %} value="{{ attributes.value }}"{% endif %}
+        {% if attributes.required %} required{% endif %}>
+        <input data-exclude="true" style="visibility:hidden;" size="0">
     {% else %}unknow type
     {% endif %}
   {% endif %}

@@ -29,10 +29,12 @@ api_put = (f, load) ->
     alert "#{load.message}: #{status}"
     data["commit"]["commit"] = data["commit"]
     compare data
-    if $.type(f) isnt "string" then f.get(0).reset()
     true
   if $.type(f) isnt "string"
     put_content.always () -> f.find(":input").prop "disabled", false
+    put_content.done (f) ->
+      f.trigger "reset"
+      true
   return put_content
 
 api_url = (file) -> "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/contents/_data/#{file}.yml"
