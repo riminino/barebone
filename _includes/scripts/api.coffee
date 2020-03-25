@@ -34,11 +34,6 @@ api_put = (f, load) ->
     put_content.always () ->
       f.find(":input").prop "disabled", false
       f.trigger "reset"
-    put_content.done (data, status, f) ->
-      console.log f
-      # f.trigger "reset"
-      f[0].reset()
-      true
   return put_content
 
 api_url = (file) -> "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/contents/_data/#{file}.yml"
