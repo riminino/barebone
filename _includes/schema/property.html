@@ -15,7 +15,7 @@
   <label for="{{ id }}">{{ attributes.title | default: capitalized_id }}</label>
   {% if attributes.list %}
   <select id="{{ id }}" aria-label="{{ id | split: '.' | shift | default: id }}" type="{{ type }}">
-    {% for item in attributes.list %}{% if item.first %}<option value="{{ item.value }}">{{ item.value }}</option>{% else %}<option value="{{ item }}">{{ item }}</option>{% endif %}
+    {% for item in attributes.list %}{% if item.first %}<option value="{{ item.value }}"{% if item.value == attributes.value %} selected{% endif %}>{{ item.value }}</option>{% else %}<option value="{{ item }}"{% if item == attributes.value %} selected{% endif %}>{{ item }}</option>{% endif %}
     {% endfor %}
   </select>
   {% else %}
