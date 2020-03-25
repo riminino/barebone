@@ -31,9 +31,13 @@ api_put = (f, load) ->
     compare data
     true
   if $.type(f) isnt "string"
-    put_content.always () -> f.find(":input").prop "disabled", false
-    put_content.done (f) ->
+    put_content.always () ->
+      f.find(":input").prop "disabled", false
       f.trigger "reset"
+    put_content.done (data, status, f) ->
+      console.log f
+      # f.trigger "reset"
+      f[0].reset()
       true
   return put_content
 
