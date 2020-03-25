@@ -6,9 +6,6 @@ bills:
     date:
       type: date
       required: true
-      repeat:
-        value: 2
-        unit: month
     name:
       required: true
     amount:

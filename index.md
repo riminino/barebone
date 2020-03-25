@@ -14,7 +14,7 @@ weight: 1
 - `file` (no extension, assumed `yml`)
 - `properties`
 
-### Property
+### Properties
 
 - `title` (default to capitalized property name)
 - `description`
@@ -25,14 +25,11 @@ weight: 1
   - `color`
   - `date`
     - `time` (string for time offset: `12:00` or `12:00:00`)
-    - `repeat` (recurrent event every value-unit)
-      - `value`
-      - `unit`
-        - exception (custom value-unit recurrence for `condition`)
-          - `condition`
-          - `...`
-          - `value`
-          - `unit`
+  - `schema`
+    - `properties`
+- `repeat` (recurrent event every value-unit)
+  - `value` (0 = no repeat)
+  - `unit`
 - `list` (array of values or objects with `value`)
   - `value`
   - `style` (CSS properties with a value)
