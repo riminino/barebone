@@ -21,3 +21,11 @@
     value: 0
     unit: day
   timestamp: 1585055478174
+-
+  date: '2020-03-24'
+  name: enel
+  amount: 266
+  repeat:
+    value: 2
+    unit: month
+  timestamp: 1585153145493
