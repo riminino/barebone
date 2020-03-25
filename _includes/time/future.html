@@ -78,7 +78,7 @@
   {% include widgets/datetime.html datetime=property_date embed=true decimals=1 time=schema.properties.date.time %}
   {% if first %}</mark>{% endif %}
         {%- else -%}
-          {{ object[1] }}
+          {% if object[1].first %}{% for obj in object[1] %}{{ obj[1] }} {% endfor %}{% else %}{{ object[1] }}{% endif %}
         {%- endif -%}
       </td>
     {%- endif -%}

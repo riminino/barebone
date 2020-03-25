@@ -13,7 +13,7 @@
 {% for item in data %}<tr data-date="{{ item.date }}" class="data">
   {% for property in schema.properties %}{% if property[0] != "timestamp" %}
   {%- assign object = nil -%}
-  {% for i in item %}{%- if i[0] == property[0] -%}{%- assign object = i -%}{%- endif -%}{% endfor %}<td {% include time/style.html schema=schema property=object %}>{{ object[1] }}</td>{% endif %}{% endfor %}
+  {% for i in item %}{%- if i[0] == property[0] -%}{%- assign object = i -%}{%- endif -%}{% endfor %}<td {% include time/style.html schema=schema property=object %} data-obj="{{object[1].first|inspect}}">{% if object[1].first %}{% for obj in object[1] %}{{ obj[1] }} {% endfor %}{% else %}{{ object[1] }}{% endif %}</td>{% endif %}{% endfor %}
   {% if item.timestamp %}{% if include.edit %}<td><a href="#{{ item.timestamp }}" class="edit">Edit</a></td>{% endif %}{% if include.remove %}<td><a href="#{{ item.timestamp }}" class="remove">Remove</a></td>{% endif %}{% endif %}
 </tr>
 {% endfor %}
