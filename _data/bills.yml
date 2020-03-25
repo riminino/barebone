@@ -2,6 +2,9 @@
   date: '2020-02-29'
   name: sky
   amount: 66.8
+  repeat:
+    value: 2
+    unit: month
   timestamp: 1582884954735
 -
   date: '2020-02-29'
