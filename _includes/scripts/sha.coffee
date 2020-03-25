@@ -11,6 +11,7 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
   true
 
 compare = (data) ->
+  console.log data.commit.sha, "{{ site.github.build_revision }}"
   if data.commit.sha != "{{ site.github.build_revision }}"
     span = $("<span/>",{
       datetime: new Date(data.commit.commit.author.date)
@@ -22,4 +23,5 @@ compare = (data) ->
       title: data.commit.commit.message
     }).append(span).append " <i>[#{data.commit.sha.slice(0,7)}]</i>"
     $("#build").append li
+    console.log "appended"
   return
