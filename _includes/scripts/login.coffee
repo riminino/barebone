@@ -21,7 +21,7 @@ login = {
       login.link.prop "disabled", true
       $.ajax "{{ site.github.api_url }}/user",
         method: "GET"
-        headers: {"Authorization": "token #{token}"}
+        headers: "Authorization": "token #{token}"
         success: login.success
         error: login.error
         complete: login.complete
