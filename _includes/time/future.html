@@ -81,16 +81,15 @@
       {%- assign used_items = used_items | push: forloop.index0 -%}
     {%- endunless -%}{%- endif -%}
   {% endfor %}
-<tr data-timestamp="{{ item.timestamp | last }}" data-date="{{ item.date }}" class="data{% if diff_now < 0 %} past{% endif %}">
+<tr data-date="{{ next_date_iso }}" class="data{% if diff_now < 0 %} past{% endif %}">
   {% for property in schema.properties %}
     {%- if property[0] != "timestamp" -%}
       {%- assign object = nil -%}
       {% for i in item %}{%- if i[0] == property[0] -%}{%- assign object = i -%}{%- endif -%}{% endfor %}
       <td {% include time/style.html schema=schema property=object %}>
         {%- if property[0] == "date" -%}
-          {%- assign property_date = next_date_iso -%}
 {% if diff_now == next %}<mark>{% endif %}
-{% include widgets/datetime.html datetime=property_date embed=true decimals=1 time=schema.properties.date.time %}
+{% include widgets/datetime.html datetime=next_date_iso embed=true decimals=1 time=schema.properties.date.time %}
 {% if diff_now == next %}</mark>{% endif %}
         {%- else -%}
           {% if object[1].first %}{% for obj in object[1] %}{{ obj[1] }} {% endfor %}{% else %}{{ object[1] }}{% endif %}

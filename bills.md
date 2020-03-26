@@ -28,4 +28,4 @@ bills:
 
 {% include schema/manage.html schema=page.bills %}
 
-{% include time/future.html schema=page.bills %}
+{% include time/future.html schema=page.bills filters=true %}
