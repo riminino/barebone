@@ -5,8 +5,10 @@ api_get = (f, debug) ->
   else
     url = api_url(f.data "file")
     f.find(":input").prop "disabled", true
-  get_content = $.get url,
+  get_content = $.ajax url,
     headers: "Authorization": "token #{storage.get("login.token")}"
+    method: "GET"
+    cache: false
   if debug
     get_content.fail (request, status, error) -> alert "#{status}: #{error}"
   if $.type(f) isnt "string"
@@ -34,6 +36,7 @@ api_put = (f, load) ->
     put_content.always () ->
       f.find(":input").prop "disabled", false
       f.trigger "reset"
+      true
   return put_content
 
 api_url = (file) -> "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/contents/_data/#{file}.yml"
