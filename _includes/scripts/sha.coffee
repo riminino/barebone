@@ -3,12 +3,16 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
   head_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/branches/{{ repository.default_branch }}"
   get_branch = $.ajax head_url,
     method: "GET"
-    cache: "false"
+    cache: false
     headers: "Authorization": "token #{storage.get("login.token")}"
     success: compare
   get_branch.fail (request, status, error) -> alert "error: #{status} #{error}"
-  get_branch.done
-  true
+  get_branch.done (data) ->
+    built = data.commit.commit.author.date.substr(0,10)
+    now = new Date().toISOString().split('T')[0]
+    console.log built, now
+    if built isnt now then alert "#{built} #{now}"
+    true
 
 compare = (data) ->
   console.log data.commit.sha, "{{ site.github.build_revision }}"
