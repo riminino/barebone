@@ -10,8 +10,12 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
   get_branch.done (data) ->
     built = data.commit.commit.author.date.substr(0,10)
     now = new Date().toISOString().split('T')[0]
-    console.log built, now
-    if built isnt now then alert "#{built} #{now}"
+    if built isnt now and storage.get("repository.updated") isnt now
+      console.log "#{built} #{now} requesting build"
+      build_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/pages/builds"
+      daily_build = $.post build_url
+      daily_build.done () -> storage.set "repository.updated", now
+      daily_build.fail (request, status, error) -> alert "error: #{status} #{error}"
     true
 
 compare = (data) ->
