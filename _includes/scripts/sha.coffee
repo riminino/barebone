@@ -5,9 +5,9 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
     method: "GET"
     cache: false
     headers: "Authorization": "token #{storage.get("login.token")}"
-    success: compare
   get_branch.fail (request, status, error) -> alert "error: #{status} #{error}"
   get_branch.done (data) ->
+    compare data
     built = data.commit.commit.author.date.substr(0,10)
     now = new Date().toISOString().split('T')[0]
     if built isnt now and storage.get("repository.updated") isnt now
