@@ -37,5 +37,5 @@ compare = (data) ->
       text: "Building"
     })
     dateTime span1
-    $("#update").empty().append span
+    $("#update").empty().append span1
   return
