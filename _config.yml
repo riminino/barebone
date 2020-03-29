@@ -6,3 +6,14 @@ plugins:
   - jekyll-titles-from-headings
 
 permalink: pretty
+
+# CSS
+# css:
+#   font:
+#     size: 15px
+#     color: Black
+#   body:
+#     background: Gainsboro
+#   main:
+#     background: White
+#   max_width: 100%

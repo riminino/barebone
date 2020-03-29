@@ -3,9 +3,11 @@
 
 // VARIABLES
 $small_screen: 40em
-$font_size: {{ site.css.font_size | default: "15px" }}
-$color: {{ site.css.color | default: "Black" }}
-$background: {{ site.css.background | default: "Gainsboro" }}
+$font_size: {{ site.css.font.size | default: "15px" }}
+$font_color: {{ site.css.font.color | default: "Black" }}
+$body_background: {{ site.css.body.background | default: "Gainsboro" }}
+$main_background: {{ site.css.main.background | default: "White" }}
+$max_width: {{ site.css.max_width | default: "100%" }}
 
 @import mixins
 @import headings
@@ -22,19 +24,21 @@ $background: {{ site.css.background | default: "Gainsboro" }}
 
 html
   overflow-y: scroll
-  background: $background
+  background: $body_background
 
 body
   font-size: $font_size
-  color: $color
+  color: $font_color
   margin: 0
 
 main
-  background: White
+  background: $main_background
 
 // SCAFFOLDING
 section
   padding: .5em 2em
+  margin: 0 auto
+  max-width: $max_width
 
 // DATETIME
 [datetime]
