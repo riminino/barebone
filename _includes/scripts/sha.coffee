@@ -5,7 +5,7 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
     method: "GET"
     cache: false
     headers: "Authorization": "token #{storage.get("login.token")}"
-  get_branch.fail (request, status, error) -> alert "error: #{status} #{error}"
+  get_branch.fail (request, status, error) -> alert "#{status} #{error}"
   get_branch.done (data) ->
     compare data
     built = data.commit.commit.author.date.substr(0,10)
@@ -16,7 +16,7 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
       daily_build = $.post build_url,
         headers: "Authorization": "token #{storage.get("login.token")}"
       daily_build.done () -> storage.set "repository.updated", now
-      daily_build.fail (request, status, error) -> alert "error: #{status} #{error}"
+      daily_build.fail (request, status, error) -> alert "#{status} #{error}"
     true
 
 compare = (data) ->
