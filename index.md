@@ -28,7 +28,7 @@ weight: 1
     - `repeat` (recurrent event every value-unit)
       - `value`
       - `unit` (day, week, month, year)
-        - exception (custom value-unit recurrence for `condition`)
+        - `exception` (custom value-unit recurrence for `condition`)
           - `condition`
           - `...`
           - `value` (day, week, month, year)
@@ -41,9 +41,12 @@ weight: 1
 - `list` (array of values or objects with `value`)
   - `value`
   - `style` (CSS properties with a value)
-    - css-property
+    - `css-property`
     - ...
 - `value` (default value)
 - `min`
 - `max`
 - `required`
+- `style` (CSS properties with a value)
+  - `css-property`
+  - ...
