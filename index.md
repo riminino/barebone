@@ -25,6 +25,14 @@ weight: 1
   - `color`
   - `date`
     - `time` (string for time offset: `12:00` or `12:00:00`)
+    - `repeat` (recurrent event every value-unit)
+      - `value`
+      - `unit` (day, week, month, year)
+        - exception (custom value-unit recurrence for `condition`)
+          - `condition`
+          - `...`
+          - `value` (day, week, month, year)
+          - `unit`
   - `schema`
     - `properties`
 - `repeat` (recurrent event every value-unit)
