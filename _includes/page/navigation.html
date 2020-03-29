@@ -5,5 +5,6 @@
   </ul>
   <ul>
     <li><a href="#" id="login-button">Login</a></li>
+    <li id="update">{% assign now = "now" | date_to_xmlschema %}{% include widgets/datetime.html datetime=now text="Updated" %}</li>
   </ul>
 </nav>
