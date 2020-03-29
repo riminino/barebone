@@ -28,4 +28,5 @@ compare = (data) ->
     })
     dateTime span
     $("#update").empty().append span
+  $("#update").show()
   return
