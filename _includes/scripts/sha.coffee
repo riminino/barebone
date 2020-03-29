@@ -21,21 +21,11 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
 
 compare = (data) ->
   if data.commit.sha != "{{ site.github.build_revision }}"
+    # Update navigation
     span = $("<span/>",{
-      datetime: new Date(data.commit.commit.author.date)
-      "data-replace": "true"
-    })
-    dateTime span
-    li = $("<li/>",{
-      text: "Repository updated "
-      title: data.commit.commit.message
-    }).append(span).append " <i>[#{data.commit.sha.slice(0,7)}]</i>"
-    $("#build").append li
-    # Navigation
-    span1 = $("<span/>",{
       datetime: new Date(data.commit.commit.author.date)
       text: "Building"
     })
-    dateTime span1
-    $("#update").empty().append span1
+    dateTime span
+    $("#update").empty().append span
   return
