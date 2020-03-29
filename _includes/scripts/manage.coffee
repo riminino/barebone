@@ -40,9 +40,10 @@ $("a.remove").on "click", (e) ->
     get_content.done (data, status) ->
       content = YAML.parse(atob(data.content))
         .filter (item) -> item.timestamp != timestamp
+      message = prompt "Commit message (optional)"
       # Update file
       data =
-        message: "Remove element from #{file}"
+        message: message || "Remove element from #{file}"
         sha: data.sha
         content: btoa YAML.stringify(content, 8, 2)
       update_file = api_put(file, data)
@@ -56,8 +57,9 @@ post = (form) ->
   get_sha.fail (request, status, error) ->
     if error == 'Not Found'
       # File not found: create
+      message = prompt "Commit message (optional)"
       data =
-        message: "Create file #{form.data "file"}"
+        message: message || "Create file #{form.data "file"}"
         content: btoa YAML.stringify(parseForm form, 8, 2)
       create_file = api_put(form, data)
     else alert "#{status}: #{error}"
@@ -73,8 +75,9 @@ post = (form) ->
       content[index] = form_data[0]
       object = YAML.stringify(content, 8, 2)
     # Update file
+    message = prompt "Commit message (optional)"
     data =
-      message: "Update file #{form.data "file"}"
+      message: message || "Update file #{form.data "file"}"
       sha: data.sha
       content: btoa object
     update_file = api_put(form, data)
