@@ -1,0 +1,63 @@
+{%- assign level = level | plus: 1 -%}
+<table class="tree">
+  <tbody>
+    {% if level == 1 %}
+      <tr>
+        <td class="clade-label first">&nbsp;</td>
+        <td class="clade-leaf" rowspan="2">
+          {%- assign properties = include.tree.properties -%}
+          {%- assign title = include.tree.title | default: include.tree.file -%}
+          {% if properties.size %}
+            {% include widgets/tree.html tree=include.tree title=title level=include.level %}
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td class="clade-slabel last">&nbsp;</td>
+      </tr>
+    {% else %}
+      {%- if include.properties -%}
+        {% for p in include.properties %}
+          {% if p[1].properties %}
+          <tr>
+            <td class="clade-label{% if forloop.first %} first{% endif %}">{{ p[1].title | default: p[0] | markdownify | remove: "<p>" | remove: "</p>" }}</td>
+            <td class="clade-leaf" rowspan="2">
+              {%- assign properties = p[1].properties -%}
+              {% if properties.size %}
+                {% include widgets/tree.html properties=properties level=include.level %}
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td class="clade-slabel{% if forloop.last %} last{% endif %}">&nbsp;</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td class="clade-label{% if forloop.first %} first{% endif %}">&nbsp;</td>
+            <td class="clade-leaf" rowspan="2">
+              <p>{{ p[1].title | default: p[0] | markdownify }}</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="clade-slabel{% if forloop.last %} last{% endif %}">&nbsp;</td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+      {%- else -%}
+      <tr>
+        <td class="clade-label first">{% if include.title %}{{ include.title }}{% else %}&nbsp;{% endif %}</td>
+        <td class="clade-leaf" rowspan="2">
+          {%- assign properties = include.tree.properties -%}
+          {% if properties.size %}
+            {% include widgets/tree.html properties=properties level=include.level %}
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td class="clade-slabel last">&nbsp;</td>
+      </tr>
+      {%- endif -%}
+    {% endif %}
+  </tbody>
+</table>
+{%- assign level = level | minus: 1 -%}
