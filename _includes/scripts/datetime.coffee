@@ -3,8 +3,8 @@ dateTime = (e) ->
   hour = minute * 60
   day = hour * 24
   week = day * 7
-  month = day * 30
-  year = month * 12
+  month = day * 30.42
+  year = week * 52.14
   decimals = $(e).data("decimals") || 0
   diff = new Date().getTime() - (new Date(Date.parse $(e).attr "datetime").getTime()) #+ (12 * hour)) Consider noon instead of midnight
   absolute = Math.abs diff
@@ -15,16 +15,13 @@ dateTime = (e) ->
     moment = "#{(absolute / hour).toFixed decimals} hours"
   else if absolute < week
     moment = "#{(absolute / day).toFixed decimals} days"
-  else if absolute < month
+  else if absolute < 4 * week
     moment = "#{(absolute / week).toFixed decimals} weeks"
   else if absolute < year
     moment = "#{(absolute / month).toFixed decimals} months"
   else moment = "#{(absolute / year).toFixed decimals} years"
   # Past or Future
-  if diff > 0
-    out = "#{moment} ago"
-  else
-    out = "in #{moment}"
+  out = if diff > 0 then "#{moment} ago" else "in #{moment}"
   # Embed or add title attribute
   if $(e).data "embed"
     $(e).text "#{$(e).attr("datetime").slice 0, 10} (#{out})"
