@@ -7,13 +7,31 @@ plugins:
 
 permalink: pretty
 
+# COLLECTIONS
+collections:
+  time:
+    output: true
+    title: Time
+defaults:
+  - scope:
+      type: time
+    values:
+      layout: default
+      weight: 1
+
 # CSS
 # css:
 #   font:
 #     size: 15px
 #     color: Black
-#   body:
+#   link:
+#     color: MediumBlue
+#   html:
 #     background: Gainsboro
 #   main:
 #     background: White
-#   max_width: 100%
+#   width: 100%
+#   navigation:
+#     background: Gainsboro
+#     hover:
+#       background: Whitesmoke
