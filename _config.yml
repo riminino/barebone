@@ -35,3 +35,4 @@ defaults:
 #     background: Gainsboro
 #     hover:
 #       background: Whitesmoke
+#   syntax: github.css
