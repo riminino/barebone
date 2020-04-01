@@ -5,9 +5,12 @@
 $small_screen: 40em
 $font_size: {{ site.css.font.size | default: "15px" }}
 $font_color: {{ site.css.font.color | default: "Black" }}
-$body_background: {{ site.css.body.background | default: "Gainsboro" }}
+$link_color: {{ site.css.link.color | default: "MediumBlue" }}
+$html_background: {{ site.css.html.background | default: "Gainsboro" }}
 $main_background: {{ site.css.main.background | default: "White" }}
-$max_width: {{ site.css.max_width | default: "100%" }}
+$width: {{ site.css.max_width | default: "100%" }}
+$navigation_background: {{ site.css.navigation.background | default: "Gainsboro" }}
+$navigation_hover_background: {{ site.css.navigation.hover.background | default: "Gainsboro" }}
 
 @import mixins
 @import headings
@@ -25,7 +28,7 @@ $max_width: {{ site.css.max_width | default: "100%" }}
 
 html
   overflow-y: scroll
-  background: $body_background
+  background: $html_background
 
 body
   font-size: $font_size
@@ -39,7 +42,7 @@ main
 section
   padding: .5em 2em
   margin: 0 auto
-  max-width: $max_width
+  max-width: $width
 
 // DATETIME
 [datetime]

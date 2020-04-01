@@ -1,26 +1,59 @@
 nav
   @extend .row
-  max-width: $max_width
-  padding: .8em
+  max-width: $width
+  padding: 0 0.4em
+  background: $navigation_background
   ul
     @extend .col
     padding: 0
     margin: 0
     list-style: none
     font-size: small
+    li
+      // Padding
+      & span, & > a
+        padding: 0.9em 0.6em
+        display: block
+      // Hover background
+      & > a:hover, & .dropdown-menu a:hover
+        background-color: $navigation_hover_background
+      // Dropdown
+      .dropdown-menu
+        z-index: 1
+        display: block
+        a
+          display: block
+          padding: 0.5em 0.6em
+          background-color: $html_background
+      &.dropdown
+        & span
+          color: $link_color
+          cursor: default
+          &.active
+            color: inherit
+        &:hover .dropdown-menu
+          display: block
 
 // BIG SCREEN
 @media (min-width: $small_screen)
   nav ul
     flex-basis: auto
+    // Left and right lists
     &:first-child li
       float: left
-      margin-right: 1em
     &:last-child li
       float: right
-      margin-left: 1em
+    // Dropdown
+    li .dropdown-menu
+      display: none
+      position: absolute
 
 // SMALL SCREEN
 @media (max-width: $small_screen)
-  nav ul li
-    padding-bottom: 0.5em
+  nav
+    padding: 0.4em
+    ul li
+      .dropdown-menu a
+        padding-left: 2em
+      & > a
+        padding: 0.5em 0.6em
