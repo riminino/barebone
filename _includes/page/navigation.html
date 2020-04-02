@@ -6,7 +6,7 @@
     {%- for collection in sorted_collections -%}{%- if collection.docs.size > 0 -%}
     <li class="dropdown">
       <span{% if page.collection == collection.label %} class="active"{% endif %}>
-        {{ collection.title | default: collection.label }}
+        {{ collection.title | default: collection.label }} &#x25BE;
       </span>
       <div class="dropdown-menu">
         {%- assign collection_pages = collection.docs | sort: "weight" -%}
