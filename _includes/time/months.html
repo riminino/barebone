@@ -1,7 +1,10 @@
 {%- if include.schema -%}
 {% assign file = include.schema.file %}
-{%- if site.data[file] -%}
-{% assign data = site.data[file] | sort: "date" %}
+{%- assign path = file | split: "/" -%}
+{%- assign data = site.data -%}
+{% for depth in path %}{%- assign data = data[depth] -%}{% endfor %}
+{%- if data -%}
+{% assign data = data | sort: "date" %}
 {%- assign now = "now" | date: "%s" -%}
 {%- assign day = 60 | times: 60 | times: 24 -%}
 {%- assign month = day | times: 28 -%}

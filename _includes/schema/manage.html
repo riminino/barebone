@@ -1,6 +1,9 @@
 {%- if include.schema -%}
 {%- assign schema = include.schema -%}
-{%- if site.data[schema.file] -%}
+{%- assign path = schema.file | split: "/" -%}
+{%- assign data = site.data -%}
+{% for depth in path %}{%- assign data = data[depth] -%}{% endfor %}
+{%- if data -%}
 {% comment %} -------------------- Data ok -------------------- {% endcomment %}
 {% include schema/form.html schema=schema %}
 {% include schema/table.html schema=schema collapsed=true edit=true remove=true filters=true %}
