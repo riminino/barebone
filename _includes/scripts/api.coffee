@@ -29,8 +29,7 @@ api_put = (f, load) ->
   put_content.fail (request, status, error) -> alert "#{status}: #{error}"
   put_content.done (data, status) ->
     alert "#{load.message}: #{status}"
-    data["commit"]["commit"] = data["commit"]
-    compare data
+    compare data.commit.sha, data.commit.author.date
     true
   if $.type(f) isnt "string"
     put_content.always () ->

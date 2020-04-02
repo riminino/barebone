@@ -7,24 +7,31 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
     headers: "Authorization": "token #{storage.get("login.token")}"
   get_branch.fail (request, status, error) -> alert "#{status} #{error}"
   get_branch.done (data) ->
-    compare data
+    sha = data.commit.sha
     built = data.commit.commit.author.date.substr(0,10)
-    now = new Date().toISOString().split('T')[0]
-    if built isnt now and storage.get("repository.updated") isnt now
-      console.log "#{built} #{now} requesting build"
-      build_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/pages/builds"
-      daily_build = $.ajax build_url,
-        method: "POST"
-        headers: "Authorization": "token #{storage.get("login.token")}"
-      daily_build.done () -> storage.set "repository.updated", now
-      daily_build.fail (request, status, error) -> alert "#{status} #{error}"
+    now = new Date().toISOString()
+    if build is now.split('T')[0]
+      compare sha, data.commit.commit.author.date
+    else
+      updated = storage.get("repository.updated")
+      if updated.split('T')[0] isnt now.split('T')[0]
+        updated = now
+        storage.set "repository.updated", updated
+        build_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/pages/builds"
+        daily_build = $.ajax build_url,
+          method: "POST"
+          headers: "Authorization": "token #{storage.get("login.token")}"
+        daily_build.done () -> compare sha, updated
+        daily_build.fail (request, status, error) -> alert "#{status} #{error}"
+      compare 0, updated
     true
 
-compare = (data) ->
-  if data.commit.sha != "{{ site.github.build_revision }}"
+compare = (sha, date) ->
+  console.log sha, date
+  if sha != "{{ site.github.build_revision }}"
     # Update navigation
     span = $("<span/>",{
-      datetime: new Date(data.commit.commit.author.date)
+      datetime: new Date(date)
       text: "Building"
     })
     dateTime span
