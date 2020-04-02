@@ -1,7 +1,7 @@
 ---
 weight: 4
 briefings:
-  file: briefings
+  file: time/briefings
   properties:
     date:
       type: date

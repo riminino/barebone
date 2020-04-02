@@ -1,7 +1,7 @@
 ---
 weight: 3
 cars:
-  file: cars
+  file: time/cars
   properties:
     date:
       type: date

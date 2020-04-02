@@ -1,7 +1,7 @@
 ---
 weight: 7
 bills:
-  file: bills
+  file: time/bills
   properties:
     date:
       type: date

@@ -1,7 +1,7 @@
 ---
 weight: 2
 practices:
-  file: practices
+  file: time/practices
   properties:
     date:
       type: date

@@ -1,7 +1,7 @@
 ---
 weight: 6
 births:
-  file: births
+  file: time/births
   properties:
     date:
       type: date
