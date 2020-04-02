@@ -4,7 +4,7 @@
 {%- assign data = site.data -%}
 {% for depth in path %}{%- assign data = data[depth] -%}{% endfor %}
 {%- if data -%}
-{% assign summary = "Show " | append: site.data[file].size | append: " entries" %}
+{% assign summary = "Show " | append: data.size | append: " entries" %}
 {% if include.collapsed %}{% include widgets/collapsed.html summary=summary open=true %}{% endif %}
 {%- assign data = data | sort: "date" | reverse -%}
 {%- assign years = data | group_by_exp: "item", "item.date | truncate: 4, ''" -%}
