@@ -12,6 +12,7 @@ login = {
         .attr "title", "Logged as #{storage.get('login.user')}"
     else
       login.link.on "click", login.serve
+    login.link.show()
     true
   serve: (e) ->
     e.preventDefault()
