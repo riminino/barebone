@@ -8,7 +8,7 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
   get_branch.fail (request, status, error) -> alert "#{status} #{error}"
   get_branch.done (data) ->
     sha = data.commit.sha
-    built = data.commit.commit.author.date.substr(0,10)
+    build = data.commit.commit.author.date.substr(0,10)
     now = new Date().toISOString()
     if build is now.split('T')[0]
       compare sha, data.commit.commit.author.date
