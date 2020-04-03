@@ -16,6 +16,7 @@ $("a.edit").on "click", (e) ->
   form = $("form[data-file='#{link.parents("table").data "file"}']")
   form.find("span.action").text "Edit"
   form.attr("data-action", "edit")
+  $("html, body").scrollTop form.offset().top
   get_content = api_get(form, true)
   get_content.done (data, status) ->
     # Populate form
