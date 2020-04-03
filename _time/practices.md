@@ -61,7 +61,7 @@ Embed input form:
 Embed a calendar view
 
 ```liquid
-{% raw %}{% include time/calendar.html schema=page.practices collapsed=true filters=true year="2020" %}{% endraw %}
+{% raw %}{% include time/calendar.html schema=page.practices collapsed=true filters=true year="2020" property="serie" %}{% endraw %}
 ```
 
 {% include time/calendar.html schema=page.practices collapsed=true filters=true year="2020" property="serie" %}

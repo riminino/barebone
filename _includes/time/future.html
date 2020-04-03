@@ -65,7 +65,7 @@
 {%- assign first = future_dates_sorted.first | minus: now -%}
 {%- if first < 0 -%}{%- assign future_dates_sorted = future_dates_sorted | reverse -%}{%- endif -%}
 <table>
-  {% if include.filters %}<caption>{% include time/filters.html data=data year=include.year month=include.month %}</caption>{% endif %}
+  {% if include.filter %}<caption>{% include time/filters.html data=data year=include.year month=include.month filter=include.filter %}</caption>{% endif %}
   <thead>
     <tr>
       {% for property in schema.properties %}{% unless property[1].type == "hidden" %}<th>{{ property.title | default: property[0] }}</th>{% endunless %}
@@ -89,7 +89,7 @@
     {%- if property[0] != "timestamp" -%}
       {%- assign object = nil -%}
       {% for i in item %}{%- if i[0] == property[0] -%}{%- assign object = i -%}{%- endif -%}{% endfor %}
-      <td {% include time/style.html schema=schema property=object %}>
+      <td data-property="{{ property[0] }}" {% include time/style.html schema=schema property=object %}>
         {%- if property[0] == "date" -%}
 {% if diff_now == next %}<mark>{% endif %}
 {% include widgets/datetime.html datetime=next_date_iso embed=true decimals=1 time=schema.properties.date.time %}

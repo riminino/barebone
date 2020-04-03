@@ -26,8 +26,12 @@ bills:
 
 # Bills
 
+```liquid
+{% raw %}{% include schema/manage.html schema=page.bills %}{% endraw %}
+```
+
 {% include schema/manage.html schema=page.bills %}
 
-{% include time/future.html schema=page.bills filters=true %}
+{% include time/future.html schema=page.bills filter="name" %}
 
 {% include widgets/tree.html tree=page.bills %}

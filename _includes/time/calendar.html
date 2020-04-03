@@ -11,7 +11,7 @@
 {%- assign day_seconds = 60 | times: 60 | times: 24 -%}
 {%- assign now = "now" | date: "%s" -%}
 <div class="calendar">
-{% if include.filters %}<div>{% include time/filters.html data=data year=include.year month=include.month %}</div>{% endif %}
+{% if include.filters %}<div>{% include time/filters.html data=data year=include.year month=include.month filter="date" %}</div>{% endif %}
 {% for year in years %}
 <div class="year" data-year="{{ year.name }}"><span class="label">{{ year.name }} ({{ year.size }})</span>
 {%- assign months = year.items | group_by_exp: "item", "item.date | slice: 5, 2" -%}
@@ -27,7 +27,7 @@
 {%- assign exp = "item.date == '" | append: date | append: "'" -%}
 {%- assign found = month.items | where_exp: "item", exp -%}
 {%- assign meta_property = "" | split: "" | push: include.property | push: found.first[include.property] -%}
-<div class="day{% if found.size > 0 %} data{% endif %}" data-date="{{ date }}" {% include time/style.html schema=include.schema property=meta_property %}><span class="{{ date | date: '%a' | downcase }}">{{ date | date: "%e"}}</span>{% if found.size > 0 %}<span>{{ found.first[include.property] }}</span>{% endif %}
+<div class="day{% if found.size > 0 %} data{% endif %}" data-date="{{ date }}" {% include time/style.html schema=include.schema property=meta_property %}><span class="{{ date | date: '%a' | downcase }}">{{ date | date: "%e"}}</span><span>{{ found | map: include.property | join: "<br>" | default: "&nbsp;" }}</span>
 </div>
 {% endif %}
 {% endfor %}

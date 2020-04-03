@@ -1,14 +1,27 @@
-{%- assign years = data | group_by_exp: "item", "item.date | truncate: 4, ''" -%}
 <div class="filters">
-  <select id="year">
-    <option value="">Years</option>
-    {% for year in years %}<option value="{{ year.name }}"{% if include.year == year.name %} selected{% endif %}>{{ year.name }}</option>
-    {% endfor %}
-  </select>
-  <select id="month">
-    <option value="">Months</option>
-    {% for month in (1..12) %}{% assign full_month = month | prepend: 0 | slice: -2, 2 %}<option value="-{{ full_month }}-"{% if include.month == full_month %} selected{% endif %}>{{ full_month }}</option>
-    {% endfor %}
-  </select>
+  {%- assign filters = include.filter | split: "," -%}
+  {%- unless filters.size > 0 -%}{%- assign filters = filters | push: "date" -%}{%- endunless -%}
+  {% for f in filters %}
+    {% if f == "date" %}
+      {%- assign years = data | group_by_exp: "item", "item.date | truncate: 4, ''" -%}
+      <select id="year">
+        <option value="">Years</option>
+        {% for year in years %}<option value="{{ year.name }}"{% if include.year == year.name %} selected{% endif %}>{{ year.name }}</option>
+        {% endfor %}
+      </select>
+      <select id="month">
+        <option value="">Months</option>
+        {% for month in (1..12) %}{% assign full_month = month | prepend: 0 | slice: -2, 2 %}<option value="-{{ full_month }}-"{% if include.month == full_month %} selected{% endif %}>{{ full_month }}</option>
+        {% endfor %}
+      </select>
+    {% else %}
+      {%- assign reduced = data | group_by: f -%}
+      <select id="{{ f }}">
+        <option value="">{{ f | capitalize }}</option>
+        {% for d in reduced %}<option value="{{ d.name }}">{{ d.name }}</option>
+        {% endfor %}
+      </select>
+    {% endif %}
+  {% endfor %}
   <span class="size">{{ data.size }}</span> items
 </div>
