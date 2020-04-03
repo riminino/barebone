@@ -1,11 +1,11 @@
 {%- assign schema = include.schema -%}
-{% if include.collapsed %}{% include widgets/collapsed.html summary="Show table" open=true %}{% endif %}
+{% if include.collapsed %}{% include widgets/collapsed.html summary="Show table" %}{% endif %}
 {%- assign path = schema.file | split: "/" -%}
 {%- assign data = site.data -%}
 {% for depth in path %}{%- assign data = data[depth] -%}{% endfor %}
 {%- assign data = data | sort: "date" | reverse -%}
 <table data-file="{{ schema.file }}">
-  {% if include.filters %}<caption>{% include time/filters.html data=data year=include.year month=include.month %}</caption>{% endif %}
+  {% if include.filter %}<caption>{% include time/filters.html data=data year=include.year month=include.month filter=include.filter %}</caption>{% endif %}
   <thead>
     <tr>
       {% for property in schema.properties %}{% unless property[1].type == "hidden" %}<th>{{ property.title | default: property[0] }}</th>{% endunless %}
@@ -22,4 +22,4 @@
 {% endfor %}
 </tbody>
 </table>
-{% if include.collapsed %}{% include widgets/collapsed.html close=true %}{% endif %}
+{% if include.collapsed %}{% include widgets/collapsed.html %}{% endif %}
