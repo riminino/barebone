@@ -51,10 +51,10 @@ properties:
 Embed input form:
 
 ```liquid
-{% raw %}{% include schema/manage.html schema=page.practice %}{% endraw %}
+{% raw %}{% include schema/manage.html schema=page.practice collapsed="true" filter="date" year="2020" %}{% endraw %}
 ```
 
-{% include schema/manage.html schema=page.practices %}
+{% include schema/manage.html schema=page.practices collapsed=true filter="date" year="2020" %}
 
 ## Calendar
 

@@ -34,7 +34,7 @@ trash:
 
 # Trash
 
-{% include widgets/collapsed.html open=true summary="Trash schema" %}
+{% include widgets/collapsed.html summary="Trash schema" %}
 
 ```yml
 trash:
@@ -69,24 +69,14 @@ trash:
             color: White
 ```
 
-{% include widgets/collapsed.html close=true %}
+{% include widgets/collapsed.html %}
 
 ## Manage
 
 Embed form and table:
 
 ```liquid
-{% raw %}{% include schema/manage.html schema=page.trash %}{% endraw %}
+{% raw %}{% include schema/manage.html schema=page.trash table="future" %}{% endraw %}
 ```
 
-{% include schema/manage.html schema=page.trash %}
-
-## Future
-
-Embed future event table:
-
-```liquid
-{% raw %}{% include time/future.html schema=page.trash %}{% endraw %}
-```
-
-{% include time/future.html schema=page.trash %}
+{% include schema/manage.html schema=page.trash table="future" %}

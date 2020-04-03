@@ -22,7 +22,7 @@ cars:
 
 # Cars
 
-{% include widgets/collapsed.html open=true summary="Cars schema" %}
+{% include widgets/collapsed.html summary="Cars schema" %}
 
 ```yml
 cars:
@@ -45,17 +45,17 @@ cars:
       list: [assicurazione, bollo, revisione]
 ```
 
-{% include widgets/collapsed.html close=true%}
+{% include widgets/collapsed.html %}
 
 ## Manage
 
 Embed form and table:
 
 ```liquid
-{% raw %}{% include schema/manage.html schema=page.cars %}{% endraw %}
+{% raw %}{% include schema/manage.html schema=page.cars collapsed=true %}{% endraw %}
 ```
 
-{% include schema/manage.html schema=page.cars %}
+{% include schema/manage.html schema=page.cars collapsed=true %}
 
 ## Future
 

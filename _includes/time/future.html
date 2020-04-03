@@ -5,8 +5,8 @@
 {%- assign data = site.data -%}
 {% for depth in path %}{%- assign data = data[depth] -%}{% endfor %}
 {%- if data -%}
-{% assign summary = "Show " | append: data.size | append: " entries" %}
-{% if include.collapsed %}{% include widgets/collapsed.html summary=summary open=true %}{% endif %}
+{% assign summary = "Show future table" %}
+{% if include.collapsed %}{% include widgets/collapsed.html summary=summary %}{% endif %}
 {% assign data = data | sort: "date" %}
 {%- assign now = "now" | date: "%s" -%}
 {%- assign unit = "day,week,month,year" | split: "," -%}
@@ -64,12 +64,12 @@
 {%- assign future_dates_sorted = future_dates | sort -%}
 {%- assign first = future_dates_sorted.first | minus: now -%}
 {%- if first < 0 -%}{%- assign future_dates_sorted = future_dates_sorted | reverse -%}{%- endif -%}
-<table>
+<table data-file="{{ schema.file }}">
   {% if include.filter %}<caption>{% include time/filters.html data=data year=include.year month=include.month filter=include.filter %}</caption>{% endif %}
   <thead>
     <tr>
       {% for property in schema.properties %}{% unless property[1].type == "hidden" %}<th>{{ property.title | default: property[0] }}</th>{% endunless %}
-      {% endfor %}
+      {% endfor %}{% if include.edit %}<th>Edit</th>{% endif %}{% if include.remove %}<th>Remove</th>{% endif %}
     </tr>
   </thead>
   <tbody>
@@ -100,11 +100,12 @@
       </td>
     {%- endif -%}
   {% endfor %}
+  {% if item.timestamp %}{% if include.edit %}<td><a href="#{{ item.timestamp }}" class="edit">Edit</a></td>{% endif %}{% if include.remove %}<td><a href="#{{ item.timestamp }}" class="remove">Remove</a></td>{% endif %}{% endif %}
 </tr>
 {% endfor %}
 </tbody>
 </table>
-{% if include.collapsed %}{% include widgets/collapsed.html close=true %}{% endif %}
+{% if include.collapsed %}{% include widgets/collapsed.html %}{% endif %}
 {%- else -%}
 <mark>No data found</mark>
 {%- endif -%}

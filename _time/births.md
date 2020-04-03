@@ -14,6 +14,4 @@ births:
 
 # Briths
 
-{% include schema/manage.html schema=page.births %}
-
-{% include time/future.html schema=page.births %}
+{% include schema/manage.html schema=page.births table="future" %}

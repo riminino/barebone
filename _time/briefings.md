@@ -17,7 +17,7 @@ briefings:
 - A meeting at which such information is presented.
 - The information conveyed at such a meeting.
 
-{% include widgets/collapsed.html open=true summary="Briefings schema" %}
+{% include widgets/collapsed.html summary="Briefings schema" %}
 
 ```yml
 briefings:
@@ -31,14 +31,16 @@ briefings:
       list: [CC, CCC]
 ```
 
-{% include widgets/collapsed.html close=true %}
+{% include widgets/collapsed.html %}
 
 ## Manage
 
 Embed form and table:
 
 ```liquid
-{% raw %}{% include schema/manage.html schema=page.briefings %}{% endraw %}
+{% raw %}{% include schema/manage.html schema=page.briefings collapsed=true %}{% endraw %}
 ```
 
-{% include schema/manage.html schema=page.briefings %}
+{% include schema/manage.html schema=page.briefings collapsed=true %}
+
+{% include time/table.html schema=page.briefings filter="date" %}

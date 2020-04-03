@@ -11,7 +11,7 @@
 {%- assign parent = parent | shift -%}
 {%- else -%}
 <div>
-  {% assign capitalized_id = id | capitalize %}
+  {%- assign capitalized_id = id | capitalize -%}
   <label for="{{ id }}">{{ attributes.title | default: capitalized_id }}</label>
   {% if attributes.list %}
   <select id="{{ id }}" aria-label="{{ id | split: '.' | shift | default: id }}" type="{{ type }}">
@@ -21,7 +21,7 @@
   {% else %}
     {%- assign booleans = "checkbox,radio" | split: "," -%}
     {%- assign types = "text,date,number" | split: "," -%}
-    {% if types contains type %}
+    {%- if types contains type -%}
       <input
         type="{{ type }}"
         id="{{ id }}"
@@ -31,7 +31,7 @@
         {% if attributes.max %} max="{{ attributes.max }}"{% endif %}
         {% if attributes.required %} required{% endif %}
         {% if attributes.step %} step="{{ attributes.step }}"{% endif %}>
-    {% elsif booleans contains type %}
+    {%- elsif booleans contains type -%}
       <input
         type="{{ type }}"
         id="{{ id }}"
@@ -39,7 +39,7 @@
         {% if attributes.required %} required{% endif %}
         {% if attributes.value %} checked{% endif %}>
         <input data-exclude="true" style="visibility:hidden;" size="0">
-    {% elsif type == "color" %}
+    {%- elsif type == "color" -%}
       <input
         type="{{ type }}"
         id="{{ id }}"
@@ -47,8 +47,8 @@
         {% if attributes.value %} value="{{ attributes.value }}"{% endif %}
         {% if attributes.required %} required{% endif %}>
         <input data-exclude="true" style="visibility:hidden;" size="0">
-    {% else %}unknow type
-    {% endif %}
+    {%- else -%}unknow type
+    {%- endif -%}
   {% endif %}
   {% if attributes.description or attributes.unit %}<span>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip }}</span>{% endif %}
 </div>
