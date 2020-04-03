@@ -36,5 +36,5 @@ compare = (sha, date) ->
     })
     dateTime span
     $("#update").empty().append span
-  $("#update").css "visibility", "visible"
+  $("#update").show()
   return
