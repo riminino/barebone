@@ -1,4 +1,7 @@
-{% if include.open %}<details markdown="1"><summary markdown="span">{{ include.summary | default: "Details"}}</summary>{% endif %}{% if include.close %}</details>{% endif %}
+{%- assign collapse_level = collapse_level | default: 0 -%}
+{%- assign modulo = collapse_level | modulo: 2 -%}
+{% if include.open or modulo == 0 %}<details markdown="1"><summary markdown="span">{{ include.summary | default: "Details" }}</summary>{% endif %}{% if include.close or modulo == 1 %}</details>{% endif %}
+{%- assign collapse_level = collapse_level | plus: 1 -%}
 {%- capture api -%}Render a `details` element, used both to open or close the tag.
 include.summary|string|String for the `summary` element|`Details`
 include.open|boolean|Flag to open the HTML tags|nil

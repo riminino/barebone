@@ -16,16 +16,18 @@ $("a.edit").on "click", (e) ->
   form = $("form[data-file='#{link.parents("table").data "file"}']")
   form.find("span.action").text "Edit"
   form.attr("data-action", "edit")
-  $("html, body").scrollTop form.offset().top
+  if $(window).scrollTop() > form.offset().top
+    $("html, body").scrollTop form.offset().top
   get_content = api_get(form, true)
   get_content.done (data, status) ->
     # Populate form
     item = YAML.parse(atob(data.content)).find((x) => x.timestamp == timestamp)
     form.find(':input:not(button,[data-exclude])').each ->
       id = $(@).attr "id"
+      value = id.split(".").reduce(((item,i)->item[i]),item)
       if $(@).attr("type") in ["checkbox", "radio"]
-        if item[id] then $(@).prop "checked", true else $(@).prop "checked", false
-      else $(@).val item[id]
+        if value then $(@).prop "checked", true else $(@).prop "checked", false
+      else $(@).val value
       return
     return
   true
@@ -60,7 +62,7 @@ post = (form) ->
       # File not found: create
       message = prompt "Commit message (optional)"
       data =
-        message: message || "Create file #{form.data "file"}"
+        message: message || "Create file"
         content: btoa YAML.stringify(parseForm form, 8, 2)
       create_file = api_put(form, data)
     else alert "#{status}: #{error}"
@@ -78,7 +80,7 @@ post = (form) ->
     # Update file
     message = prompt "Commit message (optional)"
     data =
-      message: message || "Update file #{form.data "file"}"
+      message: message || "#{form.attr('data-action')}"
       sha: data.sha
       content: btoa object
     update_file = api_put(form, data)

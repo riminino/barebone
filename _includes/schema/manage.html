@@ -6,7 +6,8 @@
 {%- if data -%}
 {% comment %} -------------------- Data ok -------------------- {% endcomment %}
 {% include schema/form.html schema=schema %}
-{% include schema/table.html schema=schema collapsed=true edit=true remove=true filters=true %}
+{%- capture table -%}time/{{ include.table | default: "table" }}.html{%- endcapture -%}
+{% include {{ table }} schema=schema collapsed=include.collapsed edit=true remove=true filter=include.filter year=include.year month=include.month %}
 {% comment %} -------------------- Data not ok -------------------- {% endcomment %}
 {%- else -%}
 <mark>No data found</mark>
