@@ -34,6 +34,7 @@ storage = {
       storage.store obj
     else
       localStorage.removeItem storage.key()
+      storage.init()
     true
   # https://stackoverflow.com/a/6394197
   set: (key, value) ->
