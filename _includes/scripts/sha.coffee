@@ -22,7 +22,6 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
       daily_build.done () -> compare 0, storage.get("repository.updated")
 
 compare = (sha, date) ->
-  console.log sha, date
   if sha != "{{ site.github.build_revision }}"
     # Update navigation
     span = $("<span/>",{
