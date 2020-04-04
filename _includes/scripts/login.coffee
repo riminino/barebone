@@ -2,6 +2,7 @@
   Need:
   - Login link with id="login-button"
 ###
+{% assign repository = site.github.public_repositories | where: "html_url", site.github.repository_url | first %}
 login = {
   link: $ "#login-button"
   init: () ->
@@ -37,6 +38,7 @@ login = {
       .on "click", login.logout
       .attr "title", "Logged as #{data.login}"
     alert "Logged as #{data.login}"
+    login.permissions data.login
     true
   error: (request, status, error) ->
     storage.clear "login"
@@ -50,6 +52,13 @@ login = {
       .on "click", login.serve
       .attr "alt", "Login button"
     alert "Logged out"
+    true
+  permissions: (user) ->
+    repo = $.ajax "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}",
+      method: "GET"
+      headers: "Authorization": "token #{storage.get 'login.token'}"
+      success: (data, status) -> storage.set "login.permissions", data.permissions
+      error: (request, status, error) -> alert "This repo #{status} #{error}"
     true
 }
 login.init()
