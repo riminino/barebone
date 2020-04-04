@@ -37,7 +37,6 @@ login = {
       .off "click"
       .on "click", login.logout
       .attr "title", "Logged as #{data.login}"
-    alert "Logged as #{data.login}"
     login.permissions data.login
     true
   error: (request, status, error) ->
@@ -57,7 +56,16 @@ login = {
     repo = $.ajax "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}",
       method: "GET"
       headers: "Authorization": "token #{storage.get 'login.token'}"
-      success: (data, status) -> storage.set "login.permissions", data.permissions
+      success: (data, status) ->
+        storage.set "login.permissions", data.permissions
+          .set "repository.fork", data.fork
+          .set "repository.parent", data.parent?.full_name?
+        role = if data.permissions.admin then "admin" else "guest"
+        string = "Logged as #{user}, #{role}"
+        login.link.attr "title", string
+        alert string
+        compare "{{ site.github.build_revision }}", data.updated_at
+        true
       error: (request, status, error) -> alert "This repo #{status} #{error}"
     true
 }
