@@ -21,7 +21,7 @@ briefings:
 
 ```yml
 briefings:
-  file: briefings
+  file: time/briefings
   properties:
     date:
       type: date

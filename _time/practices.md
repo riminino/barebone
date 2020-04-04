@@ -26,7 +26,7 @@ practices:
 Practices schema:
 
 ```yml
-file: practices
+file: time/practices
 properties:
   date:
     type: date

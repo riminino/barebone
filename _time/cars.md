@@ -26,7 +26,7 @@ cars:
 
 ```yml
 cars:
-  file: cars
+  file: time/cars
   properties:
     date:
       type: date

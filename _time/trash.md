@@ -38,7 +38,7 @@ trash:
 
 ```yml
 trash:
-  file: trash
+  file: time/trash
   properties:
     date:
       type: date
