@@ -37,4 +37,6 @@ api_put = (f, load) ->
       true
   return put_content
 
-api_url = (file) -> "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/contents/_data/#{file}.yml"
+api_url = (file) ->
+  if file.split(".").slice(-1)[0] not in ["yml", "yaml"] then file = file + ".yml"
+  return "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/contents/_data/#{file}"
