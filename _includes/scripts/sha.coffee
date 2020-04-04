@@ -19,7 +19,7 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
         method: "POST"
         headers: "Authorization": "token #{storage.get("login.token")}"
       daily_build.fail (request, status, error) -> alert "#{status} #{error}"
-    compare 0, storage.get("repository.updated")
+      daily_build.done () -> compare 0, storage.get("repository.updated")
 
 compare = (sha, date) ->
   console.log sha, date
