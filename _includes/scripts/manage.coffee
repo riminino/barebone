@@ -1,7 +1,10 @@
 # Form events
 $("form[data-action]").each ->
   form = $ @
-  form.on "submit", (e) -> post form
+  form.on "submit", (e) ->
+    if !storage.get "login.token"
+      alert "You need to login"
+    else post form
   form.on "reset", (e) ->
     form.find("#timestamp").val ""
     form.find("span.action").text "Add"

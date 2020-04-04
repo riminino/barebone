@@ -1,5 +1,4 @@
 api_get = (f, debug) ->
-  if !storage.get "login.token" then return alert "You need to login"
   if $.type(f) is "string"
     url = api_url(f)
   else
