@@ -36,7 +36,6 @@ login = {
     login.link.text "Logout"
       .off "click"
       .on "click", login.logout
-      .attr "title", "Logged as #{data.login}"
     login.permissions data.login
     true
   error: (request, status, error) ->
