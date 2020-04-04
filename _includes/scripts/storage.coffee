@@ -48,7 +48,7 @@ storage = {
     while k = key_array.shift()
       if !obj[k]? then obj[k] = {}
       obj = obj[k]
-    return if value then obj[final] = value else delete obj[final]
+    return if typeof value isnt "undefined" then obj[final] = value else delete obj[final]
   get: (key) ->
     return if key?
       key.split(".").reduce (data, i) =>
