@@ -1,5 +1,5 @@
 {% assign repository = site.github.public_repositories | where: "html_url", site.github.repository_url | first %}
-if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
+if storage.get("login.token") and "{{ site.github.environment }}" is "dotcom"
   now = new Date().toISOString()
   if "{{ 'now' | date: '%F' }}" is now.split('T')[0]
     # Check sha
@@ -12,7 +12,7 @@ if storage.get("login.token") and "{{ site.github.environment }}" == "dotcom"
     get_branch.done (data) -> compare data.commit.sha, data.commit.commit.author.date
   else
     updated = storage.get "repository.updated"
-    if updated.split('T')[0] isnt now.split('T')[0]
+    if updated.split?('T')[0] isnt now.split('T')[0]
       storage.set "repository.updated", now
       build_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/pages/builds"
       daily_build = $.ajax build_url,
