@@ -2,7 +2,6 @@
   Need:
   - Login link with id="login-button"
 ###
-{% assign repository = site.github.public_repositories | where: "html_url", site.github.repository_url | first %}
 login = {
   link: $ "#login-button"
   init: () ->
@@ -28,8 +27,6 @@ login = {
         error: login.error
         complete: login.complete
     true
-  complete: (request, status) ->
-    login.link.prop "disabled", false
   success: (data, status) ->
     storage.set "login.user", data.login
       .set "login.created", new Date()
@@ -40,6 +37,7 @@ login = {
     true
   error: (request, status, error) ->
     storage.clear "login"
+    login.link.prop "disabled", false
     alert "Login #{status}: #{error}"
     true
   logout: (e) ->
@@ -55,6 +53,8 @@ login = {
     repo = $.ajax "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}",
       method: "GET"
       headers: "Authorization": "token #{storage.get 'login.token'}"
+      complete: (request, status) -> login.link.prop "disabled", false
+      error: (request, status, error) -> alert "Permissions #{status} #{error}"
       success: (data, status) ->
         storage.set "login.permissions", data.permissions
           .set "repository.fork", data.fork
@@ -65,7 +65,6 @@ login = {
         alert string
         compare "{{ site.github.build_revision }}", data.updated_at
         true
-      error: (request, status, error) -> alert "This repo #{status} #{error}"
     true
 }
 login.init()
