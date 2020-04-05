@@ -19,7 +19,7 @@ login = {
     token = prompt "Paste a GitHub personal token"
     if token
       storage.set "login.token", token
-      login.link.prop "disabled", true
+      login.link.addClass "disabled"
       $.ajax "{{ site.github.api_url }}/user",
         method: "GET"
         headers: "Authorization": "token #{token}"
@@ -37,7 +37,7 @@ login = {
     true
   error: (request, status, error) ->
     storage.clear "login"
-    login.link.prop "disabled", false
+    login.link.removeClass "disabled"
     alert "Login #{status}: #{error}"
     true
   logout: (e) ->
@@ -50,10 +50,10 @@ login = {
     alert "Logged out"
     true
   permissions: (user) ->
-    repo = $.ajax "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}",
+    $.ajax "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}",
       method: "GET"
       headers: "Authorization": "token #{storage.get 'login.token'}"
-      complete: (request, status) -> login.link.prop "disabled", false
+      complete: (request, status) -> login.link.removeClass "disabled"
       error: (request, status, error) -> alert "Permissions #{status} #{error}"
       success: (data, status) ->
         storage.set "login.permissions", data.permissions
