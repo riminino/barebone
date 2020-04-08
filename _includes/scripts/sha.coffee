@@ -1,4 +1,28 @@
 {%- assign repository = site.github.public_repositories | where: "html_url", site.github.repository_url | first -%}
+# Check default branch sha
+check_sha = () ->
+  head_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/branches/{{ repository.default_branch }}"
+  get_branch = $.ajax head_url,
+    method: "GET"
+    cache: false
+    headers: "Authorization": "token #{storage.get("login.token")}"
+  get_branch.fail (request, status, error) -> alert "#{status} #{error}"
+  get_branch.done (data) -> compare data.commit.sha, data.commit.commit.author.date
+  true
+
+# Compare build revisions sha and show updates
+compare = (sha, date) ->
+  if sha != "{{ site.github.build_revision }}"
+    # Update navigation
+    span = $("<span/>",{
+      datetime: new Date(date)
+      text: "Building"
+    })
+    dateTime span
+    $("#update").empty().append span
+  $("#update").show()
+  return
+
 # Works only online
 if "{{ site.github.environment }}" is "dotcom"
   if !storage.get("login.token")
@@ -29,25 +53,3 @@ if "{{ site.github.environment }}" is "dotcom"
         else
           # Page build requested
           compare 0, updated
-
-check_sha = ->
-  head_url = "{{ site.github.api_url }}/repos/{{ site.github.repository_nwo }}/branches/{{ repository.default_branch }}"
-  get_branch = $.ajax head_url,
-    method: "GET"
-    cache: false
-    headers: "Authorization": "token #{storage.get("login.token")}"
-  get_branch.fail (request, status, error) -> alert "#{status} #{error}"
-  get_branch.done (data) -> compare data.commit.sha, data.commit.commit.author.date
-  true
-
-compare = (sha, date) ->
-  if sha != "{{ site.github.build_revision }}"
-    # Update navigation
-    span = $("<span/>",{
-      datetime: new Date(date)
-      text: "Building"
-    })
-    dateTime span
-    $("#update").empty().append span
-  $("#update").show()
-  return
