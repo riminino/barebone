@@ -8,4 +8,4 @@
 <script src="{{ '/assets/js/yaml.min.js' | relative_url }}"></script>
 
 <!-- Custom script -->
-<script src="{{ '/assets/js/script.js' | relative_url }}?version={{ site.github.build_revision | truncate: 7, "" }}" defer></script>
+<script src="{{ '/assets/js/script.js' | relative_url }}?updated_at={{ 'now' | date: '%s' }}" defer></script>
