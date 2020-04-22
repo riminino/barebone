@@ -16,20 +16,24 @@
 {% comment %} -------------------- Types -------------------- {% endcomment %}
 <div>
 {% comment %} -------------------- Label -------------------- {% endcomment %}
-  <label for="{{ id }}"{% if attributes.tooltip %} title="{{ attributes.tooltip }}"{% endif %}>{{ attributes.title | default: id }}{% if attributes.required %}<sup>*</sup>{% endif %}</label>
+  <label
+    for="{{ id }}"
+    {% if attributes.multiple %} style="vertical-align: middle"{% endif %}
+    {% if attributes.tooltip %} title="{{ attributes.tooltip }}"{% endif %}>{{ attributes.title | default: id }}{% if attributes.required %}<sup>*</sup>{% endif %}</label>
 {% comment %} -------------------- List -------------------- {% endcomment %}
   {% if attributes.list %}
   <select
     id="{{ id }}"
     aria-label="{{ label }}"
     {% if attributes.required %} required{% endif %}
+    {% if attributes.multiple %} multiple{% endif %}
     type="{{ type }}">
     {% for item in attributes.list %}{% if item.first %}<option value="{{ item.value }}"{% if item.value == attributes.value %} selected{% endif %}>{{ item.value }}</option>{% else %}<option value="{{ item }}"{% if item == attributes.value %} selected{% endif %}>{{ item }}</option>{% endif %}
     {% endfor %}
   </select>
   {% else %}
 {% comment %} -------------------- Classic type -------------------- {% endcomment %}
-    {%- if "text,number,date,time" contains type -%}
+    {%- if "text,number,date,time,url,email" contains type -%}
       <input
         type="{{ type }}"
         id="{{ id }}"
@@ -37,6 +41,7 @@
         {% if attributes.value %} value="{{ attributes.value }}"{% endif %}
         {% if attributes.min %} min="{{ attributes.min }}"{% endif %}
         {% if attributes.max %} max="{{ attributes.max }}"{% endif %}
+        {% if attributes.multiple %} multiple{% endif %}
         {% if attributes.maxlength %} maxlength="{{ attributes.maxlength }}"{% endif %}
         {% if attributes.minlength %} minlength="{{ attributes.minlength }}"{% endif %}
         {% if attributes.placeholder %} placeholder="{{ attributes.placeholder }}"{% endif %}
