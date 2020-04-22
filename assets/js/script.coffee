@@ -9,16 +9,12 @@
 {% include scripts/filters.coffee %}
 {% include scripts/api.coffee %}
 {% include scripts/manage.coffee %}
+{% include scripts/create.coffee %}
 
 
 # Get storage
 console.log storage.get()
 
-# Helpers
-$("form[data-action]").on "submit", (e) ->
-  e.preventDefault()
-  return
-
-$("a.edit, a.remove").on "click", (e) ->
-  e.preventDefault()
-  return
+# Prevent default events on forms and links
+$("body").on "submit", "form[data-prevent]", (e) -> e.preventDefault()
+$("body").on "click", "a[data-prevent]", (e) -> e.preventDefault()

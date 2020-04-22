@@ -1,11 +1,12 @@
 {%- assign schema = include.schema -%}
 {%- assign default_title = schema.file -%}
-<form data-file="{{ schema.file }}" data-action="add">
-<h3><span class="action">Add</span> {{ schema.title | default: default_title }}</h3>
+{%- assign action = schema.action | default: "add" -%}
+<form data-file="{{ schema.file }}" data-action="{{ action }}" data-prevent="true">
+<h3><span class="action">{{ action | capitalize }}</span> {{ schema.title | default: default_title }}</h3>
 {% for property in schema.properties %}
 {%- assign parent = "" | split: "" -%}
 {% include schema/property.html property=property %}
 {% endfor %}
-<input type="hidden" id="timestamp" aria-label="timestamp" value="">
+{% if "add,edit" contains action %}<input type="hidden" id="timestamp" aria-label="timestamp" value="">{% endif %}
 <button type="submit">Submit</button> <button type="reset">Cancel</button>
 </form>

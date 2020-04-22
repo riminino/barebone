@@ -19,7 +19,7 @@
   {% for i in item %}{%- if i[0] == property[0] -%}{%- assign object = i -%}{%- endif -%}{% endfor %}<td data-property="{{ property[0] }}" {% include time/style.html schema=schema property=object %}>{% if object[1].first %}{% for obj in object[1] %}{{ obj[1] }} {% endfor %}{% else %}
   {% if property[0] == "date" %}{% assign data = object[1] %}{% include widgets/datetime.html datetime=data decimals=1 time=schema.properties.date.time %}{% else %}{{ object[1] }}{% endif %}
   {% endif %}</td>{% endif %}{% endfor %}
-  {% if item.timestamp %}{% if include.edit %}<td><a href="#{{ item.timestamp }}" class="edit">Edit</a></td>{% endif %}{% if include.remove %}<td><a href="#{{ item.timestamp }}" class="remove">Remove</a></td>{% endif %}{% endif %}
+  {% if item.timestamp %}{% if include.edit %}<td><a href="#{{ item.timestamp }}" class="edit" data-prevent="true">Edit</a></td>{% endif %}{% if include.remove %}<td><a href="#{{ item.timestamp }}" class="remove" data-prevent="true">Remove</a></td>{% endif %}{% endif %}
 </tr>
 {% endfor %}
 </tbody>

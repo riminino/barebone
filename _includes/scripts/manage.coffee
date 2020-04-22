@@ -1,10 +1,10 @@
 # Form events
-$("form[data-action]").each ->
+$("form[data-action='add'], form[data-action='edit']").each ->
   form = $ @
   form.on "submit", (e) ->
-    if !storage.get "login.token"
+    if !storage.get "login.token" or !storage.get "login.permissions.admin"
       alert "You need to login"
-    else post form
+    else console.log YAML.stringify((parseForm form),8,2)
   form.on "reset", (e) ->
     form.find("#timestamp").val ""
     form.find("span.action").text "Add"
@@ -96,17 +96,26 @@ parseForm = (form) ->
   # Loop input fields
   form.find(':input:not(button, [data-exclude])').each ->
     value = if $(@).attr("type") in ["checkbox", "radio"] then $(@).is(':checked') else $(@).val()
+    # Check default field
+    # if !value and $(@).data("default") then value = $("##{$(@).data('default')}").val()
+    # Check if natural number
     if $(@).attr("type") == "number" then value = Number value
-    # if value then data[$(@).attr("id")] = value
-    $(@).attr('id').split('.').reduce (data, i) =>
-      if form.find("[data-add=#{i}]").length
-        return data[i] ?= []
-      else
-        return if i is $(@).attr('aria-label') then data[i] ?= value else data[i] ?= {}
-    , data
+    # Check if you want empty values
+    if value or form.attr("data-action") isnt "create"
+      # Reduce id and assemble data
+      len = $(@).attr('id').split('.').length
+      $(@).attr('id').split('.').reduce (data, i, index) =>
+          if form.find("[data-add=#{i}]").length
+            return data[i] ?= []
+          else
+            return if index is (len-1) then data[i] ?= value else data[i] ?= {}
+        , data
     return
-  # Add timestamp
-  data["timestamp"] = if data["timestamp"]
-    Number data["timestamp"]
-  else new Date().getTime()
-  return [data]
+  # Check if we need an object or a timestamped array element
+  if form.attr("data-action") in ["add","edit"]
+    # Add timestamp
+    data["timestamp"] = if data["timestamp"]
+      Number data["timestamp"]
+    else new Date().getTime()
+    return [data]
+  else return data
