@@ -16,7 +16,6 @@
   // Low level compression and storage
   storage.store(obj)
 ###
-{% assign updated = site.github.public_repositories | where: "html_url", site.github.repository_url | first | map: "updated_at" | first | date_to_xmlschema %}
 storage = {
   key: () ->
     return "{{ site.github.repository_nwo }}"
@@ -26,7 +25,7 @@ storage = {
         "created": new Date()
       "repository":
         "url": "{{ site.github.repository_url }}"
-        "updated": "{{ updated }}"
+        "updated": "{{ 'now' | date_to_xmlschema }}"
     }
     true
   clear: (key) ->
