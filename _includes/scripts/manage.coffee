@@ -2,7 +2,7 @@
 $("form[data-action]").each ->
   form = $ @
   form.on "submit", (e) ->
-    if !storage.get "login.token"
+    if !storage.get "login.token" or !storage.get "login.permissions.admin"
       alert "You need to login"
     else post form
   form.on "reset", (e) ->
