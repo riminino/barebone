@@ -1,55 +1,70 @@
 {%- assign attributes = include.property[1] -%}
 {%- assign id = parent | push: include.property[0] | join: "." -%}
+{%- assign label = id | split: '.' | last | default: id -%}
 {%- assign type = attributes.type | default: "text" -%}
+{% comment %} -------------------- Hidden -------------------- {% endcomment %}
 {%- if type == "hidden" -%}
-<input type="{{ type }}" id="{{ id }}" aria-label="{{ id | split: '.' | shift | default: id }}" value="{{ attributes.value }}">
+<input type="{{ type }}" id="{{ id }}" aria-label="{{ label }}" value="{{ attributes.value }}">
+{% comment %} -------------------- Schema -------------------- {% endcomment %}
 {%- elsif type == "schema" and attributes.properties.size > 0 -%}
-{%- assign parent = parent | push: id -%}
-{% for p in attributes.properties %}
-{% include schema/property.html property=p %}
-{% endfor %}
-{%- assign parent = parent | shift -%}
+  {%- assign parent = parent | push: id -%}
+  {% for p in attributes.properties %}
+    {% include schema/property.html property=p %}
+  {% endfor %}
+  {%- assign parent = parent | pop -%}
 {%- else -%}
+{% comment %} -------------------- Types -------------------- {% endcomment %}
 <div>
-  {%- assign capitalized_id = id | capitalize -%}
-  <label for="{{ id }}">{{ attributes.title | default: capitalized_id }}</label>
+{% comment %} -------------------- Label -------------------- {% endcomment %}
+  <label for="{{ id }}"{% if attributes.tooltip %} title="{{ attributes.tooltip }}"{% endif %}>{{ attributes.title | default: id }}{% if attributes.required %}<sup>*</sup>{% endif %}</label>
+{% comment %} -------------------- List -------------------- {% endcomment %}
   {% if attributes.list %}
-  <select id="{{ id }}" aria-label="{{ id | split: '.' | shift | default: id }}" type="{{ type }}">
+  <select
+    id="{{ id }}"
+    aria-label="{{ label }}"
+    {% if attributes.required %} required{% endif %}
+    type="{{ type }}">
     {% for item in attributes.list %}{% if item.first %}<option value="{{ item.value }}"{% if item.value == attributes.value %} selected{% endif %}>{{ item.value }}</option>{% else %}<option value="{{ item }}"{% if item == attributes.value %} selected{% endif %}>{{ item }}</option>{% endif %}
     {% endfor %}
   </select>
   {% else %}
-    {%- assign booleans = "checkbox,radio" | split: "," -%}
-    {%- assign types = "text,date,number" | split: "," -%}
-    {%- if types contains type -%}
+{% comment %} -------------------- Classic type -------------------- {% endcomment %}
+    {%- if "text,number,date,time" contains type -%}
       <input
         type="{{ type }}"
         id="{{ id }}"
-        aria-label="{{ id | split: '.' | shift | default: id }}"
+        aria-label="{{ label }}"
         {% if attributes.value %} value="{{ attributes.value }}"{% endif %}
         {% if attributes.min %} min="{{ attributes.min }}"{% endif %}
         {% if attributes.max %} max="{{ attributes.max }}"{% endif %}
+        {% if attributes.maxlength %} maxlength="{{ attributes.maxlength }}"{% endif %}
+        {% if attributes.minlength %} minlength="{{ attributes.minlength }}"{% endif %}
+        {% if attributes.placeholder %} placeholder="{{ attributes.placeholder }}"{% endif %}
         {% if attributes.required %} required{% endif %}
         {% if attributes.step %} step="{{ attributes.step }}"{% endif %}>
-    {%- elsif booleans contains type -%}
+{% comment %} -------------------- Boolean -------------------- {% endcomment %}
+    {%- elsif "checkbox,radio" contains type -%}
       <input
         type="{{ type }}"
         id="{{ id }}"
-        aria-label="{{ id | split: '.' | shift | default: id }}"
+        aria-label="{{ label }}"
         {% if attributes.required %} required{% endif %}
         {% if attributes.value %} checked{% endif %}>
-        <input data-exclude="true" style="visibility:hidden;" size="0">
+        <input data-exclude="true" style="visibility:hidden;" size="1">
+{% comment %} -------------------- Color -------------------- {% endcomment %}
     {%- elsif type == "color" -%}
       <input
         type="{{ type }}"
         id="{{ id }}"
-        aria-label="{{ id | split: '.' | shift | default: id }}"
+        aria-label="{{ label }}"
         {% if attributes.value %} value="{{ attributes.value }}"{% endif %}
         {% if attributes.required %} required{% endif %}>
-        <input data-exclude="true" style="visibility:hidden;" size="0">
+        <input data-exclude="true" style="visibility:hidden;" size="1">
+{% comment %} -------------------- End types -------------------- {% endcomment %}
     {%- else -%}unknow type
     {%- endif -%}
   {% endif %}
-  {% if attributes.description or attributes.unit %}<span>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip }}</span>{% endif %}
+{% comment %} ----------------- Description / units -------------------- {% endcomment %}
+  {% if attributes.description or attributes.unit %}<span>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip | markdownify | remove: "<p>" | remove: "</p>" }}</span>{% endif %}
 </div>
 {%- endif -%}
