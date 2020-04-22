@@ -7,11 +7,11 @@
     unit: month
   timestamp: 1582884954735
 -
-  date: '2020-04-30'
+  date: '2020-02-29'
   name: wiplanet
   amount: 51.79
   repeat:
-    value: 2
+    value: 0
     unit: month
   timestamp: 1582884979440
 -
