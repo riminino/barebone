@@ -8,7 +8,7 @@
 {% assign summary = "Show future table" %}
 {% if include.collapsed %}{% include widgets/collapsed.html summary=summary %}{% endif %}
 {% assign data = data | sort: "date" %}
-{%- assign now = "now" | date: "%s" -%}
+{%- assign now = "now" | date: "%s" | plus: 0 -%}
 {%- assign unit = "day,week,month,year" | split: "," -%}
 {%- assign seconds = "" | split: "" | push: 86400 | push: 604800 | push: 2592000 | push: 31622400 -%}
 {%- assign future_dates = "" | split: "" -%}
@@ -31,7 +31,7 @@
         {% endif %}
       {% endif %}
     {% endfor %}
-    {%- if found == counter -%}
+    {%- if found == counter and found > 0 -%}
       {%- assign repeat_value = exception.value | default: repeat_value -%}
       {%- assign repeat_unit = exception.unit | default: repeat_unit -%}
     {%- endif -%}
@@ -39,14 +39,29 @@
     {%- assign repeat_value = item.repeat.value | default: 0 -%}
     {%- assign repeat_unit = item.repeat.unit -%}
   {%- endif -%}
-  {%- assign date = item.date | date: "%s" -%}
+  {%- assign date = item.date | date: "%s" | plus: 0 -%}
   {%- if unit contains repeat_unit and repeat_value > 0 and now > date -%}
+    {%- if repeat_unit == "year" -%}
+      {%- assign gap = seconds[3] | times: repeat_value -%}
+      {%- assign cycles = now | minus: date | divided_by: gap -%}
+      {%- assign day = date | date: "%d" -%}
+      {%- assign month = date | date: "%m" -%}
+      {%- assign year = date | date: "%Y" | plus: 0 -%}
+      {% for i in (0..cycles) %}
+        {%- assign new_year = year | plus: i | plus: 1 -%}
+        {%- assign date = new_year | append: "-" | append: month | append: "-" | append: day | date: "%s" | plus: 0 -%}
+      {% endfor %}
+      {%- assign future_dates = future_dates | push: date -%}
+      {%- assign difference = date | date: "%s" | minus: now -%}
+      {%- assign diff = diff | push: difference -%}
+      {%- if difference < next -%}{%- assign next = difference -%}{%- endif -%}
+    {%- else -%}
     {% for u in unit %}
       {%- if u == repeat_unit -%}
         {%- assign gap = seconds[forloop.index0] | times: repeat_value -%}
         {%- assign cycles = now | minus: date | divided_by: gap -%}
         {% for i in (0..cycles) %}
-          {%- assign date = date | plus: gap | append: "" -%}
+          {%- assign date = date | plus: gap -%}
         {% endfor %}
         {%- assign future_dates = future_dates | push: date -%}
         {%- assign difference = date | date: "%s" | minus: now -%}
@@ -54,6 +69,7 @@
         {%- if difference < next -%}{%- assign next = difference -%}{%- endif -%}
       {%- endif -%}
     {% endfor %}
+    {%- endif -%}
   {%- else -%}
     {%- assign future_dates = future_dates | push: date -%}
     {%- assign difference = date | minus: now -%}
@@ -91,8 +107,9 @@
       {% for i in item %}{%- if i[0] == property[0] -%}{%- assign object = i -%}{%- endif -%}{% endfor %}
       <td data-property="{{ property[0] }}" {% include time/style.html schema=schema property=object %}>
         {%- if property[0] == "date" -%}
+        {%- assign title = object[1] -%}
 {% if diff_now == next %}<mark>{% endif %}
-{% include widgets/datetime.html datetime=next_date_iso embed=true decimals=1 time=schema.properties.date.time %}
+{% include widgets/datetime.html datetime=next_date_iso embed=true decimals=1 time=schema.properties.date.time title=title %}
 {% if diff_now == next %}</mark>{% endif %}
         {%- else -%}
           {% if object[1].first %}{% for obj in object[1] %}{{ obj[1] }} {% endfor %}{% else %}{{ object[1] }}{% endif %}
