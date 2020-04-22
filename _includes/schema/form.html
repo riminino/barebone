@@ -1,6 +1,6 @@
 {%- assign schema = include.schema -%}
 {%- assign default_title = schema.file -%}
-<form data-file="{{ schema.file }}" data-action="add">
+<form data-file="{{ schema.file }}" data-action="add" data-prevent="true">
 <h3><span class="action">Add</span> {{ schema.title | default: default_title }}</h3>
 {% for property in schema.properties %}
 {%- assign parent = "" | split: "" -%}

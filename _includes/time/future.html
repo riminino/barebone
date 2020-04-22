@@ -117,7 +117,7 @@
       </td>
     {%- endif -%}
   {% endfor %}
-  {% if item.timestamp %}{% if include.edit %}<td><a href="#{{ item.timestamp }}" class="edit">Edit</a></td>{% endif %}{% if include.remove %}<td><a href="#{{ item.timestamp }}" class="remove">Remove</a></td>{% endif %}{% endif %}
+  {% if item.timestamp %}{% if include.edit %}<td><a href="#{{ item.timestamp }}" class="edit" data-prevent="true">Edit</a></td>{% endif %}{% if include.remove %}<td><a href="#{{ item.timestamp }}" class="remove">Remove</a></td>{% endif %}{% endif %}
 </tr>
 {% endfor %}
 </tbody>
