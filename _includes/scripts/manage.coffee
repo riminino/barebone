@@ -5,6 +5,7 @@ $("form[data-action]").each ->
     if !storage.get "login.token" or !storage.get "login.permissions.admin"
       alert "You need to login"
     else post form
+    # else console.log YAML.stringify((parseForm form),8,2)
   form.on "reset", (e) ->
     form.find("#timestamp").val ""
     form.find("span.action").text "Add"
