@@ -18,7 +18,7 @@
 {% comment %} -------------------- Label -------------------- {% endcomment %}
   <label
     for="{{ id }}"
-    {% if attributes.multiple %} style="vertical-align: middle"{% endif %}
+    {% if attributes.multiple or type == "textarea" %} style="vertical-align: middle"{% endif %}
     {% if attributes.tooltip %} title="{{ attributes.tooltip }}"{% endif %}>{{ attributes.title | default: id }}{% if attributes.required %}<sup>*</sup>{% endif %}</label>
 {% comment %} -------------------- List -------------------- {% endcomment %}
   {% if attributes.list %}
@@ -55,7 +55,7 @@
         aria-label="{{ label }}"
         {% if attributes.required %} required{% endif %}
         {% if attributes.value %} checked{% endif %}>
-        <input data-exclude="true" style="visibility:hidden;" size="1">
+      <input data-exclude="true" style="visibility:hidden;" size="1">
 {% comment %} -------------------- Color -------------------- {% endcomment %}
     {%- elsif type == "color" -%}
       <input
@@ -64,7 +64,15 @@
         aria-label="{{ label }}"
         {% if attributes.value %} value="{{ attributes.value }}"{% endif %}
         {% if attributes.required %} required{% endif %}>
-        <input data-exclude="true" style="visibility:hidden;" size="1">
+      <input data-exclude="true" style="visibility:hidden;" size="1">
+{% comment %} -------------------- Textarea -------------------- {% endcomment %}
+    {%- elsif type == "textarea" -%}
+      <textarea
+        id="{{ id }}"
+        aria-label="{{ label }}"
+        {% if attributes.rows %} rows="{{ attributes.rows }}"{% endif %}
+        {% if attributes.cols %} cols="{{ attributes.cols }}"{% endif %}
+        {% if attributes.required %} required{% endif %}>{% if attributes.value %}{{ attributes.value }}{% endif %}</textarea>
 {% comment %} -------------------- End types -------------------- {% endcomment %}
     {%- else -%}unknow type
     {%- endif -%}

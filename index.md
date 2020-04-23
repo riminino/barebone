@@ -50,6 +50,9 @@ life:
           - `unit`
   - `schema`
     - `properties`
+  - `textarea`
+  - `url`
+  - `email`
 - `repeat` (recurrent event every value-unit)
   - `value` (0 = no repeat)
   - `unit`
@@ -58,14 +61,17 @@ life:
   - `style` (CSS properties with a value)
     - `css-property`
     - ...
+- `multiple` for list and email
 - `value` (default value)
-- `min`
-- `max`
-- `step`
-- `maxlength`
-- `minlength`
+- `min` for number
+- `max` for number
+- `step` for number
+- `maxlength` for text
+- `minlength` for text
 - `required`
 - `placeholder`
+- `rows` for textarea
+- `cols` for textarea
 - `style` (CSS properties with a value)
   - `css-property`
   - ...
