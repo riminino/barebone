@@ -1,5 +1,5 @@
 ---
-weight: 6
+weight: 5
 births:
   file: time/births
   properties:

@@ -1,5 +1,5 @@
 ---
-weight: 3
+weight: 2
 cars:
   file: time/cars
   properties:

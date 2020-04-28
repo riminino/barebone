@@ -1,5 +1,5 @@
 ---
-weight: 4
+weight: 3
 briefings:
   file: time/briefings
   properties:
