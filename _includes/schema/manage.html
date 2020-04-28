@@ -1,11 +1,12 @@
 {%- if include.schema -%}
 {%- assign schema = include.schema -%}
+{% comment %} -------------------- Form -------------------- {% endcomment %}
+{% include schema/form.html schema=schema %}
 {%- assign path = schema.file | split: "/" -%}
 {%- assign data = site.data -%}
 {% for depth in path %}{%- assign data = data[depth] -%}{% endfor %}
 {%- if data -%}
 {% comment %} -------------------- Data ok -------------------- {% endcomment %}
-{% include schema/form.html schema=schema %}
 {%- capture table -%}time/{{ include.table | default: "table" }}.html{%- endcapture -%}
 {% include {{ table }} schema=schema collapsed=include.collapsed edit=true remove=true filter=include.filter year=include.year month=include.month %}
 {% comment %} -------------------- Data not ok -------------------- {% endcomment %}
