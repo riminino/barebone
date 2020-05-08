@@ -17,3 +17,11 @@ console.log storage.get()
 # Prevent default events on forms and links
 $("body").on "submit", "form[data-prevent]", (e) -> e.preventDefault()
 $("body").on "click", "a[data-prevent]", (e) -> e.preventDefault()
+
+# Serialize
+$.serializeJSON.defaultOptions.parseBooleans = true
+$.serializeJSON.defaultOptions.useIntKeysAsArrayIndex = true
+$.serializeJSON.defaultOptions.skipFalsyValuesForTypes = ["text","number"]
+
+$("body").on "submit", "form#prova", (e) ->
+  console.log $(e.target).serializeJSON()

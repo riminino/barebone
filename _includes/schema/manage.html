@@ -4,7 +4,7 @@
 {% include schema/form.html schema=schema %}
 {%- assign path = schema.file | split: "/" -%}
 {%- assign data = site.data -%}
-{% for depth in path %}{%- assign data = data[depth] -%}{% endfor %}
+{% for depth in path %}{%- assign data = data[depth] -%}{% else %}{%- assign data = nil -%}{% endfor %}
 {%- if data -%}
 {% comment %} -------------------- Data ok -------------------- {% endcomment %}
 {%- capture table -%}time/{{ include.table | default: "table" }}.html{%- endcapture -%}

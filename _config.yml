@@ -10,7 +10,7 @@ permalink: pretty
 # COLLECTIONS
 collections:
   time:
-    output: true
+    output: false
     title: Time
 defaults:
   - scope:

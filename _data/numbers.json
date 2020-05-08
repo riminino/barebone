@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "title": "Number fields & widgets",
+  "properties": {
+    "number": {
+      "title": "Number",
+      "type": "number",
+      "default": 3.14,
+      "multipleOf": 0.01
+    },
+    "integer": {
+      "title": "Integer",
+      "type": "integer"
+    },
+    "numberEnum": {
+      "type": "number",
+      "title": "Number enum",
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "numberEnumRadio": {
+      "type": "number",
+      "title": "Number radio enum",
+      "enum": [
+        1,
+        2,
+        3
+      ],
+      "widget": "radio"
+    },
+    "integerRange": {
+      "title": "Integer range",
+      "type": "integer",
+      "description": "42-100",
+      "minimum": 42,
+      "maximum": 100,
+      "widget": "range"
+    },
+    "integerRangeSteps": {
+      "title": "Integer range (by 10)",
+      "description": "50-100",
+      "type": "integer",
+      "minimum": 50,
+      "maximum": 100,
+      "multipleOf": 10,
+      "widget": "range"
+    }
+  }
+}

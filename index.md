@@ -1,5 +1,5 @@
 ---
-weight: 1
+weight: 0
 life:
   title: Life
   properties:
@@ -20,6 +20,35 @@ life:
 - Add list item
   - Date (calendar)
   - Type (dropdown list)
+
+## prova
+
+<form id="prova" name="prova" data-prevent="true">
+  <input type="text" name="pro" value="2">
+  <input type="number" name="num" value="4">
+  <input type="checkbox" name="chk" checked value="true" data-unchecked-value="false">
+  <input type="radio" name="rad" checked value="true">
+  <input type="radio" name="rad" value="false">
+  <input type="text" name="nes[]" value="nex">
+  <input type="text" name="nes[][]" value="dos">
+  <input type="text" name="obj[2][raro]" value="obj">
+  <input type="number" name="obj[1][more]" value="14">
+  <input type="text" name="arr[0]" value="foo"/>
+  <input type="text" name="arr[1]" value="var"/>
+  <input type="text" name="arr[5]" value="inn"/>
+  <select name="selectOne" type="text">
+    <option></option>
+    <option value="paper">Paper</option>
+    <option value="rock">Rock</option>
+    <option value="scissors">Scissors</option>
+  </select>
+  <select multiple name="selectMultiple[]">
+    <option value="red"  selected>Red</option>
+    <option value="blue" selected>Blue</option>
+    <option value="yellow">Yellow</option>
+	</select>
+  <input type="submit" name="" value="ok">
+</form>
 
 ## Schema
 
@@ -152,42 +181,6 @@ life:
 
 {% include widgets/tree.html tree=page.life %}
 
-# Examples
+# Ideas
 
-**Single array file, `timestamp` as added property**
-
-`folder/file.yml`
-
-```yml
--
-  property: value
-  timestamp: 1582884954735
--
-  property: value
-  timestamp: 1582884954736
-```
-
-**Single object file, `timestamp` as objects index**
-
-`folder/file.yml`
-
-```yml
-1582884954735:
-  property: value
-1582884954736:
-  property: value
-```
-
-**Multiple object files, `timestamp` as filename**
-
-`folder/file/1582884954735.yml`
-
-```yml
-property: value
-```
-
-`folder/file/1582884954736.yml`
-
-```yml
-property: value
-```
+- State adventure as `_data` folder, saved on local `storage` or Pull Requested as improvements (static)

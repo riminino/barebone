@@ -1,0 +1,44 @@
+{
+  "title": "A registration form",
+  "description": "A simple form example.",
+  "type": "object",
+  "required": [
+    "firstName",
+    "lastName"
+  ],
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "title": "First name",
+      "default": "Chuck",
+      "autofocus": true,
+      "autocomplete": "family-name"
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last name"
+    },
+    "born": {
+      "type": "date",
+      "title": "Born",
+      "description": "Earthian date"
+    },
+    "bio": {
+      "type": "string",
+      "title": "Bio",
+      "widget": "textarea"
+    },
+    "password": {
+      "type": "string",
+      "title": "Password",
+      "widget": "password",
+      "minLength": 3
+    },
+    "telephone": {
+      "type": "string",
+      "title": "Telephone",
+      "widget": "tel",
+      "minLength": 10
+    }
+  }
+}

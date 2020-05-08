@@ -1,83 +1,271 @@
 {%- assign attributes = include.property[1] -%}
-{%- assign id = parent | push: include.property[0] | join: "." -%}
-{%- assign label = id | split: '.' | last | default: id -%}
-{%- assign type = attributes.type | default: "text" -%}
+{%- assign label = include.property[0] -%}
+{%- assign id = parent | push: label | join: "_" -%}
+{% comment %} -------------------- Refs -------------------- {% endcomment %}
+{%- if attributes["$ref"] != nil or attributes.ref != nil -%}
+  {%- assign ref = attributes["$ref"] | default: attributes.ref-%}
+  {%- assign root = ref | slice: 0, 2 -%}
+  {% comment %} {{ref}} {% endcomment %}
+  {%- if root == "#/" -%}
+    {%- assign path = ref | slice: 2, ref.size | split: "/" -%}
+    {%- assign schema_ref = schema -%}
+    {% for level in path %}
+      {%- assign schema_ref = schema_ref[level] -%}
+    {% endfor %}
+    {%- if schema_ref != nil -%}
+      {%- assign prop = "" | split: "" | push: label -%}
+      {%- assign prop = prop | push: schema_ref -%}
+      {% include schema/property.html property=prop %}
+    {%- else -%}
+      <div>Empty reference for {{ label }}</div>
+    {%- endif -%}
+  {%- else -%}
+    <div>Remote reference for {{ label }}</div>
+  {%- endif -%}
+{%- else -%}
+{% comment %} -------------------- Convert type -------------------- {% endcomment %}
+{%- case attributes.type -%}
+  {%- when "string" -%}
+    {%- case attributes.format -%}
+      {%- when "email" %}{%- assign type = "email" -%}
+      {%- when "uri" or "hostname" %}{%- assign type = "url" -%}
+      {%- when "date" %}{%- assign type = "date" -%}
+      {%- when "time" %}{%- assign type = "time" -%}
+      {%- else -%}
+        {%- case attributes.widget -%}
+          {%- when "color" %}{%- assign type = "color" -%}
+          {%- when "textarea" %}{%- assign type = "textarea" -%}
+          {%- when "hidden" %}{%- assign type = "hidden" -%}
+          {%- when "password" %}{%- assign type = "password" -%}
+          {%- when "tel" %}{%- assign type = "tel" -%}
+          {%- else -%}{%- assign type = "text" -%}
+          {%- endcase -%}
+      {%- endcase -%}
+  {%- when "integer" or "number" -%}
+    {%- case attributes.widget -%}
+      {%- when "range" -%}{%- assign type = "range" -%}
+      {%- when "radio" -%}{%- assign type = "radio" -%}
+      {%- else -%}{%- assign type = "number" -%}
+      {%- endcase -%}
+  {%- when "boolean" -%}
+    {%- case attributes.widget -%}
+      {%- when "radio" -%}{%- assign type = "radio" -%}
+      {%- else -%}{%- assign type = "checkbox" -%}
+      {%- endcase -%}
+  {%- else -%}{%- assign type = attributes.type | default: "text" -%}
+  {%- endcase -%}
 {% comment %} -------------------- Hidden -------------------- {% endcomment %}
 {%- if type == "hidden" -%}
-<input type="{{ type }}" id="{{ id }}" aria-label="{{ label }}" value="{{ attributes.value }}">
-{% comment %} -------------------- Schema -------------------- {% endcomment %}
-{%- elsif type == "schema" and attributes.properties.size > 0 -%}
-  {%- assign parent = parent | push: id -%}
+  <input
+    type="{{ type }}"
+    id="{{ id }}"
+    name="{{ id }}"
+    aria-label="{{ label }}"
+    value="{{ attributes.default }}">
+{% comment %} -------------------- Object -------------------- {% endcomment %}
+{%- elsif type == "object" -%}
+  <h4>
+    {% if template %}<span class="index"></span>{% endif %}
+    {{ attributes.title | default: label }}
+    {% if template %}
+      <a href="#{{ template }}" title="Move item up" data-up="{{ label }}" data-prevent="true">Up</a>
+      <a href="#{{ template }}" title="Move item down" data-down="{{ label }}" data-prevent="true">Down</a>
+      <a href="#{{ template }}" title="Remove item" data-remove="{{ label }}" data-prevent="true">Remove</a>
+    {% endif %}
+  </h4>
+  {%- assign object = true -%}
+  {% comment %} Save schema and definitions {% endcomment %}
+  {%- assign save_schema = schema -%}
+  {%- assign schema = attributes -%}
+  {% comment %} {{id}} {% endcomment %}
+  {%- assign parent = parent | push: label -%}
   {% for p in attributes.properties %}
     {% include schema/property.html property=p %}
   {% endfor %}
   {%- assign parent = parent | pop -%}
+  {%- assign schema = save_schema -%}
+  {%- assign object = nil -%}
 {%- else -%}
-{% comment %} -------------------- Types -------------------- {% endcomment %}
+{% comment %} -------------------- DIV -------------------- {% endcomment %}
+{% if attributes.type == "array" %}<div class="array">{% endif %}
 <div>
 {% comment %} -------------------- Label -------------------- {% endcomment %}
   <label
-    for="{{ id }}"
-    {% if attributes.multiple or type == "textarea" %} style="vertical-align: middle"{% endif %}
-    {% if attributes.tooltip %} title="{{ attributes.tooltip }}"{% endif %}>{{ attributes.title | default: id }}{% if attributes.required %}<sup>*</sup>{% endif %}</label>
-{% comment %} -------------------- List -------------------- {% endcomment %}
-  {% if attributes.list %}
-  <select
-    id="{{ id }}"
-    aria-label="{{ label }}"
-    {% if attributes.required %} required{% endif %}
-    {% if attributes.multiple %} multiple{% endif %}
-    type="{{ type }}">
-    {% for item in attributes.list %}{% if item.first %}<option value="{{ item.value }}"{% if item.value == attributes.value %} selected{% endif %}>{{ item.value }}</option>{% else %}<option value="{{ item }}"{% if item == attributes.value %} selected{% endif %}>{{ item }}</option>{% endif %}
-    {% endfor %}
-  </select>
+    {% if attributes.type != "array" %}for="{{ id }}"{% endif %}
+    {% if "checkbox,radio" contains type and attributes.enum == nil %} class="boolean"{% endif %}
+    {% if attributes.tooltip %} title="{{ attributes.tooltip }}"{% endif %}>
+    {% if template and object == nil %}<span class="index"></span>{% endif %}
+    {{ attributes.title | default: label }}{% if attributes.required or schema.required contains label %}<sup>*</sup>{% endif %}
+    {% if attributes.type == "array" %} <a href="#{{ label }}"
+      data-index="0"
+      {% if attributes.minItems and attributes.minItems != 0 %}data-index-min="{{ attributes.minItems }}"{% endif %}
+      {% if attributes.maxItems and attributes.maxItems != 0 %}data-index-max="{{ attributes.maxItems }}"{% endif %}
+      data-add="{{ label }}"
+      title="Add item"
+      data-prevent="true">Add</a>{% endif %}
+    {% if template and object == nil %}
+      <a href="#{{ label }}" title="Move item up" data-up="{{ label }}" data-prevent="true">Up</a>
+      <a href="#{{ label }}" title="Move item down" data-down="{{ label }}" data-prevent="true">Down</a>
+      <a href="#{{ label }}" title="Remove item" data-remove="{{ label }}" data-prevent="true">Remove</a>
+    {% endif %}</label>
+{% comment %} -------------------- Enum -------------------- {% endcomment %}
+  {% if attributes.enum %}
+    {% if attributes.widget == "radio" %}{% for item in attributes.enum %}
+    <label class="radio"><input
+      type="{{ type }}"
+      id="{{ id }}"
+      name="{{ id }}"
+      aria-label="{{ label }}"
+      {% if attributes.default == item %} checked{% endif %}
+      {% if attributes.type == "number" %} data-number="true"{% endif %}
+      {% if attributes.type == "boolean" %} data-boolean="true"{% endif %}
+      {% if attributes.disabled %} disabled{% endif %}
+      {% if attributes.readonly or attributes.readOnly %} readonly="true"{% endif %}
+      value="{{ item }}">{{ item }}</label>
+    {% endfor %}{% else %}
+    <select
+      id="{{ id }}"
+      name="{{ id }}"
+      aria-label="{{ label }}"
+      {% if attributes.required %} required{% endif %}
+      {% if attributes.disabled %} disabled="true"{% endif %}
+      {% if attributes.readonly or attributes.readOnly %} readonly="true"{% endif %}
+      {% if attributes.multiple %} multiple{% endif %}
+      type="{{ type }}">
+      {% if attributes.placeholder %}<option value="">{{ placeholder }}</option>{% endif %}
+      {% for item in attributes.enum %}
+        {% if item.first %}<option value="{{ item.value }}"{% if item.value == attributes.value %} selected{% endif %}>{{ item.value }}</option>
+        {% else %}<option value="{{ item }}"{% if item == attributes.default %} selected{% endif %}>{% if attributes.enumNames %}{{ attributes.enumNames[forloop.index0] }}{% else %}{{ item }}{% endif %}</option>{% endif %}
+      {% endfor %}
+    </select>
+    {% endif %}
   {% else %}
 {% comment %} -------------------- Classic type -------------------- {% endcomment %}
-    {%- if "text,number,date,time,url,email" contains type -%}
+    {%- assign types = "text,number,date,time,url,email,password,tel,checkbox,radio,color,range" -%}
+    {%- if types contains type -%}
       <input
         type="{{ type }}"
         id="{{ id }}"
+        name="{{ id }}"
         aria-label="{{ label }}"
-        {% if attributes.value %} value="{{ attributes.value }}"{% endif %}
-        {% if attributes.min %} min="{{ attributes.min }}"{% endif %}
-        {% if attributes.max %} max="{{ attributes.max }}"{% endif %}
+        {% if attributes.default %}{%- if "checkbox,radio" contains type -%} checked{%- else -%} value="{{ attributes.default }}"{%- endif -%}{% endif %}
+        {% if attributes.minimum %} min="{{ attributes.minimum }}"{% endif %}
+        {% if attributes.maximum %} max="{{ attributes.maximum }}"{% endif %}
+        {% if attributes.type == "boolean" %} data-boolean="true"{% endif %}
         {% if attributes.multiple %} multiple{% endif %}
-        {% if attributes.maxlength %} maxlength="{{ attributes.maxlength }}"{% endif %}
-        {% if attributes.minlength %} minlength="{{ attributes.minlength }}"{% endif %}
+        {% if attributes.disabled %} disabled="true"{% endif %}
+        {% if attributes.readonly or attributes.readOnly %} readonly="true"{% endif %}
+        {% if attributes.maxLength %} maxlength="{{ attributes.maxLength }}"{% endif %}
+        {% if attributes.minLength %} minlength="{{ attributes.minLength }}"{% endif %}
         {% if attributes.placeholder %} placeholder="{{ attributes.placeholder }}"{% endif %}
-        {% if attributes.required %} required{% endif %}
-        {% if attributes.step %} step="{{ attributes.step }}"{% endif %}>
-{% comment %} -------------------- Boolean -------------------- {% endcomment %}
-    {%- elsif "checkbox,radio" contains type -%}
-      <input
-        type="{{ type }}"
-        id="{{ id }}"
-        aria-label="{{ label }}"
-        {% if attributes.required %} required{% endif %}
-        {% if attributes.value %} checked{% endif %}>
-      <input data-exclude="true" style="visibility:hidden;" size="1">
-{% comment %} -------------------- Color -------------------- {% endcomment %}
-    {%- elsif type == "color" -%}
-      <input
-        type="{{ type }}"
-        id="{{ id }}"
-        aria-label="{{ label }}"
-        {% if attributes.value %} value="{{ attributes.value }}"{% endif %}
-        {% if attributes.required %} required{% endif %}>
-      <input data-exclude="true" style="visibility:hidden;" size="1">
+        {% if attributes.autocomplete %} autocomplete="{{ attributes.autocomplete }}"{% endif %}
+        {% if attributes.autofocus %} autofocus{% endif %}
+        {% if attributes.required or schema.required contains label %} required{% endif %}
+        {% if attributes.multipleOf %} step="{{ attributes.multipleOf }}"{% endif %}>
+      {%- if type == "range" -%}<output id="{{ label }}_output" for="{{ label }}"></output>{%- endif -%}
 {% comment %} -------------------- Textarea -------------------- {% endcomment %}
     {%- elsif type == "textarea" -%}
       <textarea
         id="{{ id }}"
+        name="{{ id }}"
         aria-label="{{ label }}"
+        {% if attributes.disabled %} disabled="true"{% endif %}
+        {% if attributes.placeholder %} placeholder="{{ attributes.placeholder }}"{% endif %}
+        {% if attributes.readonly or attributes.readOnly %} readonly="true"{% endif %}
         {% if attributes.rows %} rows="{{ attributes.rows }}"{% endif %}
         {% if attributes.cols %} cols="{{ attributes.cols }}"{% endif %}
-        {% if attributes.required %} required{% endif %}>{% if attributes.value %}{{ attributes.value }}{% endif %}</textarea>
+        {% if attributes.required or schema.required contains label %} required{% endif %}>{% if attributes.default %}{{ attributes.default }}{% endif %}</textarea>
+{% comment %} -------------------- Array Template------------------ {% endcomment %}
+    {%- elsif type == "array" -%}{%- unless template_stack contains label -%}
+      {%- assign template_stack = template_stack | push: label -%}
+      {%- assign save_attributes = attributes -%}
+      <template id="template_{{ label }}">
+        {%- assign template = label -%}
+        <div data-property="{{ label }}">
+{% comment %} -------------------- item defined -------------------- {% endcomment %}
+        {%- if attributes.items.type != nil -%}
+          {%- assign prop = "" | split: "" | push: label -%}
+          {%- assign prop = prop | push: attributes.items -%}
+          {% include schema/property.html property=prop %}
+{% comment %} -------------------- item referenced -------------------- {% endcomment %}
+        {%- elsif attributes.items["$ref"] != nil or attributes.items.ref != nil -%}
+          {%- assign ref = attributes.items["$ref"] | default: attributes.items.ref-%}
+          {%- assign root = ref | slice: 0, 2 -%}
+          {% comment %} {{ref}} {% endcomment %}
+          {%- if root == "#/" -%}
+            {%- assign path = ref | slice: 2, ref.size | split: "/" -%}
+            {%- if path[0] == "definitions" -%}
+              {%- assign schema_ref = root_schema -%}
+            {%- else -%}
+              {%- assign schema_ref = schema -%}
+            {%- endif -%}
+            {% for level in path %}
+              {%- assign schema_ref = schema_ref[level] -%}
+            {% endfor %}
+            {%- if schema_ref != nil -%}
+              {%- assign prop = "" | split: "" | push: label -%}
+              {%- assign prop = prop | push: schema_ref -%}
+              {% include schema/property.html property=prop %}
+            {%- else -%}
+              <div>Empty reference for {{ label }}</div>
+            {%- endif -%}
+          {%- else -%}
+            <div>Remote reference for {{ label }}</div>
+          {%- endif -%}
+{% comment %} -------------------- items array -------------------- {% endcomment %}
+        {%- else -%}
+          {% for p in attributes.items %}
+            {% include schema/property.html property=p %}
+          {% endfor %}
+        {%- endif -%}
+        </div>
+        {%- assign template = nil -%}
+      </template>
+      {%- assign attributes = save_attributes -%}
+    {%- endunless -%}{% comment %} Close template_stack {% endcomment %}
 {% comment %} -------------------- End types -------------------- {% endcomment %}
-    {%- else -%}unknow type
+    {%- else -%}unknow type: {{ type }}
     {%- endif -%}
   {% endif %}
 {% comment %} ----------------- Description / units -------------------- {% endcomment %}
-  {% if attributes.description or attributes.unit %}<span>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip | markdownify | remove: "<p>" | remove: "</p>" }}</span>{% endif %}
+{% if attributes.description or attributes.unit %}<span>{{ "" | split: "" | push: attributes.description | push: attributes.unit | join: " " | strip | markdownify | remove: "<p>" | remove: "</p>" }}</span>{% endif %}
+{% comment %} Close array div {% endcomment %}
+{% if attributes.type == "array" %}</div>{% endif %}
+{% comment %} Close main div {% endcomment %}
 </div>
+{% comment %} -------------------- add Properties -------------------- {% endcomment %}
+{%- assign aP = schema.additionalProperties -%}
+{%- if aP != nil -%}
+<div>
+  <label for="template_{{ parent.last }}">Additional properties: <a href="#{{ parent.last }}" data-prevent="true" data-additional-property="{{ parent.last }}">Add</a></label>
+  <template id="template_{{ parent.last }}">
+    <div>
+      <input
+        type="text"
+        name="aP_{{ parent.last }}"
+        id="aP_{{ parent.last }}"
+        aria-label="{{ parent.last }}"
+        data-key="aP_{{ parent.last }}"
+        data-exclude="true"
+        required="true"
+        placeholder="Key">
+      <input
+        type="{{ aP.type }}"
+        data-value="aP_{{ parent.last }}"
+        name="{{ parent.last }}_"
+        id="{{ parent.last }}_"
+        placeholder="Value">
+      <span>
+        <a
+          href="#{{ parent.last }}"
+          data-remove-property="true"
+          data-prevent="true">Remove</a>
+      </span>
+    </div>
+  </template>
+</div>
+{%- endif -%}
+{% comment %} Close type check {% endcomment %}
+{%- endif -%}
+{% comment %} close ref check {% endcomment %}
 {%- endif -%}

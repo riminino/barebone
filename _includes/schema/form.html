@@ -1,15 +1,20 @@
 {%- assign schema = include.schema -%}
+{%- assign root_schema = schema -%}
 {%- assign title = schema.title | default: schema.file -%}
-{%- assign action = schema.action | default: "add" -%}
+{%- assign template_stack = "" | split: "" -%}
 <form
   data-file="{{ schema.file }}"
-  data-action="{{ action }}"
+  data-type="{{ schema.type }}"
   data-prevent="true">
-<h3><span class="action">{{ action | capitalize }}</span> {{ title }}</h3>
+<h3>{{ title | default: "Schema" }}</h3>
 {% for property in schema.properties %}
 {%- assign parent = "" | split: "" -%}
 {% include schema/property.html property=property %}
 {% endfor %}
-<input type="hidden" id="timestamp" aria-label="timestamp" value="">
-<button type="submit">Submit</button> <button type="reset">Cancel</button>
+{% comment %} -------------- Tiemstamp for array -------------------- {% endcomment %}
+{%- if schema.type == "array" -%}<input type="hidden" id="timestamp" aria-label="timestamp" value="">{%- endif -%}
+{% comment %} -------------------- Buttons -------------------- {% endcomment %}
+<div class="buttons">
+  <button type="submit">Submit</button> <button type="reset">Cancel</button>
+</div>
 </form>

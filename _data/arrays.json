@@ -1,0 +1,59 @@
+{
+  "type": "object",
+  "title": "Arrays",
+  "properties": {
+    "listOfStrings": {
+      "$ref": "#/definitions/stringList"
+    },
+    "minItemsList": {
+      "type": "array",
+      "title": "minItem List",
+      "description": "A list with a minimal number of items",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/definitions/person"
+      }
+    },
+    "multipleChoicesList": {
+      "type": "array",
+      "title": "A multiple choices list",
+      "items": {
+        "type": "string",
+        "enum": [
+          "foo",
+          "bar",
+          "fuzz",
+          "qux"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "person": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "default": "Default name"
+        },
+        "age": {
+          "title": "Age",
+          "type": "number",
+          "default": 0
+        }
+      }
+    },
+    "stringList": {
+      "type": "array",
+      "title": "A list of strings",
+      "items": {
+        "type": "string",
+        "title": "String",
+        "default": "bazinga"
+      }
+    }
+  }
+}

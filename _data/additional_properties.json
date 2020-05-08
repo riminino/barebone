@@ -1,0 +1,25 @@
+{
+  "title": "A customizable registration form",
+  "description": "A simple form with additional properties example.",
+  "type": "object",
+  "additionalProperties": {
+    "type": "string"
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "style": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "color"
+        }
+      },
+      "additionalProperties": {
+        "type": "number"
+      }
+    }
+  }
+}

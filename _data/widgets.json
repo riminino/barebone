@@ -1,0 +1,101 @@
+{
+  "title": "Widgets",
+  "type": "object",
+  "properties": {
+    "stringFormats": {
+      "type": "object",
+      "title": "String formats",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "default": "chuck@norris.net"
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "default": "http://chucknorris.com/"
+        }
+      }
+    },
+    "boolean": {
+      "type": "object",
+      "title": "Boolean field",
+      "properties": {
+        "default": {
+          "type": "boolean",
+          "title": "checkbox (default)",
+          "description": "This is the checkbox-description"
+        },
+        "radio": {
+          "type": "boolean",
+          "title": "radio buttons",
+          "description": "This is the radio-description",
+          "enum": [
+            true,
+            false
+          ],
+          "default": false,
+          "widget": "radio"
+        }
+      }
+    },
+    "string": {
+      "type": "object",
+      "title": "String field",
+      "properties": {
+        "default": {
+          "type": "string",
+          "title": "text input (default)"
+        },
+        "textarea": {
+          "type": "string",
+          "title": "textarea",
+          "widget": "textarea",
+          "rows": 5
+        },
+        "color": {
+          "type": "string",
+          "title": "color picker",
+          "default": "#151ce6",
+          "widget": "color"
+        }
+      }
+    },
+    "secret": {
+      "type": "string",
+      "default": "I'm a hidden string.",
+      "widget": "hidden"
+    },
+    "disabled": {
+      "type": "string",
+      "title": "A disabled field",
+      "default": "I am disabled.",
+      "disabled": true
+    },
+    "readonly": {
+      "type": "string",
+      "title": "A readonly field",
+      "default": "I am read-only.",
+      "readonly": true
+    },
+    "readonly2": {
+      "type": "string",
+      "title": "Another readonly field",
+      "default": "I am also read-only.",
+      "readOnly": true
+    },
+    "selectWidgetOptions": {
+      "title": "Select widget with names",
+      "type": "string",
+      "enum": [
+        "foo",
+        "bar"
+      ],
+      "enumNames": [
+        "Foo",
+        "Bar"
+      ]
+    }
+  }
+}

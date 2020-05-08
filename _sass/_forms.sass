@@ -1,41 +1,64 @@
 form
   margin-bottom: 1em
   background-color: #f8f8f8
-  // Bottom spacing
-  & > :last-child
-    margin-bottom: 0.8em
+  border: 1px solid Gainsboro
   // An inline element only takes up as much width as necessary
   display: inline-block
-  // Header
-  h3
-    margin: 0.6em
-  // Table rows
-  & > div, .table-row
-    display: table-row
-    & > a
-      margin: 0.2em 0.4em
-  // Table cells
-  label, input, select, textarea, .table-cell
-    display: table-cell
-    margin: 0.2em
-  // Cell spacing
-  .table-cell
-    padding-left: 0.5em
-  label
-    padding: 0 0.5em 0 0.8em
-    text-transform: capitalize
-  input, textarea
-    margin-right: 0.8em
-  // Descriptions and units
-  input + span,
-  select + span
-    font-size: smaller
-    padding-left: 0.5em
+  div:not([data-property]):not(.array), h3, h4
+    padding: .6em
+    margin: 0
+  div.buttons
+      background: Gainsboro
+  div.array
+    border-top: 1px solid Gainsboro
+  div.invalid
+      background: LightPink
+  h4
+    padding-bottom: 0
+  // Input and labels
+  label:not(.boolean), input:not([type=range]), select, textarea
     display: block
+  label
+    margin: 0 .2em .1em .2em
+    &.radio
+      margin-left: 0
+      input[type=radio]
+        margin-right: 0.3em
+        textarea
+          padding: .4em
+  // Property key field
+  input[data-key]
+    margin-bottom: .3em
+  // Descriptions and units
+  span:not(.index)
+    margin: .1em .2em 0 .2em
+    font-size: smaller
+    display: block
+  // Ranges
+  input[type="range"]
+    &::-moz-focus-outer
+      border: 0
+    &:focus
+      outline: none
+  output
+    position: relative
+    top: -0.45em
+  // Booleans
+  input[type="checkbox"],
+  input[type="radio"]
+    outline: none
+    float: left
+    margin: .3em .1em 0 0
   // Buttons
-  & > button
-    margin-top: 0.5em
-    &:first-of-type
-      margin-left: 0.8em
-  button:enabled, select:enabled, input:enabled
+  button:enabled, select:enabled, input:enabled, label[for]
     cursor: pointer
+  // Array UI
+  .index, a[data-remove], a[data-add], a[data-up], a[data-down]
+    font-weight: normal
+    font-size: small
+  .index:after
+    content: ")"
+  // Move items links
+  div.array [data-property]
+    &:nth-child(2) a[data-up], &:last-of-type a[data-down]
+      display: none
