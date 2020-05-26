@@ -54,3 +54,11 @@
     value: 2
     unit: month
   timestamp: 1587579712805
+-
+  date: '2020-05-26'
+  name: enel
+  amount: 206.42
+  repeat:
+    value: 2
+    unit: month
+  timestamp: 1590487429398
