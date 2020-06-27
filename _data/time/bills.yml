@@ -62,3 +62,11 @@
     value: 2
     unit: month
   timestamp: 1590487429398
+-
+  date: '2020-06-30'
+  name: sky
+  amount: 66.8
+  repeat:
+    value: 2
+    unit: month
+  timestamp: 1593255050664
