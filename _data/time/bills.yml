@@ -59,7 +59,7 @@
   name: enel
   amount: 206.42
   repeat:
-    value: 2
+    value: 0
     unit: month
   timestamp: 1590487429398
 -
