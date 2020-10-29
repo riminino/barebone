@@ -118,3 +118,11 @@
     value: 2
     unit: month
   timestamp: 1603984601884
+-
+  date: '2020-10-29'
+  name: wiplanet
+  amount: 51.79
+  repeat:
+    value: 2
+    unit: month
+  timestamp: 1603984619033
