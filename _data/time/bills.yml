@@ -187,7 +187,7 @@
   name: sky
   amount: 68.8
   repeat:
-    value: 2
+    value: 0
     unit: month
   timestamp: 1620059562895
 -
