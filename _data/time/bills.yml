@@ -222,3 +222,11 @@
     value: 2
     unit: month
   timestamp: 1624893376561
+-
+  date: '2021-07-26'
+  name: enel
+  amount: 137.64
+  repeat:
+    value: 2
+    unit: month
+  timestamp: 1627293570218
