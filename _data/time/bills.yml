@@ -262,3 +262,11 @@
     value: 2
     unit: month
   timestamp: 1635521497847
+-
+  date: '2021-10-30'
+  name: wiplanet
+  amount: 51.79
+  repeat:
+    value: 2
+    unit: month
+  timestamp: 1635521982417
