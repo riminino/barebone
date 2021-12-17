@@ -20,7 +20,7 @@
   amount: 224.36
   repeat:
     value: 0
-    unit: day
+    unit: month
   timestamp: 1583790421814
 -
   date: '2020-03-27'
