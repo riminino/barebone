@@ -278,3 +278,11 @@
     value: 2
     unit: month
   timestamp: 1638204419249
+-
+  date: '2021-12-20'
+  name: si
+  amount: 6.53
+  repeat:
+    value: 0
+    unit: month
+  timestamp: 1640164929409
