@@ -1,0 +1,25 @@
+name: Buongiorno
+on:
+  schedule:
+    - cron: '1 0 * * *'
+jobs:
+  buongiorno:
+    name: buongiorno
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: Stockopedia/octommit@v1
+        id: goodmorning
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            octommit.update()
+              .org("riminino")
+              .repository("barebone")
+              .sourceBranch("main")
+              .outputBranch("main")
+              .sourcePath("_data/buongiorno.yml")
+              .outputPath("_data/buongiorno.yml")
+              .set("today", new Date().toString())
+              .commit("Buongiorno commit")
+              .run();
