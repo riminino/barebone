@@ -11,13 +11,13 @@ jobs:
       - uses: Stockopedia/octommit@v1
         id: goodmorning
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.ACTIONS }}
           script: |
             octommit.update()
               .org("riminino")
               .repository("barebone")
-              .sourceBranch("main")
-              .outputBranch("main")
+              .sourceBranch("master")
+              .outputBranch("master")
               .sourcePath("_data/buongiorno.yml")
               .outputPath("_data/buongiorno.yml")
               .set("today", new Date().toString())
