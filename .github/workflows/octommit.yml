@@ -2,24 +2,17 @@ name: Buongiorno
 on:
   schedule:
     - cron: '1 0 * * *'
+
 jobs:
-  buongiorno:
-    name: buongiorno
+  update:
+    name: Update
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.1
-      - uses: Stockopedia/octommit@v1.0.19
-        id: goodmorning
+      - name: Fetch and save time
+        uses: gautemo/fetch-api-data-action@1.1.0
         with:
-          github-token: ${{ secrets.ACTIONS }}
-          script: |
-            octommit.update()
-              .org("riminino")
-              .repository("barebone")
-              .sourceBranch("master")
-              .outputBranch("master")
-              .sourcePath("_data/buongiorno.yml")
-              .outputPath("_data/buongiorno.yml")
-              .set("today", new Date().toString())
-              .commit("Buongiorno commit")
-              .run();
+          url: 'https://worldtimeapi.org/api/timezone/Europe/Rome'
+          file: '_data/buongiorno.json'
+      - name: Git Auto Commit
+        uses: stefanzweifel/git-auto-commit-action@v4.8.0
