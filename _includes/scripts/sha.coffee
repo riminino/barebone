@@ -24,7 +24,7 @@ compare = (sha, date) ->
   return
 
 # Works only online
-if "{{ site.github.environment }}" is "dotcom"
+if "{{ site.github.environment }}" is "dotcom" or "production"
   if !storage.get("login.token")
     # Not logged will wait for rebuild
     $("#update").show()
