@@ -1,17 +1,17 @@
 {
   "abbreviation": "CEST",
-  "client_ip": "40.84.170.34",
-  "datetime": "2023-03-30T03:40:15.141443+02:00",
-  "day_of_week": 4,
-  "day_of_year": 89,
+  "client_ip": "13.66.72.32",
+  "datetime": "2023-03-31T03:38:38.778837+02:00",
+  "day_of_week": 5,
+  "day_of_year": 90,
   "dst": true,
   "dst_from": "2023-03-26T01:00:00+00:00",
   "dst_offset": 3600,
   "dst_until": "2023-10-29T01:00:00+00:00",
   "raw_offset": 3600,
   "timezone": "Europe/Rome",
-  "unixtime": 1680140415,
-  "utc_datetime": "2023-03-30T01:40:15.141443+00:00",
+  "unixtime": 1680226718,
+  "utc_datetime": "2023-03-31T01:38:38.778837+00:00",
   "utc_offset": "+02:00",
   "week_number": 13
 }
